@@ -10,6 +10,16 @@ public class Ciudad {
 
     public Ciudad(String nombreC, double metros){
         this.nombre = nombreC;
+        this.nomeclatura = obtenerNomeclatura(nombre);
         this.metros = metros;
+    }
+
+    private String obtenerNomeclatura(String nombre){
+        String cadena = "";
+        if(nombre.length() > 2){
+            cadena = nombre.substring(0,2).toUpperCase();
+        }
+
+        return cadena;
     }
 }
