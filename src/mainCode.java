@@ -14,5 +14,9 @@ public class mainCode {
         arbol1.insertar(16);
 
         arbol1.dibujar();
+
+        arbol1.eliminar(21);
+
+        arbol1.dibujar();
     }
 }
