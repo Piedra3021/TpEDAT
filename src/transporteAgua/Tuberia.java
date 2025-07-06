@@ -1,30 +1,30 @@
 package transporteAgua;
 
 public class Tuberia {
-    private String nomenclaruta;
+    private String nomeclatura;
     private double caudalMin;
     private double caudalMax;
     private double diametro;
     private char estado;
 
     public Tuberia(String nomenclaruta, double caudalMin, double caudalMax, double diametro, char estado) {
-        this.nomenclaruta = nomenclaruta;
+        this.nomeclatura = nomeclatura;
         this.caudalMin = caudalMin;
         this.caudalMax = caudalMax;
         this.diametro = diametro;
         this.estado = estado;
     }
 
-    public Tuberia(String nomenclatura) {
-        this.nomenclaruta = nomenclatura;
+    public Tuberia(String nomeclatura) {
+        this.nomeclatura = nomeclatura;
         this.caudalMin = 0.0;
         this.caudalMax = 0.0;
         this.diametro = 0.0;
         this.estado = 'A'; // Estado por defecto 'A' (Activo)
     }
 
-    public String getNomenclaruta() {
-        return nomenclaruta;
+    public String getNomeclatura() {
+        return nomeclatura;
     }
 
     public double getCaudalMin() {
