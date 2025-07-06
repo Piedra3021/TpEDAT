@@ -7,7 +7,7 @@ public class Tuberia {
     private double diametro;
     private char estado;
 
-    public Tuberia(String nomenclaruta, double caudalMin, double caudalMax, double diametro, char estado) {
+    public Tuberia(String nomeclaruta, double caudalMin, double caudalMax, double diametro, char estado) {
         this.nomeclatura = nomeclatura;
         this.caudalMin = caudalMin;
         this.caudalMax = caudalMax;
@@ -61,7 +61,11 @@ public class Tuberia {
 
     public String toString() {
         return "Tuberia{" +
-                "nomenclaruta='" + nomenclaruta + '\'' +
+<<<<<<< Updated upstream
+                "nomeclaruta='" + nomeclaruta + '\'' +
+=======
+                "nomeclaruta='" + nomeclatura + '\'' +
+>>>>>>> Stashed changes
                 ", caudalMin=" + caudalMin +
                 ", caudalMax=" + caudalMax +
                 ", diametro=" + diametro +

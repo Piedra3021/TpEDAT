@@ -17,6 +17,9 @@ public class Ciudad {
         this.metros = metros;
         this.consumoProm = new Anio(2025);
         codigoNumerico = (codigoNumerico+1)%4000;
+        if(codigoNumerico < 3000){
+            codigoNumerico = 3000;
+        }
     }
 
     private String obtenerNomeclatura(String nombre){
