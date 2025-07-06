@@ -58,4 +58,14 @@ public class Tuberia {
     public void setEstado(char estado) {
         this.estado = estado;
     }
+
+    public String toString() {
+        return "Tuberia{" +
+                "nomenclaruta='" + nomenclaruta + '\'' +
+                ", caudalMin=" + caudalMin +
+                ", caudalMax=" + caudalMax +
+                ", diametro=" + diametro +
+                ", estado=" + estado +
+                '}';
+    }
 }
