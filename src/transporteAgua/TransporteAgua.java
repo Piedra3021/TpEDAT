@@ -24,10 +24,40 @@ public class TransporteAgua {
             a.actualizarMes(i + 1, 300);
         }
     }
-    // A futuro: recibe arbolAvl por parametro y lo actualiza
-    // public static void altaCiudad(Ciudad c){
 
+    public static void altaCiudad(ArbolAVL arbolNombres, HashMap<String, Ciudad> hmapCiudades, Ciudad nuevaCiudad) {
+        IO.salida("ALTA ciudad", true);
+
+        // arbolNombres.insertar(nombreNuevo);
+        // String nome = calcNome(nombreNuevo);
+        // hmapCiudades.put(nome, nuevaCiudad);
+
+    }
+
+    public static void modCiudad(ArbolAVL arbolNombres, HashMap<String, Ciudad> hmapCiudades, String nombreNuevo,
+            double metros) {
+        IO.salida("MOD ciudad", true);
+
+    }
+
+    public static void bajaCiudad(ArbolAVL arbolNombres, HashMap<String, Ciudad> hmapCiudades, String nombreNuevo,
+            double metros) {
+        IO.salida("BAJA ciudad", true);
+
+    }
+
+    // public static void altaTuberia(Grafo grafo) {
+    // IO.salida("ALTA tuberia", true);
     // }
+
+    // public static void modTuberia(Grafo grafo) {
+    // IO.salida("ALTA tuberia", true);
+    // }
+
+    // public static void bajaTuberia(Grafo grafo) {
+    // IO.salida("ALTA tuberia", true);
+    // }
+
     // 8.
     public static void mostrarSistema(ArbolAVL arbolNombres, HashMap<String, Ciudad> hmapCiudades) {
         IO.sout(arbolNombres.toString());
