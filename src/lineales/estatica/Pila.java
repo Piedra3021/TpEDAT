@@ -1,4 +1,4 @@
-package main.java.lineales.estatica;
+package lineales.estatica;
 
 /*AUTORES: 
 Alan Cavieres FAI-3810  

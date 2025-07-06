@@ -1,4 +1,4 @@
-package main.java.grafos;
+package grafos;
 
 public class Grafo {
 

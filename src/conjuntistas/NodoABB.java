@@ -1,4 +1,4 @@
-package main.java.conjuntistas;
+package conjuntistas;
 
 public class NodoABB {
     

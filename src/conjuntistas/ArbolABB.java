@@ -1,7 +1,7 @@
-package main.java.conjuntistas;
+package conjuntistas;
 
-import main.java.jerarquicas.NodoArbol;
-import main.java.lineales.dinamica.Lista;
+import jerarquicas.NodoArbol;
+import lineales.dinamica.Lista;
 
 public class ArbolABB {
     NodoABB raiz;

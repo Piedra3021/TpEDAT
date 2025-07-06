@@ -1,6 +1,6 @@
-package main.java.conjuntistas;
+package conjuntistas;
 
-import main.java.lineales.dinamica.*;
+import lineales.dinamica.*;
 
 public class ArbolAVL {
     private NodoAVL raiz;
