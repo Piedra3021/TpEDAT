@@ -7,7 +7,7 @@ public class Tuberia {
     private double diametro;
     private char estado;
 
-    public Tuberia(String nomenclaruta, double caudalMin, double caudalMax, double diametro, char estado) {
+    public Tuberia(String nomenclatura, double caudalMin, double caudalMax, double diametro, char estado) {
         this.nomenclatura = nomenclatura;
         this.caudalMin = caudalMin;
         this.caudalMax = caudalMax;
