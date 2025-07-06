@@ -9,6 +9,17 @@ public class ArbolAVL {
         raiz = null;
     }
 
+    public Comparable buscar(String clave) {
+        Comparable resultado = null;
+        if (raiz != null) {
+            NodoAVL nodoBuscado = obtenerNodo(raiz, clave);
+            if (nodoBuscado != null) {
+                resultado = nodoBuscado.getElem();
+            }
+        }
+        return resultado;
+    }
+
     public boolean pertenece(Comparable elemento) {
         boolean resultado = true;
         if (obtenerNodo(raiz, elemento) == null) resultado = false;
@@ -18,9 +29,9 @@ public class ArbolAVL {
     private NodoAVL obtenerNodo(NodoAVL nodo, Comparable elemento) {
         NodoAVL nodoBuscado = null;
         if (nodo != null) {
-            if (elemento.compareTo(nodo.getElem()) < 0) {
+            if (nodo.getElem().compareTo(elemento) > 0) {
                 nodoBuscado = obtenerNodo(nodo.getIzquierdo(), elemento);
-            } else if (elemento.compareTo(nodo.getElem()) > 0) {
+            } else if (nodo.getElem().compareTo(elemento) < 0) {
                 nodoBuscado = obtenerNodo(nodo.getDerecho(), elemento);
             } else {
                 nodoBuscado = nodo;
@@ -130,13 +141,13 @@ public class ArbolAVL {
         if (nodo == null) {
             eliminado[0] = false;
         } else {
-            int cmp = elem.compareTo(nodo.getElem());
-            if (cmp < 0) {
+            int cmp = nodo.getElem().compareTo(elem);
+            if (cmp > 0) {
                 nodo.setIzquierdo(eliminarAux(nodo.getIzquierdo(), elem, eliminado));
                 nodo.recalcularAltura();
                 nodo = balancear(nodo);
                 aux = nodo;
-            } else if (cmp > 0) {
+            } else if (cmp < 0) {
                 nodo.setDerecho(eliminarAux(nodo.getDerecho(), elem, eliminado));
                 nodo.recalcularAltura();
                 nodo = balancear(nodo);
@@ -285,7 +296,7 @@ public class ArbolAVL {
     private String obtenerElems(String[] text, NodoAVL nodo) {
         if (nodo != null) {
             obtenerElems(text, nodo.getIzquierdo());
-            text[0] = text[0] + " " + nodo.getElem();
+            text[0] = text[0] + " " + nodo.getElem().toString();
             obtenerElems(text, nodo.getDerecho());
         }
         return text[0];

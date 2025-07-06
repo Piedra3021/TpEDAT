@@ -1,24 +1,32 @@
 import conjuntistas.*;
-import transporteAgua.TransporteAgua;
-
+import transporteAgua.*;
 public class mainCode {
     public static void main(String[] args) throws Exception {
         ArbolAVL arbol1 = new ArbolAVL();
-        arbol1.insertar(10);
-        arbol1.insertar(20);
-        arbol1.insertar(15);
-        arbol1.insertar(11);
-        arbol1.insertar(21);
-        arbol1.insertar(12);
-        arbol1.insertar(13);
-        arbol1.insertar(24);
-        arbol1.insertar(16);
+
+        //Insersiones en el Arbol AVL
+        arbol1.insertar(new Ciudad("Buenos Aires", 203.0));
+        arbol1.insertar(new Ciudad("Mendoza", 199.0));
+        arbol1.insertar(new Ciudad("La Plata", 180.0));
+        arbol1.insertar(new Ciudad("El Chocon mejor pueblo de la historia", 5.0));
 
         arbol1.dibujar();
 
-        arbol1.eliminar(21);
+        arbol1.eliminar("Buenos Aires");
+        System.out.println();
 
         arbol1.dibujar();
-        TransporteAgua.main();
+
+        //Prueba de metodos
+        System.out.println(arbol1.pertenece("Mendoza"));
+        System.out.println(arbol1.listar().toString());
+        System.out.println(arbol1.listarRango("F", "P").toString());
+        System.out.println(arbol1.minimoElem().toString());
+        System.out.println(arbol1.maximoElem().toString());
+
+        //Ejemplo de busqueda de una ciudad en el arbol
+        //Se obtiene a traves de un metodo estatico por comodidad
+        Ciudad ciudad1 = Ciudad.buscarEnArbol(arbol1, "Mendoza");
+        System.out.println(ciudad1.getMetros() + ", " + ciudad1.getNombre());
     }
 }
