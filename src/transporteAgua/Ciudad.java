@@ -2,24 +2,24 @@ package transporteAgua;
 
 public class Ciudad {
     private String nombre;
-    private String nomeclatura;
+    private String nomenclatura;
     private double metros;
     private int cantHabitantes = 1000;
     private double consumoPromedio = 0.25;
     // Arreglo de anios?
     private Anio consumoProm;
-    //numNomeclatura?
+    //numNomenclatura?
     private static int codigoNumerico = 3000;
 
     public Ciudad(String nombreC, double metros) {
         this.nombre = nombreC;
-        this.nomeclatura = obtenerNomeclatura(nombre);
+        this.nomenclatura = obtenerNomenclatura(nombre);
         this.metros = metros;
         this.consumoProm = new Anio(2025);
         codigoNumerico = (codigoNumerico+1)%4000;
     }
 
-    private String obtenerNomeclatura(String nombre){
+    private String obtenerNomenclatura(String nombre){
         String cadena = "";
         if(nombre.length() > 2){
             cadena = nombre.substring(0,2).toUpperCase() + codigoNumerico;
@@ -31,8 +31,8 @@ public class Ciudad {
         return nombre;
     }
 
-    public String getNomeclatura() {
-        return nomeclatura;
+    public String getNomenclatura() {
+        return nomenclatura;
     }
 
     public double getMetros() {
