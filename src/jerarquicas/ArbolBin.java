@@ -1,6 +1,6 @@
-package main.java.jerarquicas;
+package jerarquicas;
 
-import main.java.lineales.dinamica.*;
+import lineales.dinamica.*;
 
 public class ArbolBin {
     private NodoArbol raiz;

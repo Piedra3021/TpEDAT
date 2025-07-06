@@ -1,4 +1,4 @@
-package main.java.lineales.dinamica;
+package lineales.dinamica;
 //import main.java.lineales.dinamicas.Nodo;
 
 /**

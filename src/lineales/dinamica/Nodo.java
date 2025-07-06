@@ -1,4 +1,4 @@
-package main.java.lineales.dinamica;
+package lineales.dinamica;
 
 class Nodo {
     private Object elemento; // Dato almacenado en el nodo
