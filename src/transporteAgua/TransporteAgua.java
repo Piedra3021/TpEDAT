@@ -2,11 +2,12 @@ package transporteAgua;
 
 import java.util.HashMap;
 
+import Utiles.DesdeArchivo;
 import Utiles.IO;
 import conjuntistas.ArbolAVL;
 import grafos.Grafo;
 import jerarquicas.*;
-import lineales.*;
+// import lineales.*;
 
 // cargar desde archivo
 // Ciudad c1 = new Ciudad("neufuen", "ne3001","12000000");
@@ -17,6 +18,8 @@ public class TransporteAgua {
         ArbolAVL ciudades = new ArbolAVL();
         HashMap<String, Ciudad> hmapCiudades = new HashMap<String, Ciudad>();
         hmapCiudades.put("NE3000", c1);
+        DesdeArchivo.cargarCiudades(ciudades, hmapCiudades);
+        mostrarSistema(ciudades, hmapCiudades);
     }
 
     public static void genAnio(Anio a) {
@@ -26,7 +29,7 @@ public class TransporteAgua {
     }
 
     public static void altaCiudad(ArbolAVL arbolNombres, HashMap<String, Ciudad> hmapCiudades, Ciudad nuevaCiudad) {
-        IO.salida("ALTA ciudad", true);
+        IO.salida("ALTA ciudad."+nuevaCiudad.toString(), true);
 
         // arbolNombres.insertar(nombreNuevo);
         // String nome = calcNome(nombreNuevo);
@@ -60,7 +63,9 @@ public class TransporteAgua {
 
     // 8.
     public static void mostrarSistema(ArbolAVL arbolNombres, HashMap<String, Ciudad> hmapCiudades) {
-        IO.sout(arbolNombres.toString());
+        IO.salida("MostrarSistema", false);
+        arbolNombres.dibujar();
+        // IO.sout(arbolNombres.toString());
         IO.sout(hmapCiudades.toString());
     }
 }

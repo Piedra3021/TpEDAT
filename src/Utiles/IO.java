@@ -1,5 +1,8 @@
 package Utiles;
 
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+
 public class IO {
 
     // 0-2
@@ -21,17 +24,17 @@ public class IO {
     public static void salida(Object txt, boolean haceLog){
         sout(txt);
         // revisar!
-//        if (loguearMensaje) {
-//            try {
-//                PrintWriter escritor = new PrintWriter(
-//                        new FileOutputStream("src/tpo/archivos/log.log", true));
-//                escritor.print(mensajeSalida);
-//                escritor.println();
-//                escritor.close();
-//            } catch (Exception e) {
-//                System.out.println("Problema con la escritura." + e);
-//            }
-//        }
+       if (haceLog) {
+           try {
+               PrintWriter escritor = new PrintWriter(
+                       new FileOutputStream("src/Utiles/log.log", true));
+               escritor.print(txt);
+               escritor.println();
+               escritor.close();
+           } catch (Exception e) {
+               System.out.println("Problema con la escritura." + e);
+           }
+       }
     }
     //Alias de System.out.println
     public static void sout(Object txt) {

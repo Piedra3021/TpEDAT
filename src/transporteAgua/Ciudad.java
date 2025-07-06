@@ -51,4 +51,10 @@ public class Ciudad {
         return consumoProm;
     }
 
+    @Override
+    public String toString() {
+        return "Ciudad [nombre=" + nombre + ", nomenclatura=" + nomenclatura + ", metros=" + metros
+                + ", cantHabitantes=" + cantHabitantes + ", consumoPromedio=" + consumoPromedio + "]";
+    }
+
 }

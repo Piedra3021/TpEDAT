@@ -59,13 +59,10 @@ public class Tuberia {
         this.estado = estado;
     }
 
+    @Override
     public String toString() {
-        return "Tuberia{" +
-                "nomenclaruta='" + nomenclaruta + '\'' +
-                ", caudalMin=" + caudalMin +
-                ", caudalMax=" + caudalMax +
-                ", diametro=" + diametro +
-                ", estado=" + estado +
-                '}';
+        return "Tuberia [nomenclatura=" + nomenclatura + ", caudalMin=" + caudalMin + ", caudalMax=" + caudalMax
+                + ", diametro=" + diametro + ", estado=" + estado + "]";
     }
+
 }
