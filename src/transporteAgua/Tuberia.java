@@ -61,7 +61,7 @@ public class Tuberia {
 
     public String toString() {
         return "Tuberia{" +
-                "nomenclaruta='" + nomenclaruta + '\'' +
+                "nomenclaruta='" + nomenclatura + '\'' +
                 ", caudalMin=" + caudalMin +
                 ", caudalMax=" + caudalMax +
                 ", diametro=" + diametro +
