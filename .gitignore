@@ -1,4 +1,4 @@
-bin/
+bin
 pom.xml 
 target/
 nb-configuration.xml
