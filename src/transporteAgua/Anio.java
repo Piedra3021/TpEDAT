@@ -3,11 +3,11 @@ package transporteAgua;
 public class Anio {
 
     private int anio;
-    private int[] valorMes;
+    private double[] valorMes;
 
     public Anio(int anio) {
         this.anio = anio;
-        this.valorMes = new int[12];
+        this.valorMes = new double[12];
     }
 
     public int getAnio() {
@@ -18,15 +18,15 @@ public class Anio {
         this.anio = anio;
     }
 
-    public int[] getValorMes() {
+    public double[] getValorMes() {
         return valorMes;
     }
 
-    public void setValorMes(int[] valorMes) {
+    public void setValorMes(double[] valorMes) {
         this.valorMes = valorMes;
     }
 
-    public boolean actualizarMes(int nMes, int valorMes) {
+    public boolean actualizarMes(int nMes, double valorMes) {
         boolean exito = false;
         if (nMes > 0 && nMes < 13) {
             exito = true;
