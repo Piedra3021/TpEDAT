@@ -64,6 +64,10 @@ public class Ciudad implements Comparable<Object> {
     public Anio getConsumoProm() {
         return consumoProm;
     }
+    // Borrar luego?
+    public void setConsumoProm(Anio consumoProm) {
+        this.consumoProm = consumoProm;
+    }
 
     public int compareTo(Object otraCiudad) {
         int r = 0;

@@ -1,5 +1,7 @@
 package transporteAgua;
 
+import java.util.Arrays;
+
 public class Anio {
 
     private int anio;
@@ -35,5 +37,11 @@ public class Anio {
         }
         return exito;
     }
+
+    @Override
+    public String toString() {
+        return "Anio [anio=" + anio + ", valorMes=" + Arrays.toString(valorMes) + "]";
+    }
+
 
 }
