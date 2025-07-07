@@ -2,6 +2,7 @@ package conjuntistas;
 
 import lineales.dinamica.*;
 
+//Modificado como tabla de busqueda clave/valor
 public class ArbolAVL {
     private NodoAVL raiz;
 
@@ -9,30 +10,28 @@ public class ArbolAVL {
         raiz = null;
     }
 
-    public Comparable buscar(String clave) {
-        Comparable resultado = null;
-        if (raiz != null) {
-            NodoAVL nodoBuscado = obtenerNodo(raiz, clave);
-            if (nodoBuscado != null) {
-                resultado = nodoBuscado.getElem();
-            }
+    public Object obtenerValor(Comparable clave) {
+        Object valor = null;
+        NodoAVL nodoBuscado = obtenerNodo(raiz, clave);
+        if (nodoBuscado != null) {
+            valor = nodoBuscado.getValor();
         }
-        return resultado;
+        return valor;
     }
 
-    public boolean pertenece(Comparable elemento) {
+    public boolean pertenece(Comparable clave) {
         boolean resultado = true;
-        if (obtenerNodo(raiz, elemento) == null) resultado = false;
+        if (obtenerNodo(raiz, clave) == null) resultado = false;
         return resultado;
     }
 
-    private NodoAVL obtenerNodo(NodoAVL nodo, Comparable elemento) {
+    private NodoAVL obtenerNodo(NodoAVL nodo, Comparable clave) {
         NodoAVL nodoBuscado = null;
         if (nodo != null) {
-            if (nodo.getElem().compareTo(elemento) > 0) {
-                nodoBuscado = obtenerNodo(nodo.getIzquierdo(), elemento);
-            } else if (nodo.getElem().compareTo(elemento) < 0) {
-                nodoBuscado = obtenerNodo(nodo.getDerecho(), elemento);
+            if (nodo.getClave().compareTo(clave) > 0) {
+                nodoBuscado = obtenerNodo(nodo.getIzquierdo(), clave);
+            } else if (nodo.getClave().compareTo(clave) < 0) {
+                nodoBuscado = obtenerNodo(nodo.getDerecho(), clave);
             } else {
                 nodoBuscado = nodo;
             }
@@ -41,26 +40,26 @@ public class ArbolAVL {
     }
 
 
-    public boolean insertar(Comparable elemento) {
+    public boolean insertar(Comparable clave, Object valor) {
         boolean[] resultado = new boolean[1];
         resultado[0] = false;
         if (raiz != null) {
-            raiz = insertarAux(raiz, elemento, resultado);
+            raiz = insertarAux(raiz, clave, valor, resultado);
         } else {
-            raiz = new NodoAVL(elemento, null, null);
+            raiz = new NodoAVL(clave, valor, null, null);
             raiz.recalcularAltura();
             resultado[0] = true;
         }
         return resultado[0];
     }
 
-    private NodoAVL insertarAux(NodoAVL nodo, Comparable elem, boolean[] resultado) {
+    private NodoAVL insertarAux(NodoAVL nodo, Comparable clave, Object valor, boolean[] resultado) {
         NodoAVL aux = nodo; 
         if (nodo != null) {
-            if (elem.compareTo(nodo.getElem()) < 0) {
-                nodo.setIzquierdo(insertarAux(nodo.getIzquierdo(), elem, resultado));
-            } else if (elem.compareTo(nodo.getElem()) > 0) {
-                nodo.setDerecho(insertarAux(nodo.getDerecho(), elem, resultado));
+            if (clave.compareTo(nodo.getClave()) < 0) {
+                nodo.setIzquierdo(insertarAux(nodo.getIzquierdo(), clave, valor, resultado));
+            } else if (clave.compareTo(nodo.getClave()) > 0) {
+                nodo.setDerecho(insertarAux(nodo.getDerecho(), clave, valor, resultado));
             }
 
             if (resultado[0]) {
@@ -69,7 +68,7 @@ public class ArbolAVL {
             }
         } else {
             //Caso en el que el nodo es null, se crea un nuevo nodo
-            aux = new NodoAVL(elem, null, null);
+            aux = new NodoAVL(clave, valor, null, null);
             aux.recalcularAltura();
             resultado[0] = true;
         }
@@ -129,26 +128,26 @@ public class ArbolAVL {
     }
 
 
-    public boolean eliminar(Comparable elemento) {
+    public boolean eliminar(Comparable clave) {
         boolean[] eliminado = new boolean[1]; // Flag para saber si se eliminó
-        raiz = eliminarAux(raiz, elemento, eliminado);
+        raiz = eliminarAux(raiz, clave, eliminado);
         return eliminado[0];
     }
 
     // Devuelve el nuevo subárbol raíz tras la eliminación
-    private NodoAVL eliminarAux(NodoAVL nodo, Comparable elem, boolean[] eliminado) {
+    private NodoAVL eliminarAux(NodoAVL nodo, Comparable clave, boolean[] eliminado) {
         NodoAVL aux = null;
         if (nodo == null) {
             eliminado[0] = false;
         } else {
-            int cmp = nodo.getElem().compareTo(elem);
+            int cmp = nodo.getClave().compareTo(clave);
             if (cmp > 0) {
-                nodo.setIzquierdo(eliminarAux(nodo.getIzquierdo(), elem, eliminado));
+                nodo.setIzquierdo(eliminarAux(nodo.getIzquierdo(), clave, eliminado));
                 nodo.recalcularAltura();
                 nodo = balancear(nodo);
                 aux = nodo;
             } else if (cmp < 0) {
-                nodo.setDerecho(eliminarAux(nodo.getDerecho(), elem, eliminado));
+                nodo.setDerecho(eliminarAux(nodo.getDerecho(), clave, eliminado));
                 nodo.recalcularAltura();
                 nodo = balancear(nodo);
                 aux = nodo;
@@ -168,8 +167,8 @@ public class ArbolAVL {
                         sucesor = sucesor.getIzquierdo();
                     }
                     // Reemplazar valor y eliminar sucesor recursivamente
-                    nodo.setElem(sucesor.getElem());
-                    nodo.setDerecho(eliminarAux(nodo.getDerecho(), sucesor.getElem(), eliminado));
+                    nodo.setElem(sucesor.getClave());
+                    nodo.setDerecho(eliminarAux(nodo.getDerecho(), sucesor.getClave(), eliminado));
                     nodo.recalcularAltura();
                     nodo = balancear(nodo);
                     aux = nodo;
@@ -180,51 +179,100 @@ public class ArbolAVL {
     }
 
 
-    public Lista listar() {
+    public Lista listarClave() {
         //Lista en inorden
         Lista salida = new Lista();
-        listarInorden(raiz, salida);
+        listarInordenClave(raiz, salida);
         return salida;
     }
 
-    private void listarInorden(NodoAVL nodo, Lista salida) {
+    private void listarInordenClave(NodoAVL nodo, Lista salida) {
         if (nodo != null) {
             //Se visita invertido para no obtener la longitud de la lista para cada elemento.
-            listarInorden(nodo.getDerecho(), salida);
+            listarInordenClave(nodo.getDerecho(), salida);
 
-            salida.insertar(nodo.getElem(), 1);
+            salida.insertar(nodo.getClave(), 1);
 
-            listarInorden(nodo.getIzquierdo(), salida);
+            listarInordenClave(nodo.getIzquierdo(), salida);
         }
     }
 
 
-    public Lista listarRango(Comparable elemMinimo, Comparable elemMaximo) {
+    public Lista listarValor() {
+        //Lista en inorden
+        Lista salida = new Lista();
+        listarInordenValor(raiz, salida);
+        return salida;
+    }
+
+    private void listarInordenValor(NodoAVL nodo, Lista salida) {
+        if (nodo != null) {
+            //Se visita invertido para no obtener la longitud de la lista para cada elemento.
+            listarInordenValor(nodo.getDerecho(), salida);
+
+            salida.insertar(nodo.getValor(), 1);
+
+            listarInordenValor(nodo.getIzquierdo(), salida);
+        }
+    }
+
+
+    public Lista listarRangoClave(Comparable claveMin, Comparable claveMax) {
         Lista lista = new Lista();
-        if (elemMaximo.compareTo(elemMinimo) >= 0) {
-            listarRangoAux(elemMinimo, elemMaximo, raiz, lista);
+        if (claveMax.compareTo(claveMin) >= 0) {
+            listarRangoClaveAux(claveMin, claveMax, raiz, lista);
         }
         return lista;
     }
 
-    private void listarRangoAux(Comparable min, Comparable max, NodoAVL nodo, Lista lista) {
+    private void listarRangoClaveAux(Comparable min, Comparable max, NodoAVL nodo, Lista lista) {
         Comparable elem;
         boolean mayorQueMin, menorQueMax;
         if (nodo != null) {
-            elem = nodo.getElem();
+            elem = nodo.getClave();
             mayorQueMin = elem.compareTo(min) >= 0;
             menorQueMax = elem.compareTo(max) <= 0;
             if (mayorQueMin && menorQueMax) {
                 //Esta en rango y lo listamos
                 //Si el elemento del nodo es igual a alguno de los limites del rango,
                 //no es necesario visitar todos sus hijos.
-                if (!elem.equals(max)) listarRangoAux(min, max, nodo.getDerecho(), lista);
+                if (!elem.equals(max)) listarRangoClaveAux(min, max, nodo.getDerecho(), lista);
                 lista.insertar(elem, 1);
-                if (!elem.equals(min)) listarRangoAux(min, max, nodo.getIzquierdo(), lista);
+                if (!elem.equals(min)) listarRangoClaveAux(min, max, nodo.getIzquierdo(), lista);
             } else if (mayorQueMin) {
-                listarRangoAux(min, max, nodo.getIzquierdo(), lista);
+                listarRangoClaveAux(min, max, nodo.getIzquierdo(), lista);
             } else {
-                listarRangoAux(min, max, nodo.getDerecho(), lista);
+                listarRangoClaveAux(min, max, nodo.getDerecho(), lista);
+            }
+        }
+    }
+
+    public Lista listarRangoValor(Comparable claveMin, Comparable claveMax) {
+        Lista lista = new Lista();
+        if (claveMax.compareTo(claveMin) >= 0) {
+            listarRangoValorAux(claveMin, claveMax, raiz, lista);
+        }
+        return lista;
+    }
+
+    private void listarRangoValorAux(Comparable min, Comparable max, NodoAVL nodo, Lista lista) {
+        Comparable elem;
+        boolean mayorQueMin, menorQueMax;
+        if (nodo != null) {
+            elem = nodo.getClave();
+            mayorQueMin = elem.compareTo(min) >= 0;
+            menorQueMax = elem.compareTo(max) <= 0;
+            if (mayorQueMin && menorQueMax) {
+                //Esta en rango y lo listamos
+                //Si el elemento del nodo es igual a alguno de los limites del rango,
+                //no es necesario visitar todos sus hijos.
+                if (!elem.equals(max)) listarRangoValorAux(min, max, nodo.getDerecho(), lista);
+                lista.insertar(nodo.getValor(), 1);
+                if (!elem.equals(min)) listarRangoValorAux(min, max, nodo.getIzquierdo(), lista);
+            } else if (mayorQueMin) {
+                listarRangoValorAux(min, max, nodo.getIzquierdo(), lista);
+            } else {
+                listarRangoValorAux(min, max, nodo.getDerecho(), lista);
             }
         }
     }
@@ -236,7 +284,7 @@ public class ArbolAVL {
         if (raiz != null) {
             nodo = raiz;
             while (nodo.getIzquierdo() != null) nodo = nodo.getIzquierdo();
-            elem = nodo.getElem();
+            elem = nodo.getClave();
         }
         return elem;
     }
@@ -247,7 +295,7 @@ public class ArbolAVL {
         if (raiz != null) {
             nodo = raiz;
             while (nodo.getDerecho() != null) nodo = nodo.getDerecho();
-            elem = nodo.getElem();
+            elem = nodo.getClave();
         }
         return elem;
     }
@@ -255,7 +303,7 @@ public class ArbolAVL {
     public ArbolAVL clone() {
         ArbolAVL arbolClon = new ArbolAVL();
         if (!this.esVacio()){
-            arbolClon.raiz = new NodoAVL(raiz.getElem(), null, null);
+            arbolClon.raiz = new NodoAVL(raiz.getClave(), raiz.getValor(), null, null);
             cloneAux(raiz, arbolClon.raiz);
         }
         
@@ -266,12 +314,12 @@ public class ArbolAVL {
         NodoAVL nodo1 = null, nodo2 = null;
         if (nodoOr != null) {
             if (nodoOr.getDerecho() != null) {
-                nodo2 = new NodoAVL(nodoOr.getDerecho().getElem(), null, null);
+                nodo2 = new NodoAVL(nodoOr.getDerecho().getClave(), nodoOr.getDerecho().getValor(), null, null);
                 nodoCl.setDerecho(nodo2);
                 cloneAux(nodoOr.getDerecho(), nodo2);
             }
             if (nodoOr.getIzquierdo() != null) {
-                nodo1 = new NodoAVL(nodoOr.getIzquierdo().getElem(), null, null);
+                nodo1 = new NodoAVL(nodoOr.getIzquierdo().getClave(), nodoOr.getIzquierdo().getValor(), null, null);
                 nodoCl.setIzquierdo(nodo1);
                 cloneAux(nodoOr.getIzquierdo(), nodo1);
             }
@@ -296,7 +344,7 @@ public class ArbolAVL {
     private String obtenerElems(String[] text, NodoAVL nodo) {
         if (nodo != null) {
             obtenerElems(text, nodo.getIzquierdo());
-            text[0] = text[0] + " " + nodo.getElem().toString();
+            text[0] = text[0] + " " + nodo.getValor().toString() + ", " + nodo.getClave().toString();
             obtenerElems(text, nodo.getDerecho());
         }
         return text[0];

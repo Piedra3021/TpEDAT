@@ -36,7 +36,7 @@ public class DesdeArchivo {
     // "src/main/java/Utiles/ListaDesaprobados.txt";
     static final String DELIMITER = ",";
 
-    public static void cargarCiudades(ArbolAVL arbolNombres, HashMap<String, Ciudad> hmapCiudades) {
+    public static void cargarCiudades(ArbolAVL arbol) {
         IO.salida("INI cargaCiudades", false);
         String line;
         String PATH = "src/Utiles/ciu_prod.csv";
@@ -46,7 +46,7 @@ public class DesdeArchivo {
                 String[] valores = line.split(DELIMITER);
                 if (valores[0].equals("c")) {
                     nuevaCiudad = genCiudad(valores);
-                    TransporteAgua.altaCiudad(arbolNombres, hmapCiudades, nuevaCiudad);
+                    TransporteAgua.altaCiudad(arbol, nuevaCiudad);
                 }
             }
 
@@ -62,17 +62,12 @@ public class DesdeArchivo {
     private static Ciudad genCiudad(String[] valores) {
         Ciudad c;
         String nombre = valores[1];
-        // nomenclatura se calcula en el constructor?
-        // String nomenclatura = valores[2];
-
-        double metros = Double.parseDouble(valores[3]);
-
+        double metros = Double.parseDouble(valores[2]);
         // int cantHabitantes = 1000;
-        // double consumoPromedio = Double.parseDouble(valores[4]);
-        c = new Ciudad(nombre, metros);
+        double consumoPromedio = Double.parseDouble(valores[3]);
+        c = new Ciudad(nombre, metros, consumoPromedio);
 
         return c;
-
     }
     // private static Tuberia genTuberia(String[] valores) {
     //     Tuberia t;
