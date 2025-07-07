@@ -15,7 +15,6 @@ public class TransporteAgua {
     public static void main(String[] args) throws Exception {
         ArbolAVL ciudades = new ArbolAVL();
         DesdeArchivo.cargarCiudades(ciudades);
-        System.out.println("A");
         mostrarSistema(ciudades);
     }
 
