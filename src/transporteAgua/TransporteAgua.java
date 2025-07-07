@@ -13,11 +13,11 @@ import jerarquicas.*;
 // Ciudad c1 = new Ciudad("neufuen", "ne3001","12000000");
 public class TransporteAgua {
     public static void main() {
-        Anio a2025 = new Anio(2025);
-        Ciudad c1 = new Ciudad("neufuen", 100);
+        // Anio a2025 = new Anio(2025);
+        // Ciudad c1 = new Ciudad("neufuen", 100);
         ArbolAVL ciudades = new ArbolAVL();
         HashMap<String, Ciudad> hmapCiudades = new HashMap<String, Ciudad>();
-        hmapCiudades.put("NE3000", c1);
+        // hmapCiudades.put("NE3000", c1);
         DesdeArchivo.cargarCiudades(ciudades, hmapCiudades);
         mostrarSistema(ciudades, hmapCiudades);
     }
@@ -28,12 +28,13 @@ public class TransporteAgua {
         }
     }
 
+    // Modificar para que use Diccionario
     public static void altaCiudad(ArbolAVL arbolNombres, HashMap<String, Ciudad> hmapCiudades, Ciudad nuevaCiudad) {
-        IO.salida("ALTA ciudad."+nuevaCiudad.toString(), true);
+        IO.salida("ALTA ciudad." + nuevaCiudad.toString(), true);
 
-        // arbolNombres.insertar(nombreNuevo);
-        // String nome = calcNome(nombreNuevo);
-        // hmapCiudades.put(nome, nuevaCiudad);
+        arbolNombres.insertar(nuevaCiudad.getNombre());
+        String nome = nuevaCiudad.getNomenclatura();
+        hmapCiudades.put(nome, nuevaCiudad);
 
     }
 
