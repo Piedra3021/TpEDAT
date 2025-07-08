@@ -1,22 +1,30 @@
 package conjuntistas;
+
+//Modificado como tabla de busqueda clave/valor
 class NodoAVL {
     
-    private Comparable elem;
+    private Comparable clave;
+    private Object valor;
     private NodoAVL izquierdo;
     private NodoAVL derecho;
     private int altura;
     
     //constructor
-    public NodoAVL(Comparable elem, NodoAVL enlaceizq, NodoAVL enlaceder) {
-        this.elem = elem;
+    public NodoAVL(Comparable clave, Object valor, NodoAVL enlaceizq, NodoAVL enlaceder) {
+        this.clave = clave;
+        this.valor = valor;
         this.izquierdo = enlaceizq;
         this.derecho = enlaceder;
         recalcularAltura();
     }
     
     //modificadores
-    public void setElem(Comparable elem) {
-        this.elem = elem;
+    public void setElem(Comparable clave) {
+        this.clave = clave;
+    }
+
+    public void setValor(Object valor) {
+        this.valor = valor;
     }
     
     public void setIzquierdo(NodoAVL enlaceIzq) {
@@ -42,8 +50,12 @@ class NodoAVL {
     }
     
     //observadoras
-    public Comparable getElem() {
-        return elem;
+    public Comparable getClave() {
+        return clave;
+    }
+
+    public Object getValor() {
+        return valor;
     }
 
     public int getAltura() {
@@ -65,7 +77,7 @@ class NodoAVL {
     public void dibujar(String espaciado) {
         if (!this.esHoja()) {
             if(this.getDerecho() != null && this.getIzquierdo() != null) {
-                System.out.print(this.elem + " ----> ");
+                System.out.print(this.valor.toString() + " ----> ");
                 this.derecho.dibujar(espaciado + " |     ");
                 
                 System.out.println("");
@@ -76,10 +88,10 @@ class NodoAVL {
                     this.getIzquierdo().dibujar(espaciado + "       ");
                 }
             } else if (this.getDerecho() != null) {
-                System.out.print(this.elem + " ----> ");
+                System.out.print(this.valor.toString() + " ----> ");
                 this.getDerecho().dibujar(espaciado + "        ");
             } else {
-                System.out.println(this.elem);
+                System.out.println(this.valor.toString());
                 System.out.print(espaciado +  " L----> ");
                 if (this.getIzquierdo().esHoja()) {
                     this.getIzquierdo().dibujar(espaciado + " |     ");
@@ -88,7 +100,7 @@ class NodoAVL {
                 }
             }
         } else {
-            System.out.print(this.elem);
+            System.out.print(this.valor.toString());
         }
     }
 }

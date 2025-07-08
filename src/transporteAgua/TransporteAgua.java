@@ -1,18 +1,21 @@
 package transporteAgua;
 
+import java.util.HashMap;
+
+import Utiles.DesdeArchivo;
+import Utiles.IO;
 import conjuntistas.ArbolAVL;
 import grafos.Grafo;
 import jerarquicas.*;
-import lineales.*;
+// import lineales.*;
 
 // cargar desde archivo
 // Ciudad c1 = new Ciudad("neufuen", "ne3001","12000000");
 public class TransporteAgua {
-    public static void main() {
-        Anio a2025 = new Anio(2025);
-        Ciudad c = new Ciudad("neufuen", 100);
+    public static void main(String[] args) throws Exception {
         ArbolAVL ciudades = new ArbolAVL();
-
+        DesdeArchivo.cargarCiudades(ciudades);
+        mostrarSistema(ciudades);
     }
 
     public static void genAnio(Anio a) {
@@ -20,10 +23,40 @@ public class TransporteAgua {
             a.actualizarMes(i + 1, 300);
         }
     }
-    // A futuro: recibe arbolAvl por parametro y lo actualiza
-    // public static void altaCiudad(Ciudad c){
 
+    public static void altaCiudad(ArbolAVL arbol, Ciudad nuevaCiudad) {
+        IO.salida("ALTA ciudad." + nuevaCiudad.toString(), true);
+
+        arbol.insertar(nuevaCiudad.getNombre(), nuevaCiudad);
+    }
+
+    public static void modCiudad(ArbolAVL arbolNombres, HashMap<String, Ciudad> hmapCiudades, String nombreNuevo,
+            double metros) {
+        IO.salida("MOD ciudad", true);
+
+    }
+
+    public static void bajaCiudad(ArbolAVL arbolNombres, HashMap<String, Ciudad> hmapCiudades, String nombreNuevo,
+            double metros) {
+        IO.salida("BAJA ciudad", true);
+
+    }
+
+    // public static void altaTuberia(Grafo grafo) {
+    // IO.salida("ALTA tuberia", true);
     // }
 
+    // public static void modTuberia(Grafo grafo) {
+    // IO.salida("ALTA tuberia", true);
+    // }
 
+    // public static void bajaTuberia(Grafo grafo) {
+    // IO.salida("ALTA tuberia", true);
+    // }
+
+    // 8.
+    public static void mostrarSistema(ArbolAVL arbol) {
+        IO.salida("MostrarSistema", false);
+        arbol.dibujar();
+    }
 }

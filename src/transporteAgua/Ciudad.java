@@ -1,57 +1,85 @@
 package transporteAgua;
 
+import conjuntistas.ArbolAVL;
+
 public class Ciudad {
     private String nombre;
-    private String nomeclatura;
+    private String nomenclatura;
     private double metros;
-    private int cantHabitantes = 1000;
+    // private int poblacion = 1000;
+    private Anio poblacion;
     private double consumoPromedio = 0.25;
-    // Arreglo de anios?
-    private Anio consumoProm;
-    //numNomeclatura?
+    private double consumoProm;
+    // numNomenclatura?
     private static int codigoNumerico = 3000;
 
-    public Ciudad(String nombreC, double metros) {
+    public Ciudad(String nombreC, double metros, double consumoProm) {
         this.nombre = nombreC;
-        this.nomeclatura = obtenerNomeclatura(nombre);
+        this.nomenclatura = obtenerNomenclatura(nombre);
         this.metros = metros;
-        this.consumoProm = new Anio(2025);
-        codigoNumerico = (codigoNumerico+1)%4000;
-        if(codigoNumerico < 3000){
-            codigoNumerico = 3000;
-        }
+        this.consumoProm = consumoProm;
+        codigoNumerico = (codigoNumerico + 1) % 4000;
     }
 
-    private String obtenerNomeclatura(String nombre){
+    public Ciudad(String nombreC) {
+        this.nombre = nombreC;
+        this.nomenclatura = obtenerNomenclatura(nombre);
+        this.metros = 0.0;
+        this.consumoProm = 0.0;
+        codigoNumerico = (codigoNumerico + 1) % 4000;
+    }
+
+    private String obtenerNomenclatura(String nombre) {
         String cadena = "";
-        if(nombre.length() > 2){
-            cadena = nombre.substring(0,2).toUpperCase() + codigoNumerico;
+        if (nombre.length() > 2) {
+            cadena = nombre.substring(0, 2).toUpperCase() + codigoNumerico;
         }
 
         return cadena;
     }
+
     public String getNombre() {
         return nombre;
     }
 
-    public String getNomeclatura() {
-        return nomeclatura;
+    public String getNomenclatura() {
+        return nomenclatura;
     }
 
     public double getMetros() {
         return metros;
     }
 
-    public int getCantHabitantes() {
-        return cantHabitantes;
+    public Anio getPoblacion() {
+        return poblacion;
+    }
+
+    public void setPoblacion(Anio poblacion) {
+        this.poblacion = poblacion;
     }
 
     public double getConsumoPromedio() {
         return consumoPromedio;
     }
 
-    public Anio getConsumoProm() {
+    public double getConsumoProm() {
         return consumoProm;
     }
 
+    // Borrar luego?
+    public void setConsumoProm(double consumoProm) {
+        this.consumoProm = consumoProm;
+    }
+
+    public int compareTo(Ciudad otraCiudad) {
+        return this.nombre.compareTo(otraCiudad.getNombre());
+    }
+
+    public boolean equals(Ciudad otraCiudad) {
+        return this.nombre.equals(otraCiudad.getNombre());
+    }
+
+    public String toString() {
+        return nombre + "(" + nomenclatura + ")";
+    }
 }

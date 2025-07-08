@@ -1,30 +1,30 @@
 package transporteAgua;
 
 public class Tuberia {
-    private String nomeclatura;
+    private String nomenclatura;
     private double caudalMin;
     private double caudalMax;
     private double diametro;
     private char estado;
 
-    public Tuberia(String nomeclaruta, double caudalMin, double caudalMax, double diametro, char estado) {
-        this.nomeclatura = nomeclatura;
+    public Tuberia(String nomenclatura, double caudalMin, double caudalMax, double diametro, char estado) {
+        this.nomenclatura = nomenclatura;
         this.caudalMin = caudalMin;
         this.caudalMax = caudalMax;
         this.diametro = diametro;
         this.estado = estado;
     }
 
-    public Tuberia(String nomeclatura) {
-        this.nomeclatura = nomeclatura;
+    public Tuberia(String nomenclatura) {
+        this.nomenclatura = nomenclatura;
         this.caudalMin = 0.0;
         this.caudalMax = 0.0;
         this.diametro = 0.0;
         this.estado = 'A'; // Estado por defecto 'A' (Activo)
     }
 
-    public String getNomeclatura() {
-        return nomeclatura;
+    public String getNomenclatura() {
+        return nomenclatura;
     }
 
     public double getCaudalMin() {
@@ -59,17 +59,10 @@ public class Tuberia {
         this.estado = estado;
     }
 
+    @Override
     public String toString() {
-        return "Tuberia{" +
-<<<<<<< Updated upstream
-                "nomeclaruta='" + nomeclaruta + '\'' +
-=======
-                "nomeclaruta='" + nomeclatura + '\'' +
->>>>>>> Stashed changes
-                ", caudalMin=" + caudalMin +
-                ", caudalMax=" + caudalMax +
-                ", diametro=" + diametro +
-                ", estado=" + estado +
-                '}';
+        return "Tuberia [nomenclatura=" + nomenclatura + ", caudalMin=" + caudalMin + ", caudalMax=" + caudalMax
+                + ", diametro=" + diametro + ", estado=" + estado + "]";
     }
+
 }

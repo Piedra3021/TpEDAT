@@ -1,4 +1,34 @@
-bin
 pom.xml 
-target/
+### Java ###
+# Compiled class file
+*.class
+
 nb-configuration.xml
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+### VS Code ###
+.vscode/
+
+### Some additional ignores (sort later)
+*.DS_Store
+*.sw?
+.#*
+*#
+*~
+.classpath
+.project
+.settings
+bin/
+build/
+target/
+
+
+*_dev.csv
+# Log file
+*.log
