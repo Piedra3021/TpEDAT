@@ -20,11 +20,11 @@ public class Anio {
         this.anio = anio;
     }
 
-    public int[] getValorMes() {
+    public int[] getPoblacion() {
         return poblacion;
     }
 
-    public void setValorMes(int[] poblacion) {
+    public void setPoblacion(int[] poblacion) {
         this.poblacion = poblacion;
     }
 

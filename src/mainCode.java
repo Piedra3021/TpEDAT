@@ -25,6 +25,7 @@ public class mainCode {
         arbol1.insertar("Mendoza", new Ciudad("Mendoza", 199.0, 0.22));
         arbol1.insertar("La Plata", new Ciudad("La Plata", 180.0, 0.20));
         arbol1.insertar("El Chocon mejor pueblo de la historia", new Ciudad("El Chocon mejor pueblo de la historia", 5.0, 0.1));
+        //plantea el loco
 
         arbol1.dibujar();
 
