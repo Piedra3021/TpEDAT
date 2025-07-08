@@ -10,15 +10,14 @@ public class Ciudad {
     private Anio poblacion;
     private double consumoPromedio = 0.25;
     private double consumoProm;
-    // numNomenclatura?
-    private static int codigoNumerico = 3000;
+    private static int numNomenclatura = 3000;
 
     public Ciudad(String nombreC, double metros, double consumoProm) {
         this.nombre = nombreC;
         this.nomenclatura = obtenerNomenclatura(nombre);
         this.metros = metros;
         this.consumoProm = consumoProm;
-        codigoNumerico = (codigoNumerico + 1) % 4000;
+        numNomenclatura = (numNomenclatura + 1) % 4000;
     }
 
     public Ciudad(String nombreC) {
@@ -26,13 +25,13 @@ public class Ciudad {
         this.nomenclatura = obtenerNomenclatura(nombre);
         this.metros = 0.0;
         this.consumoProm = 0.0;
-        codigoNumerico = (codigoNumerico + 1) % 4000;
+        numNomenclatura = (numNomenclatura + 1) % 4000;
     }
 
     private String obtenerNomenclatura(String nombre) {
         String cadena = "";
         if (nombre.length() > 2) {
-            cadena = nombre.substring(0, 2).toUpperCase() + codigoNumerico;
+            cadena = nombre.substring(0, 2).toUpperCase() + numNomenclatura;
         }
 
         return cadena;
