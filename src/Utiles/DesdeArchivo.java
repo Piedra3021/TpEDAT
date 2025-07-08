@@ -63,7 +63,7 @@ public class DesdeArchivo {
         Ciudad c;
         String nombre = valores[1];
         double metros = Double.parseDouble(valores[2]);
-        // int cantHabitantes = 1000;
+        // int poblacion = 1000;
         double consumoPromedio = Double.parseDouble(valores[3]);
         c = new Ciudad(nombre, metros, consumoPromedio);
 
@@ -77,7 +77,7 @@ public class DesdeArchivo {
 
     //     // double metros = Double.parseDouble(valores[3]);
 
-    //     // int cantHabitantes = 1000;
+    //     // int poblacion = 1000;
     //     // double consumoPromedio = Double.parseDouble(valores[3]);
     //     // c = new Ciudad(nombre, metros);
 

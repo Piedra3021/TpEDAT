@@ -8,8 +8,8 @@ import transporteAgua.*;
 public class mainCode {
     public static void main(String[] args) throws Exception {
         //test0();
-        test1();
-        //test2();
+        // test1();
+        test2();
         //test3();
     }
 
@@ -52,28 +52,29 @@ public class mainCode {
         ArbolAVL ciudades = new ArbolAVL();
         HashMap<String, Ciudad> hmapCiudades = new HashMap<String, Ciudad>();
         Ciudad c1 = new Ciudad("ciu1");
+        // Poblacion anual
         Anio a1 = new Anio(2020);
-        genPromRandom(a1);
-        //c1.setConsumoProm(a1);
+        genPobRandom(a1);
+        c1.setPoblacion(a1);
         IO.sout(a1);
         Ciudad c2 = new Ciudad("ciu2");
         Anio a2 = new Anio(2020);
-        genPromRandom(a2);
+        genPobRandom(a2);
         IO.sout(a2);
-        //c2.setConsumoProm(a2);
+        //c2.setPoblacion(a2);
         //TransporteAgua.altaCiudad(ciudades, hmapCiudades, c1);
         //TransporteAgua.altaCiudad(ciudades, hmapCiudades, c2);
         //TransporteAgua.mostrarSistema(ciudades, hmapCiudades);
     }
 
-    private static void genPromRandom(Anio anio) {
-        double valorMes = 0.30;
+    private static void genPobRandom(Anio anio) {
+        int valorMes = 100000;
         Random r = new Random();
         double variacion;
         // calcular consumo random por mes
         for (int i = 1; i < 13; i++) {
             anio.actualizarMes(i, valorMes);
-            variacion = r.nextDouble() / 10;
+            variacion = r.nextInt(10000) ;
             // Variar negativamente
             if (i % 2 == 0) {
                 variacion = variacion * -1;
