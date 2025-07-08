@@ -38,6 +38,14 @@ public class Anio {
         return exito;
     }
 
+    public int getPoblacionMes(int mes){
+        int cantidad = -1;
+        if(mes > 0 && mes < 13){
+            cantidad = this.poblacion[mes-1];
+        }
+        return cantidad;
+    }
+
     @Override
     public String toString() {
         return "Anio [anio=" + anio + ", poblacion=" + Arrays.toString(poblacion) + "]";
