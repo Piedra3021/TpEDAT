@@ -8,8 +8,8 @@ import transporteAgua.*;
 public class mainCode {
     public static void main(String[] args) throws Exception {
         //test0();
-        // test1();
-        test2();
+        test1();
+        //test2();
         //test3();
     }
 

@@ -51,4 +51,8 @@ public class Anio {
         return "Anio [anio=" + anio + ", poblacion=" + Arrays.toString(poblacion) + "]";
     }
 
+    public boolean equals(Anio anio2){
+        return (this.anio == anio2.getAnio());
+    }
+
 }

@@ -1,13 +1,14 @@
 package transporteAgua;
 
 import conjuntistas.ArbolAVL;
+import lineales.dinamica.*;
 
 public class Ciudad {
     private String nombre;
     private String nomenclatura;
     private double metros;
     // private int poblacion = 1000;
-    private Anio poblacion;
+    private Lista poblacion;
     private double consumoPromedio = 0.25;
     private double consumoProm;
     private static int numNomenclatura = 3000;
