@@ -8,9 +8,9 @@ import transporteAgua.*;
 public class mainCode {
     public static void main(String[] args) throws Exception {
         //test0();
-        test1();
+        //test1();
         //test2();
-        //test3();
+        test3();
     }
 
     private static void test0() {
@@ -56,6 +56,8 @@ public class mainCode {
         // Poblacion anual
         Anio a1 = new Anio(2020);
         genPobRandom(a1);
+        //Nuevo constructor de poblacion = setPoblacion(año,mes,cantidadHabitantes)
+        //c1.setPoblacion(2020,1-12,cantidad)
         c1.setPoblacion(a1);
         IO.sout(a1);
         Ciudad c2 = new Ciudad("ciu2");
@@ -86,6 +88,24 @@ public class mainCode {
     }
 
     private static void test3() {
-        //
+        ArbolAVL arbolTest = new ArbolAVL();
+
+        arbolTest.insertar("Buenos Aires", new Ciudad("Buenos Aires", 203.0, 0.25));
+        arbolTest.insertar("Mendoza", new Ciudad("Mendoza", 199.0, 0.22));
+        arbolTest.insertar("La Plata", new Ciudad("La Plata", 180.0, 0.20));
+
+        Ciudad ciudadTest = (Ciudad) arbolTest.obtenerValor("Buenos Aires");
+        ciudadTest.setPoblacion(2020, 1, 100);
+        ciudadTest.setPoblacion(2020, 2, 254);
+        ciudadTest.setPoblacion(2020, 3, 100);
+        ciudadTest.setPoblacion(2020, 4, 100);
+        ciudadTest.setPoblacion(2020, 5, 100);
+        ciudadTest.setPoblacion(2020, 6, 100);
+        ciudadTest.setPoblacion(2020, 7, 100);
+        ciudadTest.setPoblacion(2020, 8, 100);
+
+        System.out.println(ciudadTest.getPoblacion(2020, 2));
+        System.out.println(ciudadTest.getPoblacionAnual(2020));
+
     }
 }

@@ -20,8 +20,12 @@ public class Anio {
         this.anio = anio;
     }
 
-    public int[] getPoblacion() {
-        return poblacion;
+    public int getPoblacionAnual() {
+        int cant = 0;
+        for(int i=0; i<12;i++){
+            cant = cant +  this.poblacion[i];
+        }
+        return cant;
     }
 
     public void setPoblacion(int[] poblacion) {
@@ -51,8 +55,9 @@ public class Anio {
         return "Anio [anio=" + anio + ", poblacion=" + Arrays.toString(poblacion) + "]";
     }
 
-    public boolean equals(Anio anio2){
-        return (this.anio == anio2.getAnio());
+    @Override
+    public boolean equals(Object anio2){
+        return (this.anio == ((int) anio2));
     }
 
 }

@@ -50,12 +50,52 @@ public class Ciudad {
         return metros;
     }
 
-    public Anio getPoblacion() {
-        return poblacion;
+    public int getPoblacion(int anio, int mes) {
+        int cant = -1;
+        if (poblacion != null) {
+            int posAnio = poblacion.localizar(anio);
+            Anio anioPoblacion = (Anio) poblacion.recuperar(posAnio);
+            if (anioPoblacion != null) {
+                cant = anioPoblacion.getPoblacionMes(mes);
+            }
+        }
+        return cant;
     }
 
-    public void setPoblacion(Anio poblacion) {
-        this.poblacion = poblacion;
+    public int getPoblacionAnual(int anio){
+        int cant = -1;
+        if(poblacion != null){
+            int posAnio = poblacion.localizar(anio);
+            Anio anioPob = (Anio) poblacion.recuperar(posAnio);
+            if(anioPob != null){
+                cant = anioPob.getPoblacionAnual();
+            }
+        }
+        return cant;
+    }
+
+    //Setter para mes y año en especifico
+    public void setPoblacion(int anioPoblacion, int mes, int cantidad) {
+        Anio anioModificar;
+        //Verifico si la lista existe.
+        if (poblacion != null) {
+            //Localizo el anio especifico
+            int posAnio = poblacion.localizar(anioPoblacion);
+            if (posAnio != -1) {
+                //Si existe, lo recupero
+                anioModificar = (Anio) poblacion.recuperar(posAnio);
+            } else {
+                //Si no, lo creo.
+                anioModificar = new Anio(anioPoblacion);
+                poblacion.insertar(anioModificar, poblacion.longitud() + 1);
+            }
+        } else {
+            poblacion = new Lista();
+            anioModificar = new Anio(anioPoblacion);
+            poblacion.insertar(anioModificar, 1);
+        }
+
+        anioModificar.actualizarMes(mes, cantidad);
     }
 
     public double getConsumoPromedio() {
