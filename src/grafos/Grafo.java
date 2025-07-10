@@ -73,7 +73,7 @@ public class Grafo {
         return aux;
     }
 
-    public boolean insertarArco(Object origen, Object destino, int etiqueta) {
+    public boolean insertarArco(Object origen, Object destino, double etiqueta) {
         boolean exito = false;
         if (this.inicio != null) {
             NodoVert nodoOrigen = ubicarVertice(origen);
@@ -179,5 +179,30 @@ public class Grafo {
         }
         return cadena;
     }
+
+    public String dibujarGrafo() {
+    StringBuilder sb = new StringBuilder();
+
+    NodoVert recorredor = this.inicio;
+    while (recorredor != null) {
+        sb.append(recorredor.getElem()).append("\n");
+        NodoAdy recorredorAd = recorredor.getPrimerAdy();
+        if (recorredorAd != null) {
+            while (recorredorAd != null) {
+                sb.append(" ├── ")
+                  .append(recorredorAd.getVertice().getElem())
+                  .append(" (")
+                  .append(recorredorAd.getEtiqueta())
+                  .append(")\n");
+                recorredorAd = recorredorAd.getSigAdyacente();
+            }
+        } else {
+            sb.append(" (sin adyacentes)\n");
+        }
+        recorredor = recorredor.getSigVertice();
+    }
+    return sb.toString();
+}
+
 
 }

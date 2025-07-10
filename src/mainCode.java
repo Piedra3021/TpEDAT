@@ -4,13 +4,14 @@ import java.util.Random;
 import Utiles.IO;
 import conjuntistas.*;
 import transporteAgua.*;
+import grafos.*;
 
 public class mainCode {
     public static void main(String[] args) throws Exception {
         //test0();
-        test1();
+        //test1();
         //test2();
-        //test3();
+        test3();
     }
 
     private static void test0() {
@@ -79,13 +80,34 @@ public class mainCode {
 
     private static void test3() {
         ArbolAVL arbolTest = new ArbolAVL();
+        Grafo mapa = new Grafo();
+        HashMap<ClaveTuberia, DatosTuberia> hmapTuberias = new HashMap<ClaveTuberia, DatosTuberia>();
 
         arbolTest.insertar("Buenos Aires", new Ciudad("Buenos Aires", 203.0, 0.25));
-        arbolTest.insertar("Mendoza", new Ciudad("Mendoza", 199.0, 0.22));
-        arbolTest.insertar("La Plata", new Ciudad("La Plata", 180.0, 0.20));
-
         Ciudad ciudadTest = (Ciudad) arbolTest.obtenerValor("Buenos Aires");
-        ciudadTest.setPoblacion(2020, 1, 100);
+        mapa.insertarVertice(ciudadTest.getNomenclatura());
+        arbolTest.insertar("Mendoza", new Ciudad("Mendoza", 199.0, 0.22));
+        ciudadTest = (Ciudad) arbolTest.obtenerValor("Mendoza");
+        mapa.insertarVertice(ciudadTest.getNomenclatura());
+        arbolTest.insertar("La Plata", new Ciudad("La Plata", 180.0, 0.20));
+        ciudadTest = (Ciudad) arbolTest.obtenerValor("La Plata");
+        mapa.insertarVertice(ciudadTest.getNomenclatura());
+
+        ClaveTuberia t1 = new ClaveTuberia(((Ciudad) arbolTest.obtenerValor("Buenos Aires")).getNomenclatura(), ((Ciudad) arbolTest.obtenerValor("Mendoza")).getNomenclatura());
+        DatosTuberia dt1 = new DatosTuberia(10, 20, 5, 'A');
+
+        hmapTuberias.put(t1,dt1);
+
+        DatosTuberia prueba = DatosTuberia.obtenerDatos(hmapTuberias, ((Ciudad) arbolTest.obtenerValor("Buenos Aires")).getNomenclatura(), ((Ciudad) arbolTest.obtenerValor("Mendoza")).getNomenclatura());
+
+        mapa.insertarArco(((Ciudad) arbolTest.obtenerValor("Buenos Aires")).getNomenclatura(), ((Ciudad) arbolTest.obtenerValor("Mendoza")).getNomenclatura(), prueba.getCaudalMin());
+
+        System.out.println(mapa.toString());
+        System.out.println(mapa.dibujarGrafo());
+
+        
+        
+        /*ciudadTest.setPoblacion(2020, 1, 100);
         ciudadTest.setPoblacion(2020, 2, 254);
         ciudadTest.setPoblacion(2020, 3, 100);
         ciudadTest.setPoblacion(2020, 4, 100);
@@ -95,7 +117,7 @@ public class mainCode {
         ciudadTest.setPoblacion(2020, 8, 100);
 
         System.out.println(ciudadTest.getPoblacion(2020, 2));
-        System.out.println(ciudadTest.getPoblacionAnual(2020));
+        System.out.println(ciudadTest.getPoblacionAnual(2020));*/
 
     }
 }
