@@ -8,9 +8,9 @@ import transporteAgua.*;
 public class mainCode {
     public static void main(String[] args) throws Exception {
         //test0();
-        //test1();
+        test1();
         //test2();
-        test3();
+        //test3();
     }
 
     private static void test0() {
@@ -18,34 +18,24 @@ public class mainCode {
     }
 
     private static void test1() {
-        ArbolAVL arbol1 = new ArbolAVL();
+        HashMap<ClaveTuberia, DatosTuberia> hmapTuberias = new HashMap<ClaveTuberia, DatosTuberia>();
+        ClaveTuberia clave1 = new ClaveTuberia("A", "B");
+        ClaveTuberia clave2 = new ClaveTuberia("B", "C");
+        ClaveTuberia clave3 = new ClaveTuberia("A", "C");
+        DatosTuberia datos1 = new DatosTuberia(100, 200, 50, 'A');
+        DatosTuberia datos2 = new DatosTuberia(150, 250, 60, 'D');
+        DatosTuberia datos3 = new DatosTuberia(200, 300, 70, 'A');
 
-        // Insersiones en el Arbol AVL
-        arbol1.insertar("Buenos Aires", new Ciudad("Buenos Aires", 203.0, 0.25));
-        arbol1.insertar("Mendoza", new Ciudad("Mendoza", 199.0, 0.22));
-        arbol1.insertar("La Plata", new Ciudad("La Plata", 180.0, 0.20));
-        arbol1.insertar("El Chocon mejor pueblo de la historia", new Ciudad("El Chocon mejor pueblo de la historia", 5.0, 0.1));
-        //plantea el loco
+        hmapTuberias.put(clave1, datos1);
+        hmapTuberias.put(clave2, datos2);
+        hmapTuberias.put(clave3, datos3);
 
-        arbol1.dibujar();
-
-        arbol1.eliminar("Buenos Aires");
-        System.out.println();
-
-        arbol1.dibujar();
-
-        // Prueba de metodos
-        System.out.println(arbol1.pertenece("Mendoza"));
-        System.out.println(arbol1.listarValor().toString());
-        System.out.println(arbol1.listarRangoClave("F", "P").toString());
-        System.out.println(arbol1.minimoElem().toString());
-        System.out.println(arbol1.maximoElem().toString());
-
-        // Ejemplo de busqueda de una ciudad en el arbol
-        // Se obtiene a traves de un metodo estatico por comodidad
-        Ciudad ciudad1 = (Ciudad) arbol1.obtenerValor("Mendoza");
-        System.out.println(ciudad1.getMetros() + ", " + ciudad1.getNombre());
-
+        //ejemplo de busqueda
+        DatosTuberia d1 = DatosTuberia.obtenerDatos(hmapTuberias, "A", "B");
+        System.out.println(d1.getCaudalMax());
+        System.out.println(d1.getCaudalMin());
+        System.out.println(d1.getDiametro());
+        System.out.println(d1.toString());
     }
 
     private static void test2() {
