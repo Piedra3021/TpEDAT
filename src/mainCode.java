@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.Random;
 
+import Utiles.DesdeArchivo;
 import Utiles.IO;
 import conjuntistas.*;
 import transporteAgua.*;
@@ -58,6 +59,8 @@ public class mainCode {
         genPobRandom(c2);
         TransporteAgua.altaCiudad(ciudades, c1);
         TransporteAgua.altaCiudad(ciudades, c2);
+        DesdeArchivo.cargarPoblacion(ciudades);
+        IO.sout(c1.getPoblacion(2020, 1));
         TransporteAgua.mostrarSistema(ciudades);
     }
 

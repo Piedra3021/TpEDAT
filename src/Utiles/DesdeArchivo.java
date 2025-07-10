@@ -70,20 +70,46 @@ public class DesdeArchivo {
         return c;
     }
     // private static Tuberia genTuberia(String[] valores) {
-    //     Tuberia t;
-    //     // Ciudad c;
-    //     // String nombre = valores[1];
-    //     // String nomenclatura = valores[2];
+    // Tuberia t;
+    // // Ciudad c;
+    // // String nombre = valores[1];
+    // // String nomenclatura = valores[2];
 
-    //     // double metros = Double.parseDouble(valores[3]);
+    // // double metros = Double.parseDouble(valores[3]);
 
-    //     // int poblacion = 1000;
-    //     // double consumoPromedio = Double.parseDouble(valores[3]);
-    //     // c = new Ciudad(nombre, metros);
+    // // int poblacion = 1000;
+    // // double consumoPromedio = Double.parseDouble(valores[3]);
+    // // c = new Ciudad(nombre, metros);
 
-    //     return t;
+    // return t;
 
     // }
+
+    public static void cargarPoblacion(ArbolAVL arbol) {
+        IO.salida("INI cargaPoblacion", false);
+        String line;
+        String PATH = "src/Utiles/pob_dev.csv";
+        Ciudad ciudad;
+        try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
+            while ((line = br.readLine()) != null) {
+                Object[] valores = line.split(DELIMITER);
+                if (valores[0].equals("p")) {
+                    ciudad = (Ciudad) arbol.obtenerValor((Comparable) valores[1]);
+                    if (ciudad != null) {
+                        ciudad.setPoblacion((int) valores[2], (int) valores[3], (int) valores[4]);
+                        // nuevaCiudad = genPoblacion(valores);
+                        // TransporteAgua.altaCiudad(arbol, nuevaCiudad);
+                    }
+                }
+            }
+
+        } catch (FileNotFoundException ex) {
+            System.err.println(ex.getMessage() + "\nSignifica que el archivo del "
+                    + "que queriamos leer no existe.");
+        } catch (IOException ex) {
+            System.err.println("Error leyendo o escribiendo en algun archivo.");
+        }
+    }
 
     public static void main(String[] args) {
         // leerArchivo_1();
