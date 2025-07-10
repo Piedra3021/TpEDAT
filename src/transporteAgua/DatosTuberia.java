@@ -1,30 +1,24 @@
 package transporteAgua;
 
-public class Tuberia {
-    private String nomenclatura;
+import java.util.HashMap;
+
+public class DatosTuberia {
     private double caudalMin;
     private double caudalMax;
     private double diametro;
     private char estado;
 
-    public Tuberia(String nomenclatura, double caudalMin, double caudalMax, double diametro, char estado) {
-        this.nomenclatura = nomenclatura;
+    public DatosTuberia(double caudalMin, double caudalMax, double diametro, char estado) {
         this.caudalMin = caudalMin;
         this.caudalMax = caudalMax;
         this.diametro = diametro;
         this.estado = estado;
     }
 
-    public Tuberia(String nomenclatura) {
-        this.nomenclatura = nomenclatura;
-        this.caudalMin = 0.0;
-        this.caudalMax = 0.0;
-        this.diametro = 0.0;
-        this.estado = 'A'; // Estado por defecto 'A' (Activo)
-    }
-
-    public String getNomenclatura() {
-        return nomenclatura;
+    //metodo para obtener unos datos de una tuberia especifica
+    public static DatosTuberia obtenerDatos(HashMap hash, String desde, String hasta) {
+        //desde y hasta son las nomenclaturas de las ciudades
+        return (DatosTuberia) hash.get(new ClaveTuberia(desde, hasta));
     }
 
     public double getCaudalMin() {
@@ -61,7 +55,7 @@ public class Tuberia {
 
     @Override
     public String toString() {
-        return "Tuberia [nomenclatura=" + nomenclatura + ", caudalMin=" + caudalMin + ", caudalMax=" + caudalMax
+        return "DatosTuberia [caudalMin=" + caudalMin + ", caudalMax=" + caudalMax
                 + ", diametro=" + diametro + ", estado=" + estado + "]";
     }
 
