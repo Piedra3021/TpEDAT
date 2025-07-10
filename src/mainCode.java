@@ -7,10 +7,10 @@ import transporteAgua.*;
 
 public class mainCode {
     public static void main(String[] args) throws Exception {
-        //test0();
-        test1();
-        //test2();
-        //test3();
+        // test0();
+        // test1();
+        test2();
+        // test3();
     }
 
     private static void test0() {
@@ -30,7 +30,7 @@ public class mainCode {
         hmapTuberias.put(clave2, datos2);
         hmapTuberias.put(clave3, datos3);
 
-        //ejemplo de busqueda
+        // ejemplo de busqueda
         DatosTuberia d1 = DatosTuberia.obtenerDatos(hmapTuberias, "A", "B");
         System.out.println(d1.getCaudalMax());
         System.out.println(d1.getCaudalMin());
@@ -39,40 +39,35 @@ public class mainCode {
     }
 
     private static void test2() {
-        //TransporteAgua.main();
+        // TransporteAgua.main();
         ArbolAVL ciudades = new ArbolAVL();
-        HashMap<String, Ciudad> hmapCiudades = new HashMap<String, Ciudad>();
         Ciudad c1 = new Ciudad("ciu1");
         // Poblacion anual
-        Anio a1 = new Anio(2020);
-        genPobRandom(a1);
-        //Nuevo constructor de poblacion = setPoblacion(año,mes,cantidadHabitantes)
-        //c1.setPoblacion(2020,1-12,cantidad)
-        c1.setPoblacion(a1);
-        IO.sout(a1);
+        genPobRandom(c1);
+        IO.sout(c1);
+        IO.sout(c1.getPoblacionAnual(2020));
         Ciudad c2 = new Ciudad("ciu2");
-        Anio a2 = new Anio(2020);
-        genPobRandom(a2);
-        IO.sout(a2);
-        //c2.setPoblacion(a2);
-        //TransporteAgua.altaCiudad(ciudades, hmapCiudades, c1);
-        //TransporteAgua.altaCiudad(ciudades, hmapCiudades, c2);
-        //TransporteAgua.mostrarSistema(ciudades, hmapCiudades);
+        genPobRandom(c2);
+        TransporteAgua.altaCiudad(ciudades, c1);
+        TransporteAgua.altaCiudad(ciudades, c2);
+        TransporteAgua.mostrarSistema(ciudades);
     }
 
-    private static void genPobRandom(Anio anio) {
-        int valorMes = 100000;
+    private static void genPobRandom(Ciudad ciudad) {
+        int pob = 1000;
+        int anio = 2020;
         Random r = new Random();
         double variacion;
         // calcular consumo random por mes
-        for (int i = 1; i < 13; i++) {
-            anio.actualizarMes(i, valorMes);
-            variacion = r.nextInt(10000) ;
+        for (int mes = 1; mes < 13; mes++) {
+
+            ciudad.setPoblacion(anio, mes, pob);
+            variacion = r.nextInt(10);
             // Variar negativamente
-            if (i % 2 == 0) {
+            if (mes % 2 == 0) {
                 variacion = variacion * -1;
             }
-            valorMes += variacion;
+            pob += variacion;
 
         }
     }
