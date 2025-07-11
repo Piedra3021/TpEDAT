@@ -110,7 +110,8 @@ public class mainCode {
         System.out.println(mapa.toString());
         System.out.println(mapa.dibujarGrafo());
 
-        System.out.println(mapa.obtenerCamino(((Ciudad) arbolTest.obtenerValor("Buenos Aires")).getNomenclatura(), ((Ciudad) arbolTest.obtenerValor("La Plata")).getNomenclatura()));
+        System.out.println(mapa.obtenerCamino(((Ciudad) arbolTest.obtenerValor("Buenos Aires")).getNomenclatura(), ((Ciudad) arbolTest.obtenerValor("La Plata")).getNomenclatura(),hmapTuberias));
+
 
         
         
