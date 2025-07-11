@@ -211,66 +211,65 @@ public class Grafo {
     public Lista obtenerCamino(Object origen, Object destino, Map<ClaveTuberia, DatosTuberia> tuberias) {
         Lista resultado = null;
 
-            NodoVert nodoOrigen = ubicarVertice(origen);
-            NodoVert nodoDestino = ubicarVertice(destino);
+        NodoVert nodoOrigen = ubicarVertice(origen);
+        NodoVert nodoDestino = ubicarVertice(destino);
 
-            if (nodoOrigen != null && nodoDestino != null) {
-                Map<Object, Object> padre = new HashMap<>();
-                padre.put(origen, null);
+        if (nodoOrigen != null && nodoDestino != null) {
+            Map<Object, Object> padre = new HashMap<>();
+            padre.put(origen, null);
 
-                Cola cola = new Cola();
-                cola.poner(nodoOrigen);
+            Cola cola = new Cola();
+            cola.poner(nodoOrigen);
 
-                Lista visitados = new Lista();
-                visitados.insertar(origen, 1);
+            Lista visitados = new Lista();
+            visitados.insertar(origen, 1);
 
-                boolean encontrado = false;
+            boolean encontrado = false;
 
-                while (!cola.esVacia() && !encontrado) {
-                    NodoVert actual = (NodoVert) cola.obtenerFrente();
-                    cola.sacar();
+            while (!cola.esVacia() && !encontrado) {
+                NodoVert actual = (NodoVert) cola.obtenerFrente();
+                cola.sacar();
 
-                    NodoAdy adyacente = actual.getPrimerAdy();
-                    while (adyacente != null && !encontrado) {
-                        Object vecino = adyacente.getVertice().getElem();
+                NodoAdy adyacente = actual.getPrimerAdy();
+                while (adyacente != null && !encontrado) {
+                    Object vecino = adyacente.getVertice().getElem();
 
-                        ClaveTuberia clave = new ClaveTuberia(actual.getElem().toString(), vecino.toString());
-                        DatosTuberia tub = tuberias.get(clave);
+                    ClaveTuberia clave = new ClaveTuberia(actual.getElem().toString(), vecino.toString());
+                    DatosTuberia tub = tuberias.get(clave);
 
-                        if (tub != null && tub.getEstado() == 'A') {
-                            if (visitados.localizar(vecino) == -1) {
-                                visitados.insertar(vecino, visitados.longitud() + 1);
-                                padre.put(vecino, actual.getElem());
-                                cola.poner(adyacente.getVertice());
+                    if (tub != null && tub.getEstado() == 'A') {
+                        if (visitados.localizar(vecino) == -1) {
+                            visitados.insertar(vecino, visitados.longitud() + 1);
+                            padre.put(vecino, actual.getElem());
+                            cola.poner(adyacente.getVertice());
 
-                                if (vecino.equals(destino)) {
-                                    encontrado = true;
-                                }
+                            if (vecino.equals(destino)) {
+                                encontrado = true;
                             }
                         }
-
-                        adyacente = adyacente.getSigAdyacente();
                     }
+
+                    adyacente = adyacente.getSigAdyacente();
+                }
+            }
+
+            if (encontrado) {
+                resultado = new Lista();
+                Pila pila = new Pila();
+                Object actual = destino;
+
+                while (actual != null) {
+                    pila.apilar(actual);
+                    actual = padre.get(actual);
                 }
 
-                if (encontrado) {
-                    resultado = new Lista();
-                    Pila pila = new Pila();
-                    Object actual = destino;
-
-                    while (actual != null) {
-                        pila.apilar(actual);
-                        actual = padre.get(actual);
-                    }
-
-                    while (!pila.esVacia()) {
-                        Object elem = pila.obtenerTope();
-                        pila.desapilar();
-                        resultado.insertar(elem, resultado.longitud() + 1);
-                    }
+                while (!pila.esVacia()) {
+                    Object elem = pila.obtenerTope();
+                    pila.desapilar();
+                    resultado.insertar(elem, resultado.longitud() + 1);
                 }
             }
         }
-
-            return resultado;
+        return resultado;
+    }
 }
