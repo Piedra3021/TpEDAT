@@ -50,6 +50,38 @@ public class Anio {
         return cantidad;
     }
 
+    public int obtenerDiasDelMes(int mes) {
+        int cant;
+    switch (mes) {
+        case 1:  // Enero
+        case 3:  // Marzo
+        case 5:  // Mayo
+        case 7:  // Julio
+        case 8:  // Agosto
+        case 10: // Octubre
+        case 12: // Diciembre
+            cant = 31;
+        case 4:  // Abril
+        case 6:  // Junio
+        case 9:  // Septiembre
+        case 11: // Noviembre
+            cant = 30;
+        case 2:  // Febrero
+            if(esBisiesto(this.anio)){
+                cant = 29;
+            }else{
+                cant = 28;
+            }
+        default:
+            cant = -1;
+    }
+    return cant;
+}
+
+    public boolean esBisiesto(int anio) {
+    return (anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0);
+}
+
     @Override
     public String toString() {
         return "Anio [anio=" + anio + ", poblacion=" + Arrays.toString(poblacion) + "]";

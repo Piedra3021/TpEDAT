@@ -5,9 +5,9 @@ public class NodoAdy {
     //atributos
     NodoVert vertice;
     NodoAdy sigAdyacente;
-    int etiqueta;
+    double etiqueta;
 
-    public NodoAdy(NodoVert vertice, NodoAdy sigAdyacente, int etiq){
+    public NodoAdy(NodoVert vertice, NodoAdy sigAdyacente, double etiq){
 
         this.vertice = vertice;
         this.sigAdyacente = sigAdyacente;
@@ -28,10 +28,10 @@ public class NodoAdy {
     public void setSigAdyacente(NodoAdy sigAdyacente) {
         this.sigAdyacente = sigAdyacente;
     }
-    public int getEtiqueta() {
+    public double getEtiqueta() {
         return etiqueta;
     }
-    public void setEtiqueta(int etiqueta) {
+    public void setEtiqueta(double etiqueta) {
         this.etiqueta = etiqueta;
     }
 

@@ -1,5 +1,11 @@
 package grafos;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import lineales.dinamica.*;
+import transporteAgua.*;
+
 public class Grafo {
 
     NodoVert inicio;
@@ -19,33 +25,33 @@ public class Grafo {
 
     }
 
-    public boolean eliminarVertice(Object verticeElim){
+    public boolean eliminarVertice(Object verticeElim) {
         boolean exito = false;
         NodoVert actual = this.inicio;
         NodoVert anterior = null;
 
-    // Buscar el vértice a eliminar
-    while (actual != null && !actual.getElem().equals(verticeElim)) {
-        anterior = actual;
-        actual = actual.getSigVertice();
-    }
-
-    if (actual != null) {
-        // Eliminar todos los arcos que apuntan al vértice a eliminar
-        NodoVert recorredor = this.inicio;
-        while (recorredor != null) {
-            eliminarArcoAux(recorredor, verticeElim);
-            recorredor = recorredor.getSigVertice();
+        // Buscar el vértice a eliminar
+        while (actual != null && !actual.getElem().equals(verticeElim)) {
+            anterior = actual;
+            actual = actual.getSigVertice();
         }
 
-        // Eliminar el vértice de la lista de vértices
-        if (anterior == null) {
-            this.inicio = actual.getSigVertice();
-        } else {
-            anterior.setSigVertice(actual.getSigVertice());
+        if (actual != null) {
+            // Eliminar todos los arcos que apuntan al vértice a eliminar
+            NodoVert recorredor = this.inicio;
+            while (recorredor != null) {
+                eliminarArcoAux(recorredor, verticeElim);
+                recorredor = recorredor.getSigVertice();
+            }
+
+            // Eliminar el vértice de la lista de vértices
+            if (anterior == null) {
+                this.inicio = actual.getSigVertice();
+            } else {
+                anterior.setSigVertice(actual.getSigVertice());
+            }
+            exito = true;
         }
-        exito = true;
-    }
 
         return exito;
     }
@@ -73,7 +79,7 @@ public class Grafo {
         return aux;
     }
 
-    public boolean insertarArco(Object origen, Object destino, int etiqueta) {
+    public boolean insertarArco(Object origen, Object destino, double etiqueta) {
         boolean exito = false;
         if (this.inicio != null) {
             NodoVert nodoOrigen = ubicarVertice(origen);
@@ -157,8 +163,6 @@ public class Grafo {
         return exito;
     }
 
-    
-
     public String toString() {
         String cadena = "";
 
@@ -180,4 +184,93 @@ public class Grafo {
         return cadena;
     }
 
+    public String dibujarGrafo() {
+        StringBuilder sb = new StringBuilder();
+
+        NodoVert recorredor = this.inicio;
+        while (recorredor != null) {
+            sb.append(recorredor.getElem()).append("\n");
+            NodoAdy recorredorAd = recorredor.getPrimerAdy();
+            if (recorredorAd != null) {
+                while (recorredorAd != null) {
+                    sb.append(" ├── ")
+                            .append(recorredorAd.getVertice().getElem())
+                            .append(" (")
+                            .append(recorredorAd.getEtiqueta())
+                            .append(")\n");
+                    recorredorAd = recorredorAd.getSigAdyacente();
+                }
+            } else {
+                sb.append(" (sin adyacentes)\n");
+            }
+            recorredor = recorredor.getSigVertice();
+        }
+        return sb.toString();
+    }
+
+    public Lista obtenerCamino(Object origen, Object destino, Map<ClaveTuberia, DatosTuberia> tuberias) {
+        Lista resultado = null;
+
+            NodoVert nodoOrigen = ubicarVertice(origen);
+            NodoVert nodoDestino = ubicarVertice(destino);
+
+            if (nodoOrigen != null && nodoDestino != null) {
+                Map<Object, Object> padre = new HashMap<>();
+                padre.put(origen, null);
+
+                Cola cola = new Cola();
+                cola.poner(nodoOrigen);
+
+                Lista visitados = new Lista();
+                visitados.insertar(origen, 1);
+
+                boolean encontrado = false;
+
+                while (!cola.esVacia() && !encontrado) {
+                    NodoVert actual = (NodoVert) cola.obtenerFrente();
+                    cola.sacar();
+
+                    NodoAdy adyacente = actual.getPrimerAdy();
+                    while (adyacente != null && !encontrado) {
+                        Object vecino = adyacente.getVertice().getElem();
+
+                        ClaveTuberia clave = new ClaveTuberia(actual.getElem().toString(), vecino.toString());
+                        DatosTuberia tub = tuberias.get(clave);
+
+                        if (tub != null && tub.getEstado() == 'A') {
+                            if (visitados.localizar(vecino) == -1) {
+                                visitados.insertar(vecino, visitados.longitud() + 1);
+                                padre.put(vecino, actual.getElem());
+                                cola.poner(adyacente.getVertice());
+
+                                if (vecino.equals(destino)) {
+                                    encontrado = true;
+                                }
+                            }
+                        }
+
+                        adyacente = adyacente.getSigAdyacente();
+                    }
+                }
+
+                if (encontrado) {
+                    resultado = new Lista();
+                    Pila pila = new Pila();
+                    Object actual = destino;
+
+                    while (actual != null) {
+                        pila.apilar(actual);
+                        actual = padre.get(actual);
+                    }
+
+                    while (!pila.esVacia()) {
+                        Object elem = pila.obtenerTope();
+                        pila.desapilar();
+                        resultado.insertar(elem, resultado.longitud() + 1);
+                    }
+                }
+            }
+        }
+
+            return resultado;
 }

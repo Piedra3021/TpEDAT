@@ -119,6 +119,19 @@ public class Ciudad {
         return this.nombre.equals(otraCiudad.getNombre());
     }
 
+    public double cantidadAguaPorMes(int anio, int mes){
+        double res = -1;
+        if(poblacion != null){
+            int anioPos = poblacion.localizar(anio);
+            Anio anioTrabajar = (Anio) poblacion.recuperar(anioPos);
+            if(anioTrabajar!=null){
+                int cantHabitantes = anioTrabajar.getPoblacionMes(mes);
+                res = cantHabitantes*consumoPromedio;
+            }
+        }
+        return res;
+    }
+
     public String toString() {
         return nombre + "(" + nomenclatura + ")";
     }
