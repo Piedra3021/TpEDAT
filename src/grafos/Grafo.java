@@ -1,4 +1,7 @@
 package grafos;
+import java.util.HashMap;
+
+import lineales.dinamica.*;;
 
 public class Grafo {
 
@@ -202,6 +205,51 @@ public class Grafo {
         recorredor = recorredor.getSigVertice();
     }
     return sb.toString();
+}
+
+public Lista obtenerCamino(Object origen, Object destino){
+    Lista camino = new Lista();
+    NodoVert nodoOrigen = ubicarVertice(origen);
+    NodoVert nodoDestino = ubicarVertice(destino);
+
+    if(nodoOrigen == null || nodoDestino == null){
+        camino = null;
+    }else{
+        HashMap<Object, Object> padre = new HashMap<>();
+        padre.put(origen,null);
+        
+        Cola caminoCola = new Cola();
+        caminoCola.poner(nodoOrigen);
+
+        camino.insertar(origen, 1);
+
+        boolean encontrado = false;
+
+        while(!caminoCola.esVacia() && !encontrado){
+            NodoVert actual = (NodoVert) caminoCola.obtenerFrente();
+            caminoCola.sacar();
+
+            NodoAdy siguiente = actual.getPrimerAdy();
+            while (siguiente != null){
+                Object vecino = siguiente.getVertice().getElem();
+
+                if(camino.localizar(vecino)==-1){
+                    camino.insertar(vecino,camino.longitud()+1);
+                    padre.put(vecino,actual.getElem());
+                    caminoCola.poner(siguiente.getVertice());
+                }
+
+                if(vecino.equals(destino)){
+                    encontrado = true;
+                }
+                siguiente = siguiente.getSigAdyacente();
+            }
+        }
+
+        return camino;
+    }
+
+    return camino;
 }
 
 

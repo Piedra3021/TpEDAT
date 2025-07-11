@@ -95,15 +95,22 @@ public class mainCode {
 
         ClaveTuberia t1 = new ClaveTuberia(((Ciudad) arbolTest.obtenerValor("Buenos Aires")).getNomenclatura(), ((Ciudad) arbolTest.obtenerValor("Mendoza")).getNomenclatura());
         DatosTuberia dt1 = new DatosTuberia(10, 20, 5, 'A');
+        ClaveTuberia t2 = new ClaveTuberia(((Ciudad) arbolTest.obtenerValor("Mendoza")).getNomenclatura(), ((Ciudad) arbolTest.obtenerValor("La Plata")).getNomenclatura());
+        DatosTuberia dt2 = new DatosTuberia(10, 20, 5, 'A');
 
         hmapTuberias.put(t1,dt1);
+        hmapTuberias.put(t2,dt2);
 
         DatosTuberia prueba = DatosTuberia.obtenerDatos(hmapTuberias, ((Ciudad) arbolTest.obtenerValor("Buenos Aires")).getNomenclatura(), ((Ciudad) arbolTest.obtenerValor("Mendoza")).getNomenclatura());
+        DatosTuberia prueba2 = DatosTuberia.obtenerDatos(hmapTuberias, ((Ciudad) arbolTest.obtenerValor("Mendoza")).getNomenclatura(), ((Ciudad) arbolTest.obtenerValor("La Plata")).getNomenclatura());
 
         mapa.insertarArco(((Ciudad) arbolTest.obtenerValor("Buenos Aires")).getNomenclatura(), ((Ciudad) arbolTest.obtenerValor("Mendoza")).getNomenclatura(), prueba.getCaudalMin());
+        mapa.insertarArco(((Ciudad) arbolTest.obtenerValor("Mendoza")).getNomenclatura(), ((Ciudad) arbolTest.obtenerValor("La Plata")).getNomenclatura(), prueba2.getCaudalMin());
 
         System.out.println(mapa.toString());
         System.out.println(mapa.dibujarGrafo());
+
+        System.out.println(mapa.obtenerCamino(((Ciudad) arbolTest.obtenerValor("Buenos Aires")).getNomenclatura(), ((Ciudad) arbolTest.obtenerValor("La Plata")).getNomenclatura()));
 
         
         
