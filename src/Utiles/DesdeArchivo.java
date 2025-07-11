@@ -9,10 +9,15 @@ import jerarquicas.*;
 // import lineales.*;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+import java.util.regex.Pattern;
+import java.text.Normalizer;
 
 /**
  * Podemos usar una instancia de la clase Scanner para poder leer datos de forma
@@ -36,17 +41,17 @@ public class DesdeArchivo {
     // "src/main/java/Utiles/ListaDesaprobados.txt";
     static final String DELIMITER = ",";
 
-    public static void cargarCiudades(ArbolAVL arbol) {
+    public static void cargarCiudades(ArbolAVL arbol, Grafo grafo) {
         IO.salida("INI cargaCiudades", false);
         String line;
         String PATH = "src/Utiles/ciu_prod.csv";
         Ciudad nuevaCiudad;
-        try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(PATH), StandardCharsets.UTF_8))) {
             while ((line = br.readLine()) != null) {
                 String[] valores = line.split(DELIMITER);
                 if (valores[0].equals("c")) {
                     nuevaCiudad = genCiudad(valores);
-                    TransporteAgua.altaCiudad(arbol, nuevaCiudad);
+                    TransporteAgua.altaCiudad(arbol, grafo, nuevaCiudad);
                 }
             }
 
@@ -58,32 +63,80 @@ public class DesdeArchivo {
         }
     }
 
+    public static String quitarAcentos(String texto) {
+        String normalizado = Normalizer.normalize(texto, Normalizer.Form.NFD);
+        Pattern patron = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return patron.matcher(normalizado).replaceAll("");
+    }
+
     // parsea arreglo de parametros
     private static Ciudad genCiudad(String[] valores) {
         Ciudad c;
-        String nombre = valores[1];
+        String nombre = quitarAcentos(valores[1].trim());
         double metros = Double.parseDouble(valores[2]);
-        // int poblacion = 1000;
         double consumoPromedio = Double.parseDouble(valores[3]);
         c = new Ciudad(nombre, metros, consumoPromedio);
 
         return c;
     }
-    // private static Tuberia genTuberia(String[] valores) {
-    //     Tuberia t;
-    //     // Ciudad c;
-    //     // String nombre = valores[1];
-    //     // String nomenclatura = valores[2];
 
-    //     // double metros = Double.parseDouble(valores[3]);
+    public static void cargarTuberias(ArbolAVL ciudades, Grafo grafo, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias) {
+        IO.salida("INI cargaTuberias", false);
+        String line;
+        String PATH = "src/Utiles/tub_prod.csv";
+        try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
+            while ((line = br.readLine()) != null) {
+                String[] valores = line.split(DELIMITER);
+                DatosTuberia dT;
+                if (valores[0].equals("t")) {
+                    dT = genDatosTuberia(valores);
+                    TransporteAgua.altaTuberia(ciudades, grafo, hMapTuberias, valores[1], valores[2], dT);
+                }
+            }
 
-    //     // int poblacion = 1000;
-    //     // double consumoPromedio = Double.parseDouble(valores[3]);
-    //     // c = new Ciudad(nombre, metros);
+        } catch (FileNotFoundException ex) {
+            System.err.println(ex.getMessage() + "\nSignifica que el archivo del "
+                    + "que queriamos leer no existe.");
+        } catch (IOException ex) {
+            System.err.println("Error leyendo o escribiendo en algun archivo.");
+        }
+    }
 
-    //     return t;
+    private static DatosTuberia genDatosTuberia(String[] valores) {
+        DatosTuberia dT = null;
+        double caudalMin = Double.parseDouble(valores[3]);
+        double caudalMax = Double.parseDouble(valores[4]);
+        double diametro = Double.parseDouble(valores[5]);
+        char estado = valores[6].charAt(0);
+        dT = new DatosTuberia(caudalMin, caudalMax, diametro, estado);
+        return dT;
+    }
 
-    // }
+    public static void cargarPoblacion(ArbolAVL arbol) {
+        IO.salida("INI cargaPoblacion", false);
+        String line;
+        String PATH = "src/Utiles/pob_dev.csv";
+        Ciudad ciudad;
+        try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
+            while ((line = br.readLine()) != null) {
+                Object[] valores = line.split(DELIMITER);
+                if (valores[0].equals("p")) {
+                    ciudad = (Ciudad) arbol.obtenerValor((Comparable) valores[1]);
+                    if (ciudad != null) {
+                        ciudad.setPoblacion((int) valores[2], (int) valores[3], (int) valores[4]);
+                        // nuevaCiudad = genPoblacion(valores);
+                        // TransporteAgua.altaCiudad(arbol, nuevaCiudad);
+                    }
+                }
+            }
+
+        } catch (FileNotFoundException ex) {
+            System.err.println(ex.getMessage() + "\nSignifica que el archivo del "
+                    + "que queriamos leer no existe.");
+        } catch (IOException ex) {
+            System.err.println("Error leyendo o escribiendo en algun archivo.");
+        }
+    }
 
     public static void main(String[] args) {
         // leerArchivo_1();
