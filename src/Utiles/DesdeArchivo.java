@@ -69,21 +69,45 @@ public class DesdeArchivo {
 
         return c;
     }
-    // private static Tuberia genTuberia(String[] valores) {
-    // Tuberia t;
-    // // Ciudad c;
-    // // String nombre = valores[1];
-    // // String nomenclatura = valores[2];
 
-    // // double metros = Double.parseDouble(valores[3]);
+    public static void cargarTuberias(ArbolAVL ciudades, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias) {
+        IO.salida("INI cargaTuberias", false);
+        String line;
+        String PATH = "src/Utiles/tub_dev.csv";
+        ClaveTuberia cT;
+        try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
+            while ((line = br.readLine()) != null) {
+                Object[] valores = line.split(DELIMITER);
+                DatosTuberia dT;
+                if (valores[0].equals("t")) {
+                    cT = genTuberia(valores, ciudades, hMapTuberias);
+                    dT = new DatosTuberia((double) valores[3], (double) valores[4], (double) valores[5],
+                            (char) valores[6]);
 
-    // // int poblacion = 1000;
-    // // double consumoPromedio = Double.parseDouble(valores[3]);
-    // // c = new Ciudad(nombre, metros);
+                    TransporteAgua.altaTuberia(ciudades, hMapTuberias, cT, dT);
+                }
+            }
 
-    // return t;
+        } catch (FileNotFoundException ex) {
+            System.err.println(ex.getMessage() + "\nSignifica que el archivo del "
+                    + "que queriamos leer no existe.");
+        } catch (IOException ex) {
+            System.err.println("Error leyendo o escribiendo en algun archivo.");
+        }
+    }
 
-    // }
+    private static ClaveTuberia genTuberia(Object[] valores, ArbolAVL ciudades,
+            HashMap<ClaveTuberia, DatosTuberia> hMapTuberias) {
+        ClaveTuberia cT = null;
+        Ciudad c1 = (Ciudad) ciudades.obtenerValor((String) valores[1]);
+        Ciudad c2 = (Ciudad) ciudades.obtenerValor((String) valores[2]);
+        if (c1 != null && c2 != null) {
+            cT = new ClaveTuberia(c1.getNomenclatura(), c2.getNomenclatura());
+        }
+
+        return cT;
+
+    }
 
     public static void cargarPoblacion(ArbolAVL arbol) {
         IO.salida("INI cargaPoblacion", false);

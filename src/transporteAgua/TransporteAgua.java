@@ -42,9 +42,11 @@ public class TransporteAgua {
 
     }
 
-    // public static void altaTuberia(Grafo grafo) {
-    // IO.salida("ALTA tuberia", true);
-    // }
+    public static void altaTuberia(ArbolAVL ciudades, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias,
+            ClaveTuberia claveTuberia, DatosTuberia datosTuberia) {
+        IO.salida("ALTA tuberia", true);
+        hMapTuberias.put(claveTuberia, datosTuberia);
+    }
 
     // public static void modTuberia(Grafo grafo) {
     // IO.salida("ALTA tuberia", true);
