@@ -270,7 +270,7 @@ public class Grafo {
                     }
                 }
             }
+            return resultado;
         }
 
-            return resultado;
 }
