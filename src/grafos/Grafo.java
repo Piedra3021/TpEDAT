@@ -215,6 +215,8 @@ public class Grafo {
         NodoVert nodoDestino = ubicarVertice(destino);
 
         if (nodoOrigen != null && nodoDestino != null) {
+            origen = ((Ciudad) nodoOrigen.getElem()).getNomenclatura();
+            destino = ((Ciudad) nodoDestino.getElem()).getNomenclatura();
             Map<Object, Object> padre = new HashMap<>();
             padre.put(origen, null);
 
@@ -234,7 +236,8 @@ public class Grafo {
                 while (adyacente != null && !encontrado) {
                     Object vecino = adyacente.getVertice().getElem();
 
-                    ClaveTuberia clave = new ClaveTuberia(((Ciudad) actual.getElem()).getNomenclatura(), ((Ciudad) vecino).getNomenclatura());
+                    ClaveTuberia clave = new ClaveTuberia(((Ciudad) actual.getElem()).getNomenclatura(),
+                            ((Ciudad) vecino).getNomenclatura());
                     DatosTuberia tub = tuberias.get(clave);
 
                     if (tub != null && tub.getEstado() == 'a') {
@@ -268,8 +271,52 @@ public class Grafo {
                     pila.desapilar();
                     resultado.insertar(elem, resultado.longitud() + 1);
                 }
+                resultado.insertar(origen, 1);
             }
         }
         return resultado;
     }
+
+    public Lista obtenerEtiquetasCamino(Lista camino) {
+        Lista etiquetas = new Lista();
+
+        if (camino != null && camino.longitud() > 1) {
+            for (int i = 1; i < camino.longitud(); i++) {
+                Object ciudadActual = camino.recuperar(1);
+                NodoVert nodoActual = ubicarVertice(ciudadActual);
+                Object ciudadSiguiente = camino.recuperar(i + 1);
+
+                if (nodoActual != null) {
+                    NodoAdy ady = nodoActual.getPrimerAdy();
+                    boolean encontrado = false;
+
+                    while (ady != null && !encontrado) {
+                        if (ady.getVertice().getElem().equals(ciudadSiguiente)) {
+                            etiquetas.insertar(ady.getEtiqueta(), etiquetas.longitud() + 1);
+                            encontrado = true;
+                        }
+                        ady = ady.getSigAdyacente();
+                    }
+                }
+            }
+        }
+        return etiquetas;
+    }
+
+    public double obtenerMenorEtiqueta(Lista etiquetas) {
+        double menor;
+        if (etiquetas != null) {
+            menor = (double) etiquetas.recuperar(1);
+            for (int i = 1; i <= etiquetas.longitud(); i++) {
+                double valor = (double) etiquetas.recuperar(i);
+                if (valor < menor) {
+                    menor = valor;
+                }
+            }
+        } else {
+            menor = -1;
+        }
+        return menor;
+    }
+
 }

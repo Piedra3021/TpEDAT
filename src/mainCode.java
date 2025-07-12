@@ -139,7 +139,9 @@ public class mainCode {
         DesdeArchivo.cargarTuberias(arbolTest, mapa, hmapTuberias);
         DesdeArchivo.cargarPoblacion(arbolTest);
         Lista a = mapa.obtenerCamino(((Ciudad) arbolTest.obtenerValor("Miracosta")).getNombre(), ((Ciudad) arbolTest.obtenerValor("Brezalia")).getNombre(), hmapTuberias);
+        Lista b = mapa.obtenerEtiquetasCamino(a);
         System.out.println(mapa.obtenerCamino(((Ciudad) arbolTest.obtenerValor("Miracosta")).getNombre(), ((Ciudad) arbolTest.obtenerValor("Brezalia")).getNombre(), hmapTuberias));
+        System.out.println(mapa.obtenerMenorEtiqueta(b));
 
         //System.out.println(hmapTuberias.values());
         //System.out.println(mapa.dibujarGrafo());
