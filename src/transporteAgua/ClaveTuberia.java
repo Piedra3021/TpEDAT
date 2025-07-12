@@ -9,6 +9,13 @@ public class ClaveTuberia {
         this.nom2 = hasta;
     }
 
+    // Usado por Grafo.obtenerCamino
+    public ClaveTuberia(Object desde, Object hasta) {
+        this.nom1 = ((Ciudad) desde).getNomenclatura();
+        this.nom2 = ((Ciudad) hasta).getNomenclatura();
+        ;
+    }
+
     public String getNom1() {
         return nom1;
     }

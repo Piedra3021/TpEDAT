@@ -208,6 +208,77 @@ public class Grafo {
         return sb.toString();
     }
 
+    // public Lista obtenerCamino(Object origen, Object destino, Map<ClaveTuberia,
+    // DatosTuberia> tuberias) {
+    // Lista resultado = null;
+
+    // NodoVert nodoOrigen = ubicarVertice(origen);
+    // NodoVert nodoDestino = ubicarVertice(destino);
+
+    // if (nodoOrigen != null && nodoDestino != null) {
+    // origen = ((Ciudad) nodoOrigen.getElem()).getNomenclatura();
+    // destino = ((Ciudad) nodoDestino.getElem()).getNomenclatura();
+    // Map<Object, Object> padre = new HashMap<>();
+    // padre.put(origen, null);
+
+    // Cola cola = new Cola();
+    // cola.poner(nodoOrigen);
+
+    // Lista visitados = new Lista();
+    // visitados.insertar(origen, 1);
+
+    // boolean encontrado = false;
+
+    // while (!cola.esVacia() && !encontrado) {
+    // NodoVert actual = (NodoVert) cola.obtenerFrente();
+    // cola.sacar();
+
+    // NodoAdy adyacente = actual.getPrimerAdy();
+    // while (adyacente != null && !encontrado) {
+    // Object vecino = adyacente.getVertice().getElem();
+
+    // ClaveTuberia clave = new ClaveTuberia(((Ciudad)
+    // actual.getElem()).getNomenclatura(),
+    // ((Ciudad) vecino).getNomenclatura());
+    // DatosTuberia tub = tuberias.get(clave);
+
+    // if (tub != null && tub.getEstado() == 'a') {
+    // if (visitados.localizar(vecino) == -1) {
+    // visitados.insertar(vecino, visitados.longitud() + 1);
+    // padre.put(vecino, actual.getElem());
+    // cola.poner(adyacente.getVertice());
+
+    // if (vecino.equals(destino)) {
+    // encontrado = true;
+    // }
+    // }
+    // }
+
+    // adyacente = adyacente.getSigAdyacente();
+    // }
+    // }
+
+    // if (encontrado) {
+    // resultado = new Lista();
+    // Pila pila = new Pila();
+    // Object actual = destino;
+
+    // while (actual != null) {
+    // pila.apilar(actual);
+    // actual = padre.get(actual);
+    // }
+
+    // while (!pila.esVacia()) {
+    // Object elem = pila.obtenerTope();
+    // pila.desapilar();
+    // resultado.insertar(elem, resultado.longitud() + 1);
+    // }
+    // resultado.insertar(origen, 1);
+    // }
+    // }
+    // return resultado;
+    // }
+
     public Lista obtenerCamino(Object origen, Object destino, Map<ClaveTuberia, DatosTuberia> tuberias) {
         Lista resultado = null;
 
@@ -215,8 +286,8 @@ public class Grafo {
         NodoVert nodoDestino = ubicarVertice(destino);
 
         if (nodoOrigen != null && nodoDestino != null) {
-            origen = ((Ciudad) nodoOrigen.getElem()).getNomenclatura();
-            destino = ((Ciudad) nodoDestino.getElem()).getNomenclatura();
+            // origen = ((Ciudad) nodoOrigen.getElem()).getNomenclatura();
+            // destino = ((Ciudad) nodoDestino.getElem()).getNomenclatura();
             Map<Object, Object> padre = new HashMap<>();
             padre.put(origen, null);
 
@@ -236,8 +307,10 @@ public class Grafo {
                 while (adyacente != null && !encontrado) {
                     Object vecino = adyacente.getVertice().getElem();
 
-                    ClaveTuberia clave = new ClaveTuberia(((Ciudad) actual.getElem()).getNomenclatura(),
-                            ((Ciudad) vecino).getNomenclatura());
+                    // ClaveTuberia clave = new ClaveTuberia(((Ciudad)
+                    // actual.getElem()).getNomenclatura(),
+                    // ((Ciudad) vecino).getNomenclatura());
+                    ClaveTuberia clave = new ClaveTuberia(actual.getElem(), vecino);
                     DatosTuberia tub = tuberias.get(clave);
 
                     if (tub != null && tub.getEstado() == 'a') {
