@@ -6,13 +6,14 @@ import Utiles.IO;
 import conjuntistas.*;
 import transporteAgua.*;
 import grafos.*;
+import lineales.dinamica.*;
 
 public class mainCode {
     public static void main(String[] args) throws Exception {
         //test0();
         //test1();
-        test2();
-        // test3();
+        //test2();
+        test3();
     }
 
     private static void test0() {
@@ -80,8 +81,16 @@ public class mainCode {
         ArbolAVL arbolTest = new ArbolAVL();
         Grafo mapa = new Grafo();
         HashMap<ClaveTuberia, DatosTuberia> hmapTuberias = new HashMap<ClaveTuberia, DatosTuberia>();
+/* 
+        TransporteAgua tAgua = new TransporteAgua();
+        Ciudad ciudadTest = new Ciudad("Buenos Aires", 203.0, 0.25);
+        tAgua.altaCiudad(arbolTest, mapa, ciudadTest);
+        ciudadTest = new Ciudad("Mendoza",199.0,0.22);
+        tAgua.altaCiudad(arbolTest, mapa, ciudadTest);
+        ciudadTest = new Ciudad("La Plata", 180.0, 0.20);
+        tAgua.altaCiudad(arbolTest, mapa, ciudadTest);
 
-        arbolTest.insertar("Buenos Aires", new Ciudad("Buenos Aires", 203.0, 0.25));
+        /*arbolTest.insertar("Buenos Aires", new Ciudad("Buenos Aires", 203.0, 0.25));
         Ciudad ciudadTest = (Ciudad) arbolTest.obtenerValor("Buenos Aires");
         mapa.insertarVertice(ciudadTest.getNomenclatura());
         arbolTest.insertar("Mendoza", new Ciudad("Mendoza", 199.0, 0.22));
@@ -94,9 +103,9 @@ public class mainCode {
         ClaveTuberia t1 = new ClaveTuberia(((Ciudad) arbolTest.obtenerValor("Buenos Aires")).getNomenclatura(), ((Ciudad) arbolTest.obtenerValor("Mendoza")).getNomenclatura());
         DatosTuberia dt1 = new DatosTuberia(10, 20, 5, 'A');
         ClaveTuberia t2 = new ClaveTuberia(((Ciudad) arbolTest.obtenerValor("Mendoza")).getNomenclatura(), ((Ciudad) arbolTest.obtenerValor("La Plata")).getNomenclatura());
-        DatosTuberia dt2 = new DatosTuberia(10, 20, 5, 'A');
+        DatosTuberia dt2 = new DatosTuberia(10, 20, 5, 'A');*/
 
-        hmapTuberias.put(t1,dt1);
+       /*  hmapTuberias.put(t1,dt1);
         hmapTuberias.put(t2,dt2);
 
         DatosTuberia prueba = DatosTuberia.obtenerDatos(hmapTuberias, ((Ciudad) arbolTest.obtenerValor("Buenos Aires")).getNomenclatura(), ((Ciudad) arbolTest.obtenerValor("Mendoza")).getNomenclatura());
@@ -111,7 +120,7 @@ public class mainCode {
         System.out.println(mapa.obtenerCamino(((Ciudad) arbolTest.obtenerValor("Buenos Aires")).getNomenclatura(), ((Ciudad) arbolTest.obtenerValor("La Plata")).getNomenclatura(),hmapTuberias));
 
 
-        
+        */
         
         /*ciudadTest.setPoblacion(2020, 1, 100);
         ciudadTest.setPoblacion(2020, 2, 254);
@@ -125,5 +134,14 @@ public class mainCode {
         System.out.println(ciudadTest.getPoblacion(2020, 2));
         System.out.println(ciudadTest.getPoblacionAnual(2020));*/
 
+
+        DesdeArchivo.cargarCiudades(arbolTest, mapa);
+        DesdeArchivo.cargarTuberias(arbolTest, mapa, hmapTuberias);
+        DesdeArchivo.cargarPoblacion(arbolTest);
+        Lista a = mapa.obtenerCamino(((Ciudad) arbolTest.obtenerValor("Miracosta")).getNombre(), ((Ciudad) arbolTest.obtenerValor("Brezalia")).getNombre(), hmapTuberias);
+        System.out.println(mapa.obtenerCamino(((Ciudad) arbolTest.obtenerValor("Miracosta")).getNombre(), ((Ciudad) arbolTest.obtenerValor("Brezalia")).getNombre(), hmapTuberias));
+
+        //System.out.println(hmapTuberias.values());
+        //System.out.println(mapa.dibujarGrafo());
     }
 }

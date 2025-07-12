@@ -86,6 +86,7 @@ public class Grafo {
             NodoVert nodoDestino = ubicarVertice(destino);
 
             if (nodoOrigen != null & nodoDestino != null) {
+                exito = true;
                 NodoAdy recorredorAd, anteriorAd;
                 NodoAdy nuevoArco = new NodoAdy(nodoDestino, null, etiqueta);
                 if (nodoOrigen.getPrimerAdy() == null) {
@@ -101,7 +102,6 @@ public class Grafo {
 
                     anteriorAd.setSigAdyacente(nuevoArco);
                 }
-                exito = true;
             }
 
         }
@@ -234,10 +234,10 @@ public class Grafo {
                 while (adyacente != null && !encontrado) {
                     Object vecino = adyacente.getVertice().getElem();
 
-                    ClaveTuberia clave = new ClaveTuberia(actual.getElem().toString(), vecino.toString());
+                    ClaveTuberia clave = new ClaveTuberia(((Ciudad) actual.getElem()).getNomenclatura(), ((Ciudad) vecino).getNomenclatura());
                     DatosTuberia tub = tuberias.get(clave);
 
-                    if (tub != null && tub.getEstado() == 'A') {
+                    if (tub != null && tub.getEstado() == 'a') {
                         if (visitados.localizar(vecino) == -1) {
                             visitados.insertar(vecino, visitados.longitud() + 1);
                             padre.put(vecino, actual.getElem());

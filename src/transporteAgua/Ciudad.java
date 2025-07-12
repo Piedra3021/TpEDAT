@@ -135,4 +135,21 @@ public class Ciudad {
     public String toString() {
         return nombre + "(" + nomenclatura + ")";
     }
+
+    public boolean equals(Object ciudad){
+        boolean exito = false;
+        if(ciudad instanceof Ciudad){
+            if(this.nombre == ((Ciudad)ciudad).getNombre()){
+                exito = true;
+            }
+
+        }else if(ciudad instanceof String){
+            if(nomenclatura.equals(ciudad)){
+                exito = true;
+            }else if(nombre.equals(ciudad)){
+                exito = true;
+            }
+        }
+        return exito;
+    }
 }

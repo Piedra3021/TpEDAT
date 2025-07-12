@@ -115,7 +115,7 @@ public class DesdeArchivo {
     public static void cargarPoblacion(ArbolAVL arbol) {
         IO.salida("INI cargaPoblacion", false);
         String line;
-        String PATH = "src/Utiles/pob_dev.csv";
+        String PATH = "src/Utiles/pob_prod.csv";
         Ciudad ciudad;
         try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
             while ((line = br.readLine()) != null) {
