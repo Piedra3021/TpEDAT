@@ -58,16 +58,17 @@ public class mainCode {
         String nome1 = ((Ciudad) ciudades.obtenerValor("Miracosta")).getNombre();
         String nome2 = ((Ciudad) ciudades.obtenerValor("Brezalia")).getNombre();
         Lista a = mapa.obtenerCamino(nome1, nome2, hmapTuberias);
-        // Lista b = mapa.obtenerEtiquetasCamino(a);
-        IO.sout("Camino Miracosta->Brezalia: " + a);
-        nome1 = ((Ciudad) ciudades.obtenerValor("Neufuen")).getNombre();
-        nome2 = ((Ciudad) ciudades.obtenerValor("Portenilo")).getNombre();
-        a = mapa.obtenerCamino(nome1, nome2, hmapTuberias);
-        IO.sout("Camino Neufuen->Portenilo: " + a);
+        // // Lista b = mapa.obtenerEtiquetasCamino(a);
+        // IO.sout("Camino Miracosta->Brezalia: " + a);
+        // nome1 = ((Ciudad) ciudades.obtenerValor("Neufuen")).getNombre();
+        // nome2 = ((Ciudad) ciudades.obtenerValor("Portenilo")).getNombre();
+        // a = mapa.obtenerCamino(nome1, nome2, hmapTuberias);
+        // IO.sout("Camino Neufuen->Portenilo: " + a);
         nome1 = ((Ciudad) ciudades.obtenerValor("Neufuen")).getNombre();
         nome2 = ((Ciudad) ciudades.obtenerValor("Valderia")).getNombre();
-        a = mapa.obtenerCamino(nome1, nome2, hmapTuberias);
-        IO.sout("Camino Neufuen->Valderia: " + a);
+        // a = mapa.obtenerCamino(nome1, nome2, hmapTuberias);
+        // IO.sout("Camino Neufuen->Valderia: " + a);
+        IO.sout("Existe camino " + nome1 + "-> " + nome2 + ": " + mapa.existeCamino(nome1, nome2));
     }
 
     private static void genPobRandom(Ciudad ciudad) {

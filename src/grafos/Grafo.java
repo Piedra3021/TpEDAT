@@ -279,6 +279,48 @@ public class Grafo {
     // return resultado;
     // }
 
+    public boolean existeCamino(Object origen, Object destino) {
+        boolean resultado = false;
+        NodoVert auxO = null;
+        NodoVert auxD = null;
+        NodoVert aux = this.inicio;
+        while ((auxO == null || auxD == null) && aux != null) {
+            if (aux.getElem().equals(origen))
+                auxO = aux;
+            if (aux.getElem().equals(destino))
+                auxD = aux;
+            aux = aux.getSigVertice();
+        }
+        if (auxO != null && auxD != null) {
+            // si ambos vertices existen busca si existe camino entre ambos nodos
+            Lista visitados = new Lista();
+            resultado = existeCaminoAux(auxO, destino, visitados);
+        }
+        return resultado;
+    }
+
+    private boolean existeCaminoAux(NodoVert n, Object dest, Lista vis) {
+        boolean exito = false;
+        if (n != null) {
+            // si vertice n es el destino: HAY CAMINO!
+            if (n.getElem().equals(dest)) {
+                exito = true;
+            } else {
+                // si no es el destino verifica si hay camino entre n y destino
+                vis.insertar(n.getElem(), vis.longitud() + 1);
+                NodoAdy ady = n.getPrimerAdy();
+                while (!exito && ady != null) {
+                    if (vis.localizar(ady.getVertice().getElem()) < 0) {
+                        exito = existeCaminoAux(ady.getVertice(), dest, vis);
+                    }
+                    ady = ady.getSigAdyacente();
+                }
+            }
+        }
+        return exito;
+
+    }
+
     public Lista obtenerCamino(Object origen, Object destino, Map<ClaveTuberia, DatosTuberia> tuberias) {
         Lista resultado = null;
 
