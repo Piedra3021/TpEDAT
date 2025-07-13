@@ -57,7 +57,7 @@ public class mainCode {
         // ciudades.obtenerValor("Brezalia")).getNombre(), hmapTuberias);
         String nome1 = ((Ciudad) ciudades.obtenerValor("Miracosta")).getNombre();
         String nome2 = ((Ciudad) ciudades.obtenerValor("Brezalia")).getNombre();
-        Lista a = mapa.obtenerCamino(nome1, nome2, hmapTuberias);
+        Lista a = mapa.obtenerCamino(nome1, nome2);
         // // Lista b = mapa.obtenerEtiquetasCamino(a);
         // IO.sout("Camino Miracosta->Brezalia: " + a);
         // nome1 = ((Ciudad) ciudades.obtenerValor("Neufuen")).getNombre();
@@ -66,8 +66,8 @@ public class mainCode {
         // IO.sout("Camino Neufuen->Portenilo: " + a);
         nome1 = ((Ciudad) ciudades.obtenerValor("Neufuen")).getNombre();
         nome2 = ((Ciudad) ciudades.obtenerValor("Valderia")).getNombre();
-        // a = mapa.obtenerCamino(nome1, nome2, hmapTuberias);
-        // IO.sout("Camino Neufuen->Valderia: " + a);
+        a = mapa.obtenerCamino(nome1, nome2);
+        IO.sout("Camino Neufuen->Valderia: " + a);
         IO.sout("Existe camino " + nome1 + "-> " + nome2 + ": " + mapa.existeCamino(nome1, nome2));
     }
 
@@ -170,12 +170,14 @@ public class mainCode {
         DesdeArchivo.cargarCiudades(arbolTest, mapa);
         DesdeArchivo.cargarTuberias(arbolTest, mapa, hmapTuberias);
         DesdeArchivo.cargarPoblacion(arbolTest);
-        Lista a = mapa.obtenerCamino(((Ciudad) arbolTest.obtenerValor("Miracosta")).getNombre(),
-                ((Ciudad) arbolTest.obtenerValor("Brezalia")).getNombre(), hmapTuberias);
-        Lista b = mapa.obtenerEtiquetasCamino(a);
-        System.out.println(mapa.obtenerCamino(((Ciudad) arbolTest.obtenerValor("Miracosta")).getNombre(),
-                ((Ciudad) arbolTest.obtenerValor("Brezalia")).getNombre(), hmapTuberias));
-        System.out.println(mapa.obtenerMenorEtiqueta(b));
+        // Lista a = mapa.obtenerCamino(((Ciudad)
+        // arbolTest.obtenerValor("Miracosta")).getNombre(),
+        // ((Ciudad) arbolTest.obtenerValor("Brezalia")).getNombre(), hmapTuberias);
+        // Lista b = mapa.obtenerEtiquetasCamino(a);
+        // System.out.println(mapa.obtenerCamino(((Ciudad)
+        // arbolTest.obtenerValor("Miracosta")).getNombre(),
+        // ((Ciudad) arbolTest.obtenerValor("Brezalia")).getNombre(), hmapTuberias));
+        // System.out.println(mapa.obtenerMenorEtiqueta(b));
 
         // System.out.println(hmapTuberias.values());
         // System.out.println(mapa.dibujarGrafo());
