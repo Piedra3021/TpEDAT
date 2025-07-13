@@ -254,24 +254,80 @@ public class Grafo {
 
     public Lista caminoMasCorto(Object origen, Object destino){
         Lista resultado = new Lista();
-        // . . .
+        
         return resultado;
     }
+    
     public Lista caminoMasLargo(Object origen, Object destino){
         Lista resultado = new Lista();
         // Innecesario?
         return resultado;
     }
-    public Lista listarEnProfundidad(){
-        Lista resultado = new Lista();
-        // ...
-        return resultado;
+    
+    public Lista listarEnProfundidad() {
+        Lista visitados = new Lista();
+        // define un vertice donde comenzar a recorrer
+        NodoVert aux = this.inicio;
+        while (aux != null) {
+            if (visitados.localizar(aux.getElem()) < 0) {
+                // si el vertice no fue visitado aun, avanza en profundidad
+                listarEnProfundidadAux(aux, visitados);
+            }
+            aux = aux.getSigVertice();
+        }
+        return visitados;
     }
+
+    private void listarEnProfundidadAux(NodoVert n, Lista vis) {
+        if (n != null) {
+            // marca al vertice n como visitado
+            vis.insertar(n.getElem(), vis.longitud() + 1);
+            NodoAdy ady = n.getPrimerAdy();
+            while (ady != null) {
+                // visita en profundidad los adyacentes de n aun no visitados 
+                if (vis.localizar(ady.getVertice().getElem()) < 0) {
+                    listarEnProfundidadAux(ady.getVertice(), vis);
+                }
+                ady.getSigAdyacente();
+            }
+        }
+    }
+
     public Lista listarEnAnchura(){
-        Lista resultado = new Lista();
-        // ...
-        return resultado;
+        Lista visitados = new Lista();
+        NodoVert aux = this.inicio;
+        Cola cola = new Cola();
+        while (aux != null) {
+            if (visitados.localizar(aux.getElem()) < 0) {
+                // si el vertice no fue visitado aun, avanza en anchura
+                anchuraDesde(aux, visitados, cola);
+            }
+            aux = aux.getSigVertice();
+        }
+        return visitados;
     }
+
+    private void anchuraDesde(NodoVert n, Lista vis, Cola cola) {
+        if (n != null) {
+            // marca al vertice n como visitado
+            vis.insertar(n.getElem(), vis.longitud() + 1);
+            cola.poner(n);
+            while (!cola.esVacia()) {
+                NodoVert actual = (NodoVert) cola.obtenerFrente();
+                cola.sacar();
+                NodoAdy ady = actual.getPrimerAdy();
+                while (ady != null) {
+                    // visita en anchura los adyacentes de n aun no visitados 
+                    if (vis.localizar(ady.getVertice().getElem()) < 0) {
+                        vis.insertar(ady.getVertice().getElem(), vis.longitud() + 1);
+                        cola.poner(ady.getVertice());
+                    }
+                    ady = ady.getSigAdyacente();
+                }
+            }
+        }
+    }
+
     // -------
     public Lista obtenerCamino(Object origen, Object destino) {
         Lista resultado = new Lista();
