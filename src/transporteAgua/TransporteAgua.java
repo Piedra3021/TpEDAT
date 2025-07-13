@@ -20,14 +20,14 @@ public class TransporteAgua {
         DesdeArchivo.cargarTuberias(ciudades, grafo, hMapTuberias);
 
         // ejemplo de usos de los metodos (Eliminar luego)
-        //Ejemplo de eliminar una ciudad
+        // Ejemplo de eliminar una ciudad
         bajaCiudad(ciudades, hMapTuberias, "Miracosta", grafo);
-        //Ejemplo de eliminar una tuberia
+        // Ejemplo de eliminar una tuberia
         bajaTuberia(ciudades, grafo, hMapTuberias, "Verdemar", "Solferino");
-        //Ejemplo de alta ciudad
+        // Ejemplo de alta ciudad
         Ciudad nuevaCiudad = new Ciudad("NuevaCiudad", 1000, 50);
         altaCiudad(ciudades, grafo, nuevaCiudad);
-        //Ejemplo de alta tuberia
+        // Ejemplo de alta tuberia
         DatosTuberia nuevaTuberia = new DatosTuberia(100, 10, 5, 'a');
         altaTuberia(ciudades, grafo, hMapTuberias, "NuevaCiudad", "Orquin", nuevaTuberia);
 
@@ -46,12 +46,15 @@ public class TransporteAgua {
         grafo.insertarVertice(nuevaCiudad);
     }
 
-    /*public static void modCiudad(ArbolAVL arbolNombres, HashMap<String, Ciudad> hmapCiudades, String nombreNuevo,
-            double metros) {
-        IO.salida("MOD ciudad", true);
-    }*/
+    /*
+     * public static void modCiudad(ArbolAVL arbolNombres, HashMap<String, Ciudad>
+     * hmapCiudades, String nombreNuevo,
+     * double metros) {
+     * IO.salida("MOD ciudad", true);
+     * }
+     */
 
-    public static boolean bajaCiudad(ArbolAVL arbolNombres, 
+    public static boolean bajaCiudad(ArbolAVL arbolNombres,
             HashMap<ClaveTuberia, DatosTuberia> hMapTub, String nombre,
             Grafo grafo) {
         IO.salida("BAJA ciudad", true);
@@ -59,15 +62,14 @@ public class TransporteAgua {
         Ciudad c = (Ciudad) arbolNombres.obtenerValor(nombre);
 
         if (c != null) {
-            //Si encuentra la tuberia, la elimina de las estructuras
+            // Si encuentra la tuberia, la elimina de las estructuras
             exito = arbolNombres.eliminar(nombre);
             if (exito) {
                 grafo.eliminarVertice(c);
-                //En cada elemento del HashMap, se verifica si la clave 
-                //contiene la nomenclatura de la ciudad
-                hMapTub.entrySet().removeIf(entry -> 
-                    entry.getKey().getNom1().equals(c.getNomenclatura()) || 
-                    entry.getKey().getNom2().equals(c.getNomenclatura()));
+                // En cada elemento del HashMap, se verifica si la clave
+                // contiene la nomenclatura de la ciudad
+                hMapTub.entrySet().removeIf(entry -> entry.getKey().getNom1().equals(c.getNomenclatura()) ||
+                        entry.getKey().getNom2().equals(c.getNomenclatura()));
             }
         } else {
             IO.salida("No se pudo eliminar la ciudad: no existe.", true);
@@ -92,9 +94,11 @@ public class TransporteAgua {
         }
     }
 
-    /*public static void modTuberia(Grafo grafo) {
-        IO.salida("ALTA tuberia", true);
-    }*/
+    /*
+     * public static void modTuberia(Grafo grafo) {
+     * IO.salida("ALTA tuberia", true);
+     * }
+     */
 
     public static boolean bajaTuberia(ArbolAVL ciudades, Grafo grafo, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias,
             String desde, String hasta) {
@@ -103,7 +107,7 @@ public class TransporteAgua {
         Ciudad c1 = (Ciudad) ciudades.obtenerValor(desde);
         Ciudad c2 = (Ciudad) ciudades.obtenerValor(hasta);
         if (c1 != null && c2 != null && grafo.existeArco(c1, c2)) {
-            //Si la tuberia existe, se elimina de las estructuras
+            // Si la tuberia existe, se elimina de las estructuras
             ClaveTuberia clave = new ClaveTuberia(c1.getNomenclatura(), c2.getNomenclatura());
             hMapTuberias.remove(clave);
             grafo.eliminarArco(c1, c2);
@@ -112,6 +116,70 @@ public class TransporteAgua {
             IO.salida("No se pudo eliminar la tubería: no existe.", true);
         }
         return exito;
+    }
+
+    // private static Ciudad leerCiudad(ArbolAVL arbol){
+    // leer por teclado y obtener desde el arbol
+    // validar entrada?
+    // }
+    // Ej 4-1
+    public static void mostrarCiudad(ArbolAVL arbol) {
+        IO.salida("INI mostrarCiudad", false);
+        // Ciudad c = leerCiudad(arbol);
+        String nombre = "Neufuen";
+        Ciudad c = (Ciudad) arbol.obtenerValor(nombre);
+        // validar ciudad?
+        if (c != null) {
+            // Leer anio y mes por teclado? usar ultimo elemento del elemento anio?
+            // getPoblacionUltimoMes()?
+            double pobActual = c.getPoblacion(2020, 1);
+            IO.salida("Cant habitantes " + nombre + ": " + pobActual, true);
+
+            // leer anio y mes para calc volumen
+            // int anioVol = TecladoIn..
+            // int mesVol = TecladoIn..
+            // double volumen = c.calcVolumen(anio, mes);
+            // IO.salida("Volumen distribuido en "+mes+"/"+anio+":
+            // "+volumen+"(unidad)",true);
+            // double pobMes = c.getPoblacion(anioVol,mesVol);
+            // Revisar!
+            // IO.salida("Volumen distribuido en "+mesVol+"/"+anioVol+":
+            // "+volumen/pobVol+"(unidad)",true);
+        }
+
+        IO.salida("FIN mostrarCiudad", false);
+    }
+
+    // Ej 4-2
+    public static void ciudadesEnRango(ArbolAVL arbol) {
+        IO.salida("INI ciudadesEnRango", false);
+        // ...
+        IO.salida("FIN ciudadesEnRango", false);
+    }
+
+    // Ej 5-1
+    public static void caminoCaudalPleno(ArbolAVL arbol) {
+        IO.salida("INI caminoCaudalPleno", false);
+        // ...
+        // leer c1 y c2
+        // obtener camino con maximos menores?
+        // mostrar estado del camino
+        IO.salida("FIN caminoCaudalPleno", false);
+    }
+
+    // Ej 5-2
+    public static void caminoMasCorto(ArbolAVL arbol) {
+        IO.salida("INI caminoMasCorto", false);
+        // ...
+        IO.salida("FIN caminoMasCorto", false);
+    }
+
+    // Ej 7
+    public static void listarPorConsumoAnual(ArbolAVL arbol) {
+        IO.salida("INI listarPorConsumoAnual", false);
+        // leer anio
+        // que estructura usar?
+        IO.salida("FIN listarPorConsumoAnual", false);
     }
 
     // 8.
