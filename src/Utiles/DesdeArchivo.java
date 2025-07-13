@@ -72,7 +72,7 @@ public class DesdeArchivo {
     // parsea arreglo de parametros
     private static Ciudad genCiudad(String[] valores) {
         Ciudad c;
-        String nombre = quitarAcentos(valores[1].trim());
+        String nombre = quitarAcentos(valores[1].replaceAll("\\s+", ""));
         double metros = Double.parseDouble(valores[2]);
         double consumoPromedio = Double.parseDouble(valores[3]);
         c = new Ciudad(nombre, metros, consumoPromedio);
@@ -84,11 +84,13 @@ public class DesdeArchivo {
         IO.salida("INI cargaTuberias", false);
         String line;
         String PATH = "src/Utiles/tub_prod.csv";
-        try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(PATH), StandardCharsets.UTF_8))) {
             while ((line = br.readLine()) != null) {
                 String[] valores = line.split(DELIMITER);
                 DatosTuberia dT;
                 if (valores[0].equals("t")) {
+                    valores[1] = quitarAcentos(valores[1].replaceAll("\\s+", ""));
+                    valores[2] = quitarAcentos(valores[2].replaceAll("\\s+", ""));
                     dT = genDatosTuberia(valores);
                     TransporteAgua.altaTuberia(ciudades, grafo, hMapTuberias, valores[1], valores[2], dT);
                 }

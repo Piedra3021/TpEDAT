@@ -7,7 +7,8 @@ import Utiles.IO;
 import conjuntistas.ArbolAVL;
 import grafos.Grafo;
 import jerarquicas.*;
-// import lineales.*;
+import lineales.*;
+import lineales.dinamica.Lista;
 
 // cargar desde archivo
 // Ciudad c1 = new Ciudad("neufuen", "ne3001","12000000");
@@ -168,10 +169,48 @@ public class TransporteAgua {
     }
 
     // Ej 5-2
-    public static void caminoMasCorto(ArbolAVL arbol) {
+    public static void caminoMasCorto(ArbolAVL arbol, Grafo mapa,  String origen, String destino,
+            HashMap<ClaveTuberia, DatosTuberia> hMapTuberias) {
         IO.salida("INI caminoMasCorto", false);
-        // ...
+        Ciudad c1 = (Ciudad) arbol.obtenerValor(origen);
+        Ciudad c2 = (Ciudad) arbol.obtenerValor(destino);
+        if (c1 != null && c2 != null) {
+            Lista camino = mapa.caminoMasCorto(c1, c2);
+            if (camino != null) {
+                IO.salida("Camino más corto de " + c1.getNombre() + " a " + c2.getNombre() + ": " + camino.toString(), true);
+                IO.salida("Estado del camino: " + definirEstadoCamino(camino, hMapTuberias), true);
+            } else {
+                IO.salida("No se encontró un camino entre " + c1.getNombre() + " y " + c2.getNombre(), true);
+            }
+        }
         IO.salida("FIN caminoMasCorto", false);
+    }
+
+    private static String definirEstadoCamino(Lista camino, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias) {
+        String[] estados = new String[]{
+            "Activo",
+            "En Reparación",
+            "Inactivo",
+            "En Diseño"
+        };
+        int estadoIndex = 0; // En principio, activo
+        for (int i = 1; i+1 < camino.longitud(); i++) {
+            ClaveTuberia clave = new ClaveTuberia(((Ciudad) camino.recuperar(i)).getNomenclatura(), 
+                ((Ciudad) camino.recuperar(i+1)).getNomenclatura());
+            char estado = hMapTuberias.get(clave).getEstado();
+            if (estado != 'a') {
+                if (estado != 'r') {
+                    if (estado != 'i') {
+                        estadoIndex = 3; // En Diseño
+                    } else {
+                        if (estadoIndex < 2) estadoIndex = 2; // Inactivo
+                    }
+                } else {
+                    if (estadoIndex < 1) estadoIndex = 1; // En Reparación
+                }
+            }
+        }
+        return estados[estadoIndex];
     }
 
     // Ej 7

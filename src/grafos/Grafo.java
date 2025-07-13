@@ -1,7 +1,14 @@
 package grafos;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
+import java.util.Stack;
 
 import Utiles.IO;
 import lineales.dinamica.*;
@@ -252,12 +259,57 @@ public class Grafo {
 
     }
 
-    public Lista caminoMasCorto(Object origen, Object destino){
-        Lista resultado = new Lista();
-        
-        return resultado;
+    public Lista caminoMasCorto(Object origen, Object destino) {
+        Lista camino = new Lista();
+        NodoVert nodoOrigen = ubicarVertice(origen);
+        NodoVert nodoDestino = ubicarVertice(destino);
+        // Verifica si los nodos origen y destino existen
+        if (nodoOrigen != null && nodoDestino != null) {
+            Cola cola = new Cola();
+            Map<NodoVert, NodoVert> predecesor = new HashMap<>();
+            Lista visitados = new Lista();
+
+            cola.poner(nodoOrigen);
+            // Marca el nodo de origen como visitado
+            visitados.insertar(nodoOrigen, 1);
+
+            boolean encontrado = false;
+            while (!cola.esVacia() && !encontrado) {
+                // Extrae el nodo actual de la cola
+                NodoVert actual = (NodoVert) cola.obtenerFrente();
+                cola.sacar();
+                
+                NodoAdy ady = actual.primerAdy;
+                while (ady != null) {
+                    NodoVert vecino = ady.vertice;
+                    if (visitados.localizar(vecino) < 0) {
+                        cola.poner(vecino);
+                        visitados.insertar(vecino, 1);
+                        predecesor.put(vecino, actual);
+                        if (vecino == nodoDestino) {
+                            encontrado = true;
+                            break;
+                        }
+                    }
+                    ady = ady.sigAdyacente;
+                }
+            }
+
+            // Construir el camino desde destino a origen usando el mapa de predecesores
+            if (encontrado) {
+                NodoVert actual = nodoDestino;
+                while (actual != null) {
+                    camino.insertar(actual.getElem(), 1);
+                    actual = predecesor.get(actual);
+                }
+            }
+        } else {
+            IO.salida("No se pudo encontrar un camino: uno o ambos nodos no existen.", true);
+        }
+        return camino;
     }
-    
+
+
     public Lista caminoMasLargo(Object origen, Object destino){
         Lista resultado = new Lista();
         // Innecesario?

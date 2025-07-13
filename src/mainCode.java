@@ -11,8 +11,8 @@ import lineales.dinamica.*;
 public class mainCode {
     public static void main(String[] args) throws Exception {
         // test0();
-        // test1();
-        test2();
+        test1();
+        // test2();
         // test3();
         // res.insertar(n.getElem(), res.longitud() + 1);
     }
@@ -22,24 +22,16 @@ public class mainCode {
     }
 
     private static void test1() {
+        ArbolAVL ciudades = new ArbolAVL();
+        Grafo mapa = new Grafo();
         HashMap<ClaveTuberia, DatosTuberia> hmapTuberias = new HashMap<ClaveTuberia, DatosTuberia>();
-        ClaveTuberia clave1 = new ClaveTuberia("A", "B");
-        ClaveTuberia clave2 = new ClaveTuberia("B", "C");
-        ClaveTuberia clave3 = new ClaveTuberia("A", "C");
-        DatosTuberia datos1 = new DatosTuberia(100, 200, 50, 'A');
-        DatosTuberia datos2 = new DatosTuberia(150, 250, 60, 'D');
-        DatosTuberia datos3 = new DatosTuberia(200, 300, 70, 'A');
+        DesdeArchivo.cargarCiudades(ciudades, mapa);
+        DesdeArchivo.cargarTuberias(ciudades, mapa, hmapTuberias);
+        DesdeArchivo.cargarPoblacion(ciudades);
 
-        hmapTuberias.put(clave1, datos1);
-        hmapTuberias.put(clave2, datos2);
-        hmapTuberias.put(clave3, datos3);
-
-        // ejemplo de busqueda
-        DatosTuberia d1 = DatosTuberia.obtenerDatos(hmapTuberias, "A", "B");
-        System.out.println(d1.getCaudalMax());
-        System.out.println(d1.getCaudalMin());
-        System.out.println(d1.getDiametro());
-        System.out.println(d1.toString());
+        Ciudad c1 = (Ciudad) ciudades.obtenerValor("Neufuen");
+        Ciudad c2 = (Ciudad) ciudades.obtenerValor("Brezalia");
+        TransporteAgua.caminoMasCorto(ciudades, mapa, c1.getNombre(), c2.getNombre(), hmapTuberias);
     }
 
     private static void test2() {
