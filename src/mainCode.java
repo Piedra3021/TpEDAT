@@ -14,6 +14,7 @@ public class mainCode {
         // test1();
         test2();
         // test3();
+        // res.insertar(n.getElem(), res.longitud() + 1);
     }
 
     private static void test0() {
@@ -59,11 +60,11 @@ public class mainCode {
         String nome2 = ((Ciudad) ciudades.obtenerValor("Brezalia")).getNombre();
         Lista a = mapa.obtenerCamino(nome1, nome2);
         // // Lista b = mapa.obtenerEtiquetasCamino(a);
-        // IO.sout("Camino Miracosta->Brezalia: " + a);
-        // nome1 = ((Ciudad) ciudades.obtenerValor("Neufuen")).getNombre();
-        // nome2 = ((Ciudad) ciudades.obtenerValor("Portenilo")).getNombre();
-        // a = mapa.obtenerCamino(nome1, nome2, hmapTuberias);
-        // IO.sout("Camino Neufuen->Portenilo: " + a);
+        IO.sout("Camino Miracosta->Brezalia: " + a);
+        nome1 = ((Ciudad) ciudades.obtenerValor("Neufuen")).getNombre();
+        nome2 = ((Ciudad) ciudades.obtenerValor("Portenilo")).getNombre();
+        a = mapa.obtenerCamino(nome1, nome2);
+        IO.sout("Camino Neufuen->Portenilo: " + a);
         nome1 = ((Ciudad) ciudades.obtenerValor("Neufuen")).getNombre();
         nome2 = ((Ciudad) ciudades.obtenerValor("Valderia")).getNombre();
         a = mapa.obtenerCamino(nome1, nome2);

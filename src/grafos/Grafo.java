@@ -209,6 +209,95 @@ public class Grafo {
         return sb.toString();
     }
 
+    public boolean existeCamino(Object origen, Object destino) {
+        boolean resultado = false;
+        NodoVert auxO = null;
+        NodoVert auxD = null;
+        NodoVert aux = this.inicio;
+        while ((auxO == null || auxD == null) && aux != null) {
+            if (aux.getElem().equals(origen))
+                auxO = aux;
+            if (aux.getElem().equals(destino))
+                auxD = aux;
+            aux = aux.getSigVertice();
+        }
+        if (auxO != null && auxD != null) {
+            // si ambos vertices existen busca si existe camino entre ambos nodos
+            Lista visitados = new Lista();
+            resultado = existeCaminoAux(auxO, destino, visitados);
+        }
+        return resultado;
+    }
+
+    private boolean existeCaminoAux(NodoVert n, Object dest, Lista vis) {
+        boolean exito = false;
+        if (n != null) {
+            // si vertice n es el destino: HAY CAMINO!
+            if (n.getElem().equals(dest)) {
+                exito = true;
+            } else {
+                // si no es el destino verifica si hay camino entre n y destino
+                vis.insertar(n.getElem(), vis.longitud() + 1);
+                NodoAdy ady = n.getPrimerAdy();
+                while (!exito && ady != null) {
+                    if (vis.localizar(ady.getVertice().getElem()) < 0) {
+                        exito = existeCaminoAux(ady.getVertice(), dest, vis);
+                    }
+                    ady = ady.getSigAdyacente();
+                }
+            }
+        }
+
+        return exito;
+
+    }
+
+    public Lista obtenerCamino(Object origen, Object destino) {
+        Lista resultado = new Lista();
+        NodoVert auxO = null;
+        NodoVert auxD = null;
+        NodoVert aux = this.inicio;
+        while ((auxO == null || auxD == null) && aux != null) {
+            if (aux.getElem().equals(origen))
+                auxO = aux;
+            if (aux.getElem().equals(destino))
+                auxD = aux;
+            aux = aux.getSigVertice();
+        }
+        if (auxO != null && auxD != null) {
+            // si ambos vertices existen busca si existe camino entre ambos nodos
+            Lista visitados = new Lista();
+            obtenerCaminoAux(auxO, destino, resultado, visitados);
+        }
+        return resultado;
+    }
+
+    private boolean obtenerCaminoAux(NodoVert n, Object dest, Lista res, Lista vis) {
+        boolean exito = false;
+        if (n != null) {
+            // si vertice n es el destino: HAY CAMINO!
+            if (n.getElem().equals(dest)) {
+                exito = true;
+            } else {
+                // si no es el destino verifica si hay camino entre n y destino
+                vis.insertar(n.getElem(), vis.longitud() + 1);
+                NodoAdy ady = n.getPrimerAdy();
+                while (!exito && ady != null) {
+                    if (vis.localizar(ady.getVertice().getElem()) < 0) {
+                        exito = obtenerCaminoAux(ady.getVertice(), dest, res, vis);
+                    }
+                    ady = ady.getSigAdyacente();
+                }
+            }
+        }
+        if (exito)
+            res.insertar(n.getElem(), 1);
+        return exito;
+
+    }
+
+    // Con casteos
+
     // public Lista obtenerCamino(Object origen, Object destino, Map<ClaveTuberia,
     // DatosTuberia> tuberias) {
     // Lista resultado = null;
@@ -280,94 +369,77 @@ public class Grafo {
     // return resultado;
     // }
 
-    public boolean existeCamino(Object origen, Object destino) {
-        boolean resultado = false;
-        NodoVert auxO = null;
-        NodoVert auxD = null;
-        NodoVert aux = this.inicio;
-        while ((auxO == null || auxD == null) && aux != null) {
-            if (aux.getElem().equals(origen))
-                auxO = aux;
-            if (aux.getElem().equals(destino))
-                auxD = aux;
-            aux = aux.getSigVertice();
-        }
-        if (auxO != null && auxD != null) {
-            // si ambos vertices existen busca si existe camino entre ambos nodos
-            Lista visitados = new Lista();
-            resultado = existeCaminoAux(auxO, destino, visitados);
-        }
-        return resultado;
-    }
+    // Sin casteos
+    // public Lista obtenerCamino(Object origen, Object destino, Map<ClaveTuberia,
+    // DatosTuberia> tuberias) {
+    // Lista resultado = null;
 
-    private boolean existeCaminoAux(NodoVert n, Object dest, Lista vis) {
-        boolean exito = false;
-        if (n != null) {
-            // si vertice n es el destino: HAY CAMINO!
-            if (n.getElem().equals(dest)) {
-                exito = true;
-            } else {
-                // si no es el destino verifica si hay camino entre n y destino
-                vis.insertar(n.getElem(), vis.longitud() + 1);
-                NodoAdy ady = n.getPrimerAdy();
-                while (!exito && ady != null) {
-                    if (vis.localizar(ady.getVertice().getElem()) < 0) {
-                        exito = existeCaminoAux(ady.getVertice(), dest, vis);
-                    }
-                    ady = ady.getSigAdyacente();
-                }
-            }
-        }
-        if(exito)IO.sout(n.getElem());
-        return exito;
+    // NodoVert nodoOrigen = ubicarVertice(origen);
+    // NodoVert nodoDestino = ubicarVertice(destino);
 
-    }
+    // if (nodoOrigen != null && nodoDestino != null) {
+    // // origen = ((Ciudad) nodoOrigen.getElem()).getNomenclatura();
+    // // destino = ((Ciudad) nodoDestino.getElem()).getNomenclatura();
+    // Map<Object, Object> padre = new HashMap<>();
+    // padre.put(origen, null);
 
-    // public Lista obtenerCamino(Object origen, Object destino) {
-    //     Lista resultado = new Lista();
-    //     NodoVert auxO = null;
-    //     NodoVert auxD = null;
-    //     NodoVert aux = this.inicio;
-    //     while ((auxO == null || auxD == null) && aux != null) {
-    //         if (aux.getElem().equals(origen))
-    //             auxO = aux;
-    //         if (aux.getElem().equals(destino))
-    //             auxD = aux;
-    //         aux = aux.getSigVertice();
-    //     }
-    //     if (auxO != null && auxD != null) {
-    //         // si ambos vertices existen busca si existe camino entre ambos nodos
-    //         Lista visitados = new Lista();
-    //         obtenerCaminoAux(aux, destino, resultado, visitados);
-    //     }
-    //     return resultado;
+    // Cola cola = new Cola();
+    // cola.poner(nodoOrigen);
+
+    // Lista visitados = new Lista();
+    // visitados.insertar(origen, 1);
+
+    // boolean encontrado = false;
+
+    // while (!cola.esVacia() && !encontrado) {
+    // NodoVert actual = (NodoVert) cola.obtenerFrente();
+    // cola.sacar();
+
+    // NodoAdy adyacente = actual.getPrimerAdy();
+    // while (adyacente != null && !encontrado) {
+    // Object vecino = adyacente.getVertice().getElem();
+
+    // // ClaveTuberia clave = new ClaveTuberia(((Ciudad)
+    // // actual.getElem()).getNomenclatura(),
+    // // ((Ciudad) vecino).getNomenclatura());
+    // ClaveTuberia clave = new ClaveTuberia(actual.getElem(), vecino);
+    // DatosTuberia tub = tuberias.get(clave);
+
+    // if (tub != null && tub.getEstado() == 'a') {
+    // if (visitados.localizar(vecino) == -1) {
+    // visitados.insertar(vecino, visitados.longitud() + 1);
+    // padre.put(vecino, actual.getElem());
+    // cola.poner(adyacente.getVertice());
+
+    // if (vecino.equals(destino)) {
+    // encontrado = true;
+    // }
+    // }
     // }
 
-    // private boolean obtenerCaminoAux(NodoVert n, Object dest, Lista res, Lista vis) {
-    //     boolean exito = false;
-    //     if (n != null) {
-    //         // si vertice n es el destino: HAY CAMINO!
-    //         if (n.getElem().equals(dest)) {
-    //             exito = true;
-    //         } else {
-    //             // si no es el destino verifica si hay camino entre n y destino
-    //             vis.insertar(n.getElem(), vis.longitud() + 1);
-    //             NodoAdy ady = n.getPrimerAdy();
-    //             while (!exito && ady != null) {
-    //                 if (vis.localizar(ady.getVertice().getElem()) < 0) {
-    //                     exito = existeCaminoAux(ady.getVertice(), dest, vis);
-    //                 }
-    //                 ady = ady.getSigAdyacente();
-    //             }
-    //         }
-    //     }
-    //     if(exito){
-    //         IO.sout("!!!!!");
-    //         res.insertar(n.getElem(), res.longitud()+1);
-    //     }
+    // adyacente = adyacente.getSigAdyacente();
+    // }
+    // }
 
-    //     return exito;
+    // if (encontrado) {
+    // resultado = new Lista();
+    // Pila pila = new Pila();
+    // Object actual = destino;
 
+    // while (actual != null) {
+    // pila.apilar(actual);
+    // actual = padre.get(actual);
+    // }
+
+    // while (!pila.esVacia()) {
+    // Object elem = pila.obtenerTope();
+    // pila.desapilar();
+    // resultado.insertar(elem, resultado.longitud() + 1);
+    // }
+    // resultado.insertar(origen, 1);
+    // }
+    // }
+    // return resultado;
     // }
 
     public Lista obtenerEtiquetasCamino(Lista camino) {
