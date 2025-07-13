@@ -252,6 +252,27 @@ public class Grafo {
 
     }
 
+    public Lista caminoMasCorto(Object origen, Object destino){
+        Lista resultado = new Lista();
+        // . . .
+        return resultado;
+    }
+    public Lista caminoMasLargo(Object origen, Object destino){
+        Lista resultado = new Lista();
+        // Innecesario?
+        return resultado;
+    }
+    public Lista listarEnProfundidad(){
+        Lista resultado = new Lista();
+        // ...
+        return resultado;
+    }
+    public Lista listarEnAnchura(){
+        Lista resultado = new Lista();
+        // ...
+        return resultado;
+    }
+    // -------
     public Lista obtenerCamino(Object origen, Object destino) {
         Lista resultado = new Lista();
         NodoVert auxO = null;
