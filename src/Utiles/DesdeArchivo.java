@@ -70,7 +70,7 @@ public class DesdeArchivo {
     }
 
     // parsea arreglo de parametros
-    private static Ciudad genCiudad(String[] valores) {
+    public static Ciudad genCiudad(String[] valores) {
         Ciudad c;
         String nombre = quitarAcentos(valores[1].replaceAll("\\s+", ""));
         double metros = Double.parseDouble(valores[2]);

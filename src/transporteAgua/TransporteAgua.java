@@ -19,6 +19,8 @@ public class TransporteAgua {
         HashMap<ClaveTuberia, DatosTuberia> hMapTuberias = new HashMap<>();
         DesdeArchivo.cargarCiudades(ciudades, grafo);
         DesdeArchivo.cargarTuberias(ciudades, grafo, hMapTuberias);
+        DesdeArchivo.cargarPoblacion(ciudades);
+        // IO.menu(ciudades, grafo, hMapTuberias);
 
         // ejemplo de usos de los metodos (Eliminar luego)
         // Ejemplo de eliminar una ciudad
@@ -169,7 +171,7 @@ public class TransporteAgua {
     }
 
     // Ej 5-2
-    public static void caminoMasCorto(ArbolAVL arbol, Grafo mapa,  String origen, String destino,
+    public static void caminoMasCorto(ArbolAVL arbol, Grafo mapa, String origen, String destino,
             HashMap<ClaveTuberia, DatosTuberia> hMapTuberias) {
         IO.salida("INI caminoMasCorto", false);
         Ciudad c1 = (Ciudad) arbol.obtenerValor(origen);
@@ -177,7 +179,8 @@ public class TransporteAgua {
         if (c1 != null && c2 != null) {
             Lista camino = mapa.caminoMasCorto(c1, c2);
             if (camino != null) {
-                IO.salida("Camino más corto de " + c1.getNombre() + " a " + c2.getNombre() + ": " + camino.toString(), true);
+                IO.salida("Camino más corto de " + c1.getNombre() + " a " + c2.getNombre() + ": " + camino.toString(),
+                        true);
                 IO.salida("Estado del camino: " + definirEstadoCamino(camino, hMapTuberias), true);
             } else {
                 IO.salida("No se encontró un camino entre " + c1.getNombre() + " y " + c2.getNombre(), true);
@@ -187,26 +190,28 @@ public class TransporteAgua {
     }
 
     private static String definirEstadoCamino(Lista camino, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias) {
-        String[] estados = new String[]{
-            "Activo",
-            "En Reparación",
-            "Inactivo",
-            "En Diseño"
+        String[] estados = new String[] {
+                "Activo",
+                "En Reparación",
+                "Inactivo",
+                "En Diseño"
         };
         int estadoIndex = 0; // En principio, activo
-        for (int i = 1; i+1 < camino.longitud(); i++) {
-            ClaveTuberia clave = new ClaveTuberia(((Ciudad) camino.recuperar(i)).getNomenclatura(), 
-                ((Ciudad) camino.recuperar(i+1)).getNomenclatura());
+        for (int i = 1; i + 1 < camino.longitud(); i++) {
+            ClaveTuberia clave = new ClaveTuberia(((Ciudad) camino.recuperar(i)).getNomenclatura(),
+                    ((Ciudad) camino.recuperar(i + 1)).getNomenclatura());
             char estado = hMapTuberias.get(clave).getEstado();
             if (estado != 'a') {
                 if (estado != 'r') {
                     if (estado != 'i') {
                         estadoIndex = 3; // En Diseño
                     } else {
-                        if (estadoIndex < 2) estadoIndex = 2; // Inactivo
+                        if (estadoIndex < 2)
+                            estadoIndex = 2; // Inactivo
                     }
                 } else {
-                    if (estadoIndex < 1) estadoIndex = 1; // En Reparación
+                    if (estadoIndex < 1)
+                        estadoIndex = 1; // En Reparación
                 }
             }
         }
