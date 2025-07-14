@@ -3,7 +3,7 @@ package transporteAgua;
 import conjuntistas.ArbolAVL;
 import lineales.dinamica.*;
 
-public class Ciudad {
+public class Ciudad implements Comparable {
     private String nombre;
     private String nomenclatura;
     private double metros;
@@ -62,30 +62,30 @@ public class Ciudad {
         return cant;
     }
 
-    public int getPoblacionAnual(int anio){
+    public int getPoblacionAnual(int anio) {
         int cant = -1;
-        if(poblacion != null){
+        if (poblacion != null) {
             int posAnio = poblacion.localizar(anio);
             Anio anioPob = (Anio) poblacion.recuperar(posAnio);
-            if(anioPob != null){
+            if (anioPob != null) {
                 cant = anioPob.getPoblacionAnual();
             }
         }
         return cant;
     }
 
-    //Setter para mes y año en especifico
+    // Setter para mes y año en especifico
     public void setPoblacion(int anioPoblacion, int mes, int cantidad) {
         Anio anioModificar;
-        //Verifico si la lista existe.
+        // Verifico si la lista existe.
         if (poblacion != null) {
-            //Localizo el anio especifico
+            // Localizo el anio especifico
             int posAnio = poblacion.localizar(anioPoblacion);
             if (posAnio != -1) {
-                //Si existe, lo recupero
+                // Si existe, lo recupero
                 anioModificar = (Anio) poblacion.recuperar(posAnio);
             } else {
-                //Si no, lo creo.
+                // Si no, lo creo.
                 anioModificar = new Anio(anioPoblacion);
                 poblacion.insertar(anioModificar, poblacion.longitud() + 1);
             }
@@ -111,22 +111,36 @@ public class Ciudad {
         this.consumoProm = consumoProm;
     }
 
-    public int compareTo(Ciudad otraCiudad) {
-        return this.nombre.compareTo(otraCiudad.getNombre());
+    // Revisar!
+    public int compareTo(Object otraCiudad) {
+        int resultado = -1;
+        if (otraCiudad instanceof Ciudad) {
+            resultado = this.nomenclatura.compareTo(((Ciudad) otraCiudad).getNomenclatura());
+            if (resultado != 0) {
+                resultado = resultado < 0 ? -1 : 1;
+            }
+        } else if (otraCiudad instanceof String) {
+            resultado = this.nomenclatura.compareTo((String) otraCiudad);
+            if (resultado != 0) {
+                resultado = resultado < 0 ? -1 : 1;
+            }
+
+        }
+        return resultado;
     }
 
     public boolean equals(Ciudad otraCiudad) {
         return this.nombre.equals(otraCiudad.getNombre());
     }
 
-    public double cantidadAguaPorMes(int anio, int mes){
+    public double cantidadAguaPorMes(int anio, int mes) {
         double res = -1;
-        if(poblacion != null){
+        if (poblacion != null) {
             int anioPos = poblacion.localizar(anio);
             Anio anioTrabajar = (Anio) poblacion.recuperar(anioPos);
-            if(anioTrabajar!=null){
+            if (anioTrabajar != null) {
                 int cantHabitantes = anioTrabajar.getPoblacionMes(mes);
-                res = cantHabitantes*consumoPromedio;
+                res = cantHabitantes * consumoPromedio;
             }
         }
         return res;
@@ -136,17 +150,17 @@ public class Ciudad {
         return nombre + "(" + nomenclatura + ")";
     }
 
-    public boolean equals(Object ciudad){
+    public boolean equals(Object ciudad) {
         boolean exito = false;
-        if(ciudad instanceof Ciudad){
-            if(this.nombre == ((Ciudad)ciudad).getNombre()){
+        if (ciudad instanceof Ciudad) {
+            if (this.nombre == ((Ciudad) ciudad).getNombre()) {
                 exito = true;
             }
 
-        }else if(ciudad instanceof String){
-            if(nomenclatura.equals(ciudad)){
+        } else if (ciudad instanceof String) {
+            if (nomenclatura.equals(ciudad)) {
                 exito = true;
-            }else if(nombre.equals(ciudad)){
+            } else if (nombre.equals(ciudad)) {
                 exito = true;
             }
         }

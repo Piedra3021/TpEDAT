@@ -11,8 +11,8 @@ import lineales.dinamica.*;
 public class mainCode {
     public static void main(String[] args) throws Exception {
         // test0();
-        test1();
-        // test2();
+        // test1();
+        test2();
         // test3();
         // res.insertar(n.getElem(), res.longitud() + 1);
     }
@@ -62,6 +62,9 @@ public class mainCode {
         a = mapa.obtenerCamino(nome1, nome2);
         IO.sout("Camino Neufuen->Valderia: " + a);
         IO.sout("Existe camino " + nome1 + "-> " + nome2 + ": " + mapa.existeCamino(nome1, nome2));
+        Lista ciuRangoNom = ciudades.listarRango("NE0000", "PU3013");
+        // Lista ciuRangoNom = ciudades.listarRangoValor("NE0000", "NZ9999");
+        IO.sout(ciuRangoNom);
     }
 
     private static void genPobRandom(Ciudad ciudad) {
