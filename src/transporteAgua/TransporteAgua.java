@@ -154,13 +154,16 @@ public class TransporteAgua {
     }
 
     // Ej 4-2
-    public static void ciudadesEnRango(ArbolAVL arbol) {
+    public static void ciudadesEnRango(ArbolAVL arbol, String minNom, String maxNom, double minVol, double maxVol) {
         IO.salida("INI ciudadesEnRango", false);
-        // ...
+        // Usar parametros
+        Lista res = arbol.listarRango("NE0000", "PU3013");
+        // Recorrer res y descartar los que no cumplan el rango de Vol
+        // elem.consumoEnRango(...)
+        IO.salida(res, true);
         IO.salida("FIN ciudadesEnRango", false);
     }
 
-    // Ej 5-1
     public static void caminoCaudalPleno(ArbolAVL arbol) {
         IO.salida("INI caminoCaudalPleno", false);
         // ...

@@ -146,6 +146,12 @@ public class Ciudad implements Comparable {
         return res;
     }
 
+    // Revisar
+    public boolean consumoEnRango(int anio, int mes, double minVol, double maxVol) {
+        double cantAguaMes = this.cantidadAguaPorMes(anio, mes);
+        return (cantAguaMes >= minVol) && (cantAguaMes <= maxVol);
+    }
+
     public String toString() {
         return nombre + "(" + nomenclatura + ")";
     }
