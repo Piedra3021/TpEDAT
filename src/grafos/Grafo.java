@@ -467,70 +467,68 @@ public class Grafo {
         return menor;
     }
 
-    //Revisar, con metodos internos.
-    public double obtenerAguaAprovisionada(Object ciudad, int anio, int mes,
-            Map<ClaveTuberia, DatosTuberia> hMapTuberias) {
-        double resultado = -1;
-        NodoVert aux = this.inicio;
-        NodoVert nodoCiudad = null;
+    public Lista obtenerPrimerActivo(Object origen, Map<ClaveTuberia, DatosTuberia> tuberias) {
+        Lista visitados = new Lista();
+        Lista caminoActual = new Lista();
+        Lista caminoFinal = new Lista();
+        NodoVert nodoOrigen = ubicarVertice(origen);
+        boolean encontrado = false;
 
-        if (ciudad != null) {
-            while (aux != null && nodoCiudad == null) {
-                if (aux.getElem().equals(ciudad)) {
-                    nodoCiudad = aux;
-                } else {
-                    aux = aux.getSigVertice();
-                }
-            }
-
-            if (nodoCiudad != null) {
-                resultado = obtenerAguaAprovisionadaAux(nodoCiudad, anio, mes, hMapTuberias);
-            }
+        if (nodoOrigen != null) {
+            encontrado = obtenerActivoAux(
+                    nodoOrigen, tuberias, visitados, caminoActual, caminoFinal);
         }
 
-        return resultado;
+        if (!encontrado) {
+            caminoFinal = null;
+        }
+
+        return caminoFinal;
     }
 
-    private double obtenerAguaAprovisionadaAux(NodoVert ciudad, int anio, int mes,
-            Map<ClaveTuberia, DatosTuberia> hmapTuberias) {
-        double resultado = -1;
+    private boolean obtenerActivoAux(NodoVert actual,
+            Map<ClaveTuberia, DatosTuberia> tuberias,
+            Lista visitados,
+            Lista caminoActual,
+            Lista caminoFinal) {
+        // Marcar como visitado y agregar al camino
+        Object elemActual = actual.getElem();
+        visitados.insertar(elemActual, visitados.longitud() + 1);
+        caminoActual.insertar(elemActual, caminoActual.longitud() + 1);
+        boolean exito = false;
 
-        Ciudad cCiudad = (Ciudad) ciudad.getElem();
-        NodoAdy vecino = ciudad.getPrimerAdy();
+        boolean tieneVecinoActivo = false;
 
-        // Si anio,mes no existe, cantAguaPorMesHab = -1
-        double cantAguaPorMesHab = (cCiudad.cantidadAguaPorMes(anio, mes));
+        NodoAdy vecino = actual.getPrimerAdy();
+        while (vecino != null) {
+            Object elemVecino = vecino.getVertice().getElem();
 
-        if (vecino != null) {
-            Ciudad vecinoCiudad = (Ciudad) vecino.getVertice().getElem();
+            ClaveTuberia clave = new ClaveTuberia(elemActual, elemVecino);
+            DatosTuberia datos = tuberias.get(clave);
 
-            while (resultado == -1 && vecino != null) {
-                ClaveTuberia clave = new ClaveTuberia(cCiudad.getNomenclatura(), vecinoCiudad.getNomenclatura());
-                DatosTuberia datos = hmapTuberias.get(clave);
-
-                if (datos.getEstado() == 'a') {
-                    int cantDias = cCiudad.getDias(anio, mes);
-                    double cantCaudal = vecino.getEtiqueta() * 24 * cantDias;
-
-                    if (cantAguaPorMesHab > 0) {
-                        if (cantAguaPorMesHab > cantCaudal) {
-                            resultado = cantCaudal;
-                        } else {
-                            resultado = cantAguaPorMesHab;
-                        }
-                    } else {
-                        resultado = cantCaudal;
-                    }
-                } else {
-                    vecino = vecino.getSigAdyacente();
+            if (datos != null && datos.getEstado() == 'a' && visitados.localizar(elemVecino) == -1) {
+                tieneVecinoActivo = true;
+                // Ir recursivamente por el primer vecino activo
+                boolean encontrado = obtenerActivoAux(
+                        vecino.getVertice(), tuberias, visitados, caminoActual, caminoFinal);
+                if (encontrado) {
+                    exito = true; // ya se encontró el primer camino activo completo
                 }
-
             }
 
+            vecino = vecino.getSigAdyacente();
         }
-        if (vecino == null) {
-            resultado = cantAguaPorMesHab;
+
+        if (!tieneVecinoActivo) {
+            // Este es un camino completo (no hay más vecinos activos no visitados)
+            // Copiar caminoActual a caminoFinal
+            for (int i = 1; i <= caminoActual.longitud(); i++) {
+                caminoFinal.insertar(caminoActual.recuperar(i), caminoFinal.longitud() + 1);
+            }
+            exito = true;
+        } else {
+            caminoActual.eliminar(caminoActual.longitud());
         }
-        return resultado;
+        return exito;
     }
 }

@@ -73,6 +73,7 @@ public class IO {
             opc = IO.ingresarRango(0, 9);
             String param1, param2;
             double n1, n2;
+            int anio, mes;
 
             switch (opc) {
                 case 1:
@@ -86,12 +87,16 @@ public class IO {
                 case 4:
                     param1 = ingresarString("Nomeclatura minima");
                     param2 = ingresarString("Nomeclatura maxima");
+                    IO.sout("Ingrese el anio");
+                    anio = TecladoIn.readInt();
+                    IO.sout("Ingrese el mes");
+                    mes = TecladoIn.readInt();
                     IO.sout("Ingrese minVol");
                     n1 = (double) ingresarRango(0, 99999);
                     IO.sout("Ingrese maxVol");
                     n1 = (double) ingresarRango(0, 99999);
                     n2 = (double) ingresarRango(0, 99999);
-                    TransporteAgua.ciudadesEnRango(ciudades, param1, param2, n1, n2);
+                    TransporteAgua.ciudadesEnRango(ciudades, param1, param2, anio, mes, n1, n2);
                     break;
                 case 5:
                     break;

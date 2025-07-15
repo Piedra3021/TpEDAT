@@ -12,7 +12,7 @@ public class mainCode {
     public static void main(String[] args) throws Exception {
         // test0();
         // test1();
-        //test2();
+        // test2();
         test3();
         // res.insertar(n.getElem(), res.longitud() + 1);
     }
@@ -92,22 +92,36 @@ public class mainCode {
         ArbolAVL arbolTest = new ArbolAVL();
         Grafo mapa = new Grafo();
         HashMap<ClaveTuberia, DatosTuberia> hmapTuberias = new HashMap<ClaveTuberia, DatosTuberia>();
-        
 
         DesdeArchivo.cargarCiudades(arbolTest, mapa);
         DesdeArchivo.cargarTuberias(arbolTest, mapa, hmapTuberias);
         DesdeArchivo.cargarPoblacion(arbolTest);
 
-        Lista CAMINO = mapa.obtenerCamino(((Ciudad)arbolTest.obtenerValor("Miracosta")).getNomenclatura(), ((Ciudad)arbolTest.obtenerValor("CampoAzul")).getNomenclatura());
+        Lista CAMINO = mapa.obtenerCamino(((Ciudad) arbolTest.obtenerValor("Miracosta")).getNomenclatura(),
+                ((Ciudad) arbolTest.obtenerValor("CampoAzul")).getNomenclatura());
         System.out.println(CAMINO.toString());
-        
+
         Lista etiquetas = mapa.obtenerEtiquetasCamino(CAMINO);
         System.out.println(etiquetas.toString());
 
         double resultado = mapa.obtenerMenorEtiqueta(etiquetas);
         System.out.println(resultado);
 
-        double aguaAprovisionada = mapa.obtenerAguaAprovisionada("Miracosta", 2020, 1, hmapTuberias);
-        System.out.println(aguaAprovisionada);
+        System.out.println("- 2da parte - ");
+        Lista camino = mapa.obtenerPrimerActivo("Miracosta", hmapTuberias);
+        System.out.println("CAMINO ACTIVO");
+        System.out.println(camino + "\n");
+        Lista etiquLista = mapa.obtenerEtiquetasCamino(camino);
+        System.out.println("ETIQUETAS");
+        System.out.println(etiquLista + "\n");
+        double menor = mapa.obtenerMenorEtiqueta(etiquLista);
+        System.out.println("MENOR");
+        System.out.println(menor + "\n");
+        double porHab = ((Ciudad) arbolTest.obtenerValor("Miracosta")).cantidadAguaPorMes(2020, 1);
+        System.out.println("aguaPorHab");
+        System.out.println(porHab);
+
+        TransporteAgua.mostrarCiudad(arbolTest, mapa, hmapTuberias);
+
     }
 }

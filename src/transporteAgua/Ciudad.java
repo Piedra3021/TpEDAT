@@ -163,7 +163,7 @@ public class Ciudad implements Comparable {
     }
 
     public String toString() {
-        return nombre + "(" + nomenclatura + ")";
+        return nombre;
     }
 
     public boolean equals(Object ciudad) {

@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import Utiles.DesdeArchivo;
 import Utiles.IO;
+import Utiles.TecladoIn;
 import conjuntistas.ArbolAVL;
 import grafos.Grafo;
 import jerarquicas.*;
@@ -121,22 +122,82 @@ public class TransporteAgua {
         return exito;
     }
 
+    public static double obtenerAguaAprovisionada(ArbolAVL ciudades, Grafo mapa,
+            HashMap<ClaveTuberia, DatosTuberia> hmapTuberias, String nombre, int anio, int mes) {
+        Ciudad ciudad = (Ciudad) ciudades.obtenerValor(nombre);
+        double resultado = -1;
+
+        if (ciudad != null) {
+            // Obtiene la cantidad de agua en un año, en un mes
+            double aguaPorHab = ciudad.cantidadAguaPorMes(anio, mes);
+            double aguaCaudal = -1;
+
+            // Obtiene el primer camino de tuberias activo de principio a fin.
+            Lista caminoA = mapa.obtenerPrimerActivo(ciudad, hmapTuberias);
+            if (caminoA != null) {
+                // Si existe, obtiene las etiquetas (caudales) y luego el minimo de estos
+                // Ya que va a ser la capacidad maxima del camino.
+                caminoA = mapa.obtenerEtiquetasCamino(caminoA);
+
+                aguaCaudal = mapa.obtenerMenorEtiqueta(caminoA);
+            }
+
+            // Si es mayor que 0, es que si existe el anio, mes
+            if (aguaPorHab > 0) {
+                // Existe algun camino activo en la ciudad
+                if (aguaCaudal > 0) {
+                    if (aguaPorHab < aguaCaudal) {
+                        resultado = aguaPorHab;
+                    } else {
+                        resultado = aguaCaudal;
+                    }
+                } else {
+                    resultado = aguaPorHab;
+                }
+            } else {
+                resultado = aguaCaudal;
+            }
+
+        }
+        return resultado;
+    }
+
     // private static Ciudad leerCiudad(ArbolAVL arbol){
     // leer por teclado y obtener desde el arbol
     // validar entrada?
     // }
     // Ej 4-1
-    public static void mostrarCiudad(ArbolAVL arbol) {
-        IO.salida("INI mostrarCiudad", false);
+    public static void mostrarCiudad(ArbolAVL arbol, Grafo mapa, HashMap<ClaveTuberia, DatosTuberia> hMapTuberia) {
+        IO.salida("INI mostrarCiudad", true);
         // Ciudad c = leerCiudad(arbol);
-        String nombre = "Neufuen";
+        IO.salida("Indique la ciudad", false);
+        String nombre = TecladoIn.readLine();
         Ciudad c = (Ciudad) arbol.obtenerValor(nombre);
         // validar ciudad?
         if (c != null) {
+            IO.salida("Inserte el anio", false);
+            int anio = TecladoIn.readInt();
+            IO.salida("Inserte el mes", false);
+            int mes = TecladoIn.readInt();
             // Leer anio y mes por teclado? usar ultimo elemento del elemento anio?
             // getPoblacionUltimoMes()?
-            double pobActual = c.getPoblacion(2020, 1);
-            IO.salida("Cant habitantes " + nombre + ": " + pobActual, true);
+            int pobActual = c.getPoblacion(anio, mes);
+            if (pobActual != -1) {
+                Lista caminoA = mapa.obtenerPrimerActivo(c, hMapTuberia);
+                caminoA = mapa.obtenerEtiquetasCamino(caminoA);
+                
+
+                IO.salida("=== Informe de distribución de agua ===",false);
+                IO.salida("Ciudad: " + c.toString(),false);
+                IO.salida("Mes/Año: " + String.format("%02d", mes) + "/" + anio + "\n",false);
+                IO.salida("Cantidad de habitantes registrados: " + pobActual + "\n",false);
+                IO.salida("Volumen de agua calculado por cantidad de habitantes: "
+                        + c.cantidadAguaPorMes(anio, mes) + " m³",false);
+                IO.salida("Volumen de agua calculado por caudal disponible:     "
+                        + mapa.obtenerMenorEtiqueta(caminoA) + " m³\n",false);
+                IO.salida(">> Volumen efectivamente aprovisionado: " + TransporteAgua.obtenerAguaAprovisionada(arbol, mapa, hMapTuberia, nombre, anio, mes) + " m³",false);
+
+            }
 
             // leer anio y mes para calc volumen
             // int anioVol = TecladoIn..
@@ -154,8 +215,8 @@ public class TransporteAgua {
     }
 
     // Ej 4-2
-    public static Lista ciudadesEnRango(ArbolAVL arbol, String nomb1, String nomb2, int anio, int mes
-                , double minVol, double maxVol) {
+    public static Lista ciudadesEnRango(ArbolAVL arbol, String nomb1, String nomb2, int anio, int mes, double minVol,
+            double maxVol) {
         IO.salida("INI ciudadesEnRango", false);
         // Se listan las ciudades segun el rango de nombres
         Lista ciudadesEnRango = arbol.listarRangoValor(nomb1, nomb2), resultado = new Lista();
@@ -213,9 +274,9 @@ public class TransporteAgua {
                 "En Diseño"
         };
         int estadoIndex = 0; // En principio, activo
-        for (int i = 1; i+1 <= camino.longitud(); i++) {
-            ClaveTuberia clave = new ClaveTuberia(((Ciudad) camino.recuperar(i)).getNomenclatura(), 
-                ((Ciudad) camino.recuperar(i+1)).getNomenclatura());
+        for (int i = 1; i + 1 <= camino.longitud(); i++) {
+            ClaveTuberia clave = new ClaveTuberia(((Ciudad) camino.recuperar(i)).getNomenclatura(),
+                    ((Ciudad) camino.recuperar(i + 1)).getNomenclatura());
             char estado = hMapTuberias.get(clave).getEstado();
             if (estado != 'a') {
                 if (estado != 'r') {
