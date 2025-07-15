@@ -467,6 +467,7 @@ public class Grafo {
         return menor;
     }
 
+    //Revisar, con metodos internos.
     public double obtenerAguaAprovisionada(Object ciudad, int anio, int mes,
             Map<ClaveTuberia, DatosTuberia> hMapTuberias) {
         double resultado = -1;
