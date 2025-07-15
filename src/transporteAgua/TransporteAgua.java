@@ -155,13 +155,15 @@ public class TransporteAgua {
     public static Lista ciudadesEnRango(ArbolAVL arbol, String nomb1, String nomb2, int anio, int mes
                 , double minVol, double maxVol) {
         IO.salida("INI ciudadesEnRango", false);
+        // Se listan las ciudades segun el rango de nombres
         Lista ciudadesEnRango = arbol.listarRangoValor(nomb1, nomb2), resultado = new Lista();
         Ciudad ciudad;
         if (ciudadesEnRango.longitud() > 0) {
+            // Si se encontraron ciudades en el rango
+            // se evalua si su comsumo de agua esta dentro del rango
             for (int i = 1; i <= ciudadesEnRango.longitud(); i++) {
                 ciudad = (Ciudad) ciudadesEnRango.recuperar(i);
                 double volumen = ciudad.cantidadAguaPorMes(anio, mes);
-                System.out.println(volumen);
                 if (!(volumen < minVol || volumen > maxVol)) {
                     resultado.insertar(ciudad, 1);
                 }

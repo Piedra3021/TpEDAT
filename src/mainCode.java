@@ -31,7 +31,7 @@ public class mainCode {
 
         Ciudad c1 = (Ciudad) ciudades.obtenerValor("Neufuen");
         Ciudad c2 = (Ciudad) ciudades.obtenerValor("Brezalia");
-        Lista l = TransporteAgua.ciudadesEnRango(ciudades, c2.getNombre(), c1.getNombre(), 2020, 1, 0, 100);
+        Lista l = TransporteAgua.ciudadesEnRango(ciudades, c2.getNombre(), c1.getNombre(), 2020, 1, 0, 250);
         ciudades.dibujar();
         System.out.println(l.toString());
     }
