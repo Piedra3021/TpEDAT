@@ -119,15 +119,18 @@ public class DesdeArchivo {
         String line;
         String PATH = "src/Utiles/pob_prod.csv";
         Ciudad ciudad;
-        try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(PATH), StandardCharsets.UTF_8))) {
             while ((line = br.readLine()) != null) {
-                Object[] valores = line.split(DELIMITER);
-                if (valores[0].equals("p")) {
-                    ciudad = (Ciudad) arbol.obtenerValor((Comparable) valores[1]);
+                String[] valores = line.split(DELIMITER);
+                if (valores[0].equals("c")) {
+                    valores[1] = quitarAcentos(valores[1].replaceAll("\\s+", ""));
+                    ciudad = (Ciudad) arbol.obtenerValor(valores[1]);
                     if (ciudad != null) {
-                        ciudad.setPoblacion((int) valores[2], (int) valores[3], (int) valores[4]);
+                        ciudad.setPoblacion(Integer.parseInt(valores[2]), Integer.parseInt(valores[3]), Integer.parseInt(valores[4]));
                         // nuevaCiudad = genPoblacion(valores);
                         // TransporteAgua.altaCiudad(arbol, nuevaCiudad);
+                    } else {
+                        System.out.println("Ciudad no encontrada: " + valores[1]);
                     }
                 }
             }
