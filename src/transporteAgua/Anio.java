@@ -61,17 +61,20 @@ public class Anio {
         case 10: // Octubre
         case 12: // Diciembre
             cant = 31;
+            break;
         case 4:  // Abril
         case 6:  // Junio
         case 9:  // Septiembre
         case 11: // Noviembre
             cant = 30;
+            break;
         case 2:  // Febrero
             if(esBisiesto(this.anio)){
                 cant = 29;
             }else{
                 cant = 28;
             }
+            break;
         default:
             cant = -1;
     }

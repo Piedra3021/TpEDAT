@@ -139,11 +139,21 @@ public class Ciudad implements Comparable {
             int anioPos = poblacion.localizar(anio);
             Anio anioTrabajar = (Anio) poblacion.recuperar(anioPos);
             if (anioTrabajar != null) {
+                int cantDias = anioTrabajar.obtenerDiasDelMes(mes);
                 int cantHabitantes = anioTrabajar.getPoblacionMes(mes);
-                res = cantHabitantes * consumoPromedio;
+                res = cantHabitantes * consumoPromedio * cantDias;
             }
         }
         return res;
+    }
+
+    public int getDias(int anio, int mes){
+        int cantDias = -1;
+        Anio anioC = new Anio(anio);
+        
+        cantDias = anioC.obtenerDiasDelMes(mes);
+
+        return cantDias;
     }
 
     // Revisar
