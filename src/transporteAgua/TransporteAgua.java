@@ -154,14 +154,27 @@ public class TransporteAgua {
     }
 
     // Ej 4-2
-    public static void ciudadesEnRango(ArbolAVL arbol, String minNom, String maxNom, double minVol, double maxVol) {
+    public static Lista ciudadesEnRango(ArbolAVL arbol, String nomb1, String nomb2, int anio, int mes
+                , double minVol, double maxVol) {
         IO.salida("INI ciudadesEnRango", false);
-        // Usar parametros
-        Lista res = arbol.listarRango("NE0000", "PU3013");
-        // Recorrer res y descartar los que no cumplan el rango de Vol
-        // elem.consumoEnRango(...)
-        IO.salida(res, true);
+        // Se listan las ciudades segun el rango de nombres
+        Lista ciudadesEnRango = arbol.listarRangoValor(nomb1, nomb2), resultado = new Lista();
+        Ciudad ciudad;
+        if (ciudadesEnRango.longitud() > 0) {
+            // Si se encontraron ciudades en el rango
+            // se evalua si su comsumo de agua esta dentro del rango
+            for (int i = 1; i <= ciudadesEnRango.longitud(); i++) {
+                ciudad = (Ciudad) ciudadesEnRango.recuperar(i);
+                double volumen = ciudad.cantidadAguaPorMes(anio, mes);
+                if (!(volumen < minVol || volumen > maxVol)) {
+                    resultado.insertar(ciudad, 1);
+                }
+            }
+        } else {
+            IO.salida("No se encontraron ciudades en el rango especificado.", true);
+        }
         IO.salida("FIN ciudadesEnRango", false);
+        return resultado;
     }
 
     public static void caminoCaudalPleno(ArbolAVL arbol) {
@@ -200,9 +213,9 @@ public class TransporteAgua {
                 "En Diseño"
         };
         int estadoIndex = 0; // En principio, activo
-        for (int i = 1; i + 1 < camino.longitud(); i++) {
-            ClaveTuberia clave = new ClaveTuberia(((Ciudad) camino.recuperar(i)).getNomenclatura(),
-                    ((Ciudad) camino.recuperar(i + 1)).getNomenclatura());
+        for (int i = 1; i+1 <= camino.longitud(); i++) {
+            ClaveTuberia clave = new ClaveTuberia(((Ciudad) camino.recuperar(i)).getNomenclatura(), 
+                ((Ciudad) camino.recuperar(i+1)).getNomenclatura());
             char estado = hMapTuberias.get(clave).getEstado();
             if (estado != 'a') {
                 if (estado != 'r') {
