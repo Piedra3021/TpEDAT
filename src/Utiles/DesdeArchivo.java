@@ -122,10 +122,10 @@ public class DesdeArchivo {
         try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
             while ((line = br.readLine()) != null) {
                 Object[] valores = line.split(DELIMITER);
-                if (valores[0].equals("p")) {
+                if (valores[0].equals("c")) {
                     ciudad = (Ciudad) arbol.obtenerValor((Comparable) valores[1]);
                     if (ciudad != null) {
-                        ciudad.setPoblacion((int) valores[2], (int) valores[3], (int) valores[4]);
+                        ciudad.setPoblacion(Integer.parseInt((String)valores[2]), Integer.parseInt((String)valores[3]), Integer.parseInt((String)valores[4]));
                         // nuevaCiudad = genPoblacion(valores);
                         // TransporteAgua.altaCiudad(arbol, nuevaCiudad);
                     }

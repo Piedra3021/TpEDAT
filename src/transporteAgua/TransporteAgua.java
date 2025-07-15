@@ -152,10 +152,25 @@ public class TransporteAgua {
     }
 
     // Ej 4-2
-    public static void ciudadesEnRango(ArbolAVL arbol) {
+    public static Lista ciudadesEnRango(ArbolAVL arbol, String nomb1, String nomb2, int anio, int mes
+                , double minVol, double maxVol) {
         IO.salida("INI ciudadesEnRango", false);
-        // ...
+        Lista ciudadesEnRango = arbol.listarRangoValor(nomb1, nomb2), resultado = new Lista();
+        Ciudad ciudad;
+        if (ciudadesEnRango.longitud() > 0) {
+            for (int i = 1; i <= ciudadesEnRango.longitud(); i++) {
+                ciudad = (Ciudad) ciudadesEnRango.recuperar(i);
+                double volumen = ciudad.cantidadAguaPorMes(anio, mes);
+                System.out.println(volumen);
+                if (!(volumen < minVol || volumen > maxVol)) {
+                    resultado.insertar(ciudad, 1);
+                }
+            }
+        } else {
+            IO.salida("No se encontraron ciudades en el rango especificado.", true);
+        }
         IO.salida("FIN ciudadesEnRango", false);
+        return resultado;
     }
 
     // Ej 5-1
@@ -194,7 +209,7 @@ public class TransporteAgua {
             "En Diseño"
         };
         int estadoIndex = 0; // En principio, activo
-        for (int i = 1; i+1 < camino.longitud(); i++) {
+        for (int i = 1; i+1 <= camino.longitud(); i++) {
             ClaveTuberia clave = new ClaveTuberia(((Ciudad) camino.recuperar(i)).getNomenclatura(), 
                 ((Ciudad) camino.recuperar(i+1)).getNomenclatura());
             char estado = hMapTuberias.get(clave).getEstado();
