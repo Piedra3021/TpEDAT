@@ -250,6 +250,7 @@ public class TransporteAgua {
         Ciudad ciudadD = (Ciudad) arbol.obtenerValor(cDestino);
         Lista camino = mapa.obtenerCamino(cOrigen, cDestino);
         camino = mapa.obtenerEtiquetasCamino(camino);
+        
 
         // ...
         // leer c1 y c2
