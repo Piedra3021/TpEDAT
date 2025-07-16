@@ -238,8 +238,19 @@ public class TransporteAgua {
         return resultado;
     }
 
-    public static void caminoCaudalPleno(ArbolAVL arbol) {
+    //Ej. 5-1
+    public static void caminoCaudalPleno(ArbolAVL arbol, Grafo mapa, HashMap<ClaveTuberia,DatosTuberia> hMapTuberias) {
         IO.salida("INI caminoCaudalPleno", false);
+
+        IO.salida("Ingrese ciudad Origen", false);
+        String cOrigen= TecladoIn.readLine();
+        Ciudad ciudadO = (Ciudad) arbol.obtenerValor(cOrigen);
+        IO.salida("Ingrese ciudad Destino", false);
+        String cDestino= TecladoIn.readLine();
+        Ciudad ciudadD = (Ciudad) arbol.obtenerValor(cDestino);
+        Lista camino = mapa.obtenerCamino(cOrigen, cDestino);
+        camino = mapa.obtenerEtiquetasCamino(camino);
+
         // ...
         // leer c1 y c2
         // obtener camino con maximos menores?

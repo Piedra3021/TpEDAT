@@ -531,4 +531,40 @@ public class Grafo {
         }
         return exito;
     }
+
+    public Lista obtenerTodosCaminos(Object origen, Object destino){
+        Lista todosLosCaminos = new Lista();
+        Lista caminoAct = new Lista();
+
+        NodoVert verOrigen = ubicarVertice(origen);
+        NodoVert verDestino = ubicarVertice(destino);
+
+        if(verOrigen != null & verDestino != null){
+            obtenerTodosCaminosAux(verOrigen, destino, caminoAct, todosLosCaminos);
+        }
+
+        return todosLosCaminos;
+    }
+
+    private void obtenerTodosCaminosAux(NodoVert actual, Object destino, Lista caminoActual, Lista todosLosCaminos){
+        caminoActual.insertar(actual.getElem(),caminoActual.longitud()+1); //Se agrega en el que estoy
+
+        //Si llegue al destino, agrego un clon de la lista a todos los caminos.
+        if(actual.getElem().equals(destino)){
+            todosLosCaminos.insertar(caminoActual.clone(), todosLosCaminos.longitud()+1);
+        }else{
+            //Si no, sigo recorriendo.
+            NodoAdy ady = actual.getPrimerAdy();
+            while(ady != null){
+                Object vecino = ady.getVertice().getElem();
+
+                //Si no existe el siguiente, sigo recorriendo.
+                if(caminoActual.localizar(vecino)!=-1){
+                    obtenerTodosCaminosAux(ady.getVertice(), destino, caminoActual, todosLosCaminos);
+                }
+                ady = ady.getSigAdyacente();
+            }
+        }
+        caminoActual.eliminar(caminoActual.longitud());
+    }
 }
