@@ -1,4 +1,5 @@
 t,Miracosta,Brezalia,000,213,5,a
+t,Miracosta,Solferino,000,433,6,a
 t,Verdemar,Solferino,000,500,10,a
 t,Neufuén,Portenilo,000,213,10,a
 t,Portenilo,Valdería,000,185,10,a
@@ -8,9 +9,9 @@ t,Espléndida,Altamira,000,350,12,a
 t,Altamira,Tarnavia,000,250,12,a
 t,Tarnavia,Miracosta,000,320,14,a
 t,Brezalia,Riomayor,000,170,8,a
-t,Riomayor,Cupral-Có,000,140,6,a
+t,Riomayor,Cupral-Có,000,140,6,d
 t,Cupral-Có,Las Colinas,000,130,6,a
-t,Las Colinas,Campo Azul,000,120,6,a
+t,Las Colinas,Campo Azul,000,120,6,d
 t,Campo Azul,Fuentes del Sol,000,110,5,a
 t,Fuentes del Sol,Roca Firme,000,100,5,a
 t,Roca Firme,Puerto Yaco,000,160,7,a

@@ -496,11 +496,12 @@ public class Grafo {
         visitados.insertar(elemActual, visitados.longitud() + 1);
         caminoActual.insertar(elemActual, caminoActual.longitud() + 1);
         boolean exito = false;
+        boolean encontrado = false;
 
         boolean tieneVecinoActivo = false;
 
         NodoAdy vecino = actual.getPrimerAdy();
-        while (vecino != null) {
+        while (vecino != null && !encontrado) {
             Object elemVecino = vecino.getVertice().getElem();
 
             ClaveTuberia clave = new ClaveTuberia(elemActual, elemVecino);
@@ -509,7 +510,7 @@ public class Grafo {
             if (datos != null && datos.getEstado() == 'a' && visitados.localizar(elemVecino) == -1) {
                 tieneVecinoActivo = true;
                 // Ir recursivamente por el primer vecino activo
-                boolean encontrado = obtenerActivoAux(
+                encontrado = obtenerActivoAux(
                         vecino.getVertice(), tuberias, visitados, caminoActual, caminoFinal);
                 if (encontrado) {
                     exito = true; // ya se encontró el primer camino activo completo

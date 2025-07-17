@@ -121,7 +121,7 @@ public class mainCode {
         System.out.println("aguaPorHab");
         System.out.println(porHab);
 
-        TransporteAgua.mostrarCiudad(arbolTest, mapa, hmapTuberias);
+        //TransporteAgua.mostrarCiudad(arbolTest, mapa, hmapTuberias);
 
     }
 }
