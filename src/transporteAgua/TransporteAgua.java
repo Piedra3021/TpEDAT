@@ -47,8 +47,10 @@ public class TransporteAgua {
 
     public static void altaCiudad(ArbolAVL arbol, Grafo grafo, Ciudad nuevaCiudad) {
         IO.salida("ALTA ciudad." + nuevaCiudad.toString(), true);
-        arbol.insertar(nuevaCiudad.getNombre(), nuevaCiudad);
-        grafo.insertarVertice(nuevaCiudad);
+        boolean exitoArbol = arbol.insertar(nuevaCiudad.getNombre(), nuevaCiudad);
+        boolean exitoGrafo = grafo.insertarVertice(nuevaCiudad);
+        IO.salida("ALTA ciudad." + nuevaCiudad.toString() + ". exitoArbol: " + exitoArbol + ". Grafo: " + exitoGrafo,
+                true);
     }
 
     /*
@@ -77,7 +79,7 @@ public class TransporteAgua {
                         entry.getKey().getNom2().equals(c.getNomenclatura()));
             }
         } else {
-            IO.salida("No se pudo eliminar la ciudad: no existe.", true);
+            IO.salida("No se pudo eliminar la ciudad: no existe " + nombre, true);
         }
 
         return exito;
@@ -95,7 +97,14 @@ public class TransporteAgua {
             hMapTuberias.put(clave, datosTuberia);
             grafo.insertarArco(c1, c2, datosTuberia.getCaudalMax());
         } else {
-            IO.salida("No se pudo agregar la tubería: una o ambas ciudades no existen.", true);
+            String mensaje = "No se pudo agregar la tubería: ";
+            if (c1 == null || c2 == null) {
+                mensaje += c1 == null ? desde : hasta;
+                mensaje += " no existe";
+            } else {
+                mensaje += "c1==c2 o no estan conectadas las ciudades";
+            }
+            IO.salida(mensaje, true);
         }
     }
 
@@ -118,7 +127,14 @@ public class TransporteAgua {
             grafo.eliminarArco(c1, c2);
             exito = true;
         } else {
-            IO.salida("No se pudo eliminar la tubería: no existe.", true);
+            String mensaje = "No se pudo eliminar la tubería: ";
+            if (c1 == null || c2 == null) {
+                mensaje += c1 == null ? desde : hasta;
+                mensaje += " no existe";
+            } else {
+                mensaje += "no estan conectadas las ciudades";
+            }
+            IO.salida(mensaje, true);
         }
         return exito;
     }
@@ -186,17 +202,18 @@ public class TransporteAgua {
             if (pobActual != -1) {
                 Lista caminoA = mapa.obtenerPrimerActivo(c, hMapTuberia);
                 caminoA = mapa.obtenerEtiquetasCamino(caminoA);
-                
 
-                IO.salida("=== Informe de distribución de agua ===",false);
-                IO.salida("Ciudad: " + c.toString(),false);
-                IO.salida("Mes/Año: " + String.format("%02d", mes) + "/" + anio + "\n",false);
-                IO.salida("Cantidad de habitantes registrados: " + pobActual + "\n",false);
+                IO.salida("=== Informe de distribución de agua ===", false);
+                IO.salida("Ciudad: " + c.toString(), false);
+                IO.salida("Mes/Año: " + String.format("%02d", mes) + "/" + anio + "\n", false);
+                IO.salida("Cantidad de habitantes registrados: " + pobActual + "\n", false);
                 IO.salida("Volumen de agua calculado por cantidad de habitantes: "
-                        + c.cantidadAguaPorMes(anio, mes) + " m³",false);
+                        + c.cantidadAguaPorMes(anio, mes) + " m³", false);
                 IO.salida("Volumen de agua calculado por caudal disponible:     "
-                        + mapa.obtenerMenorEtiqueta(caminoA) + " m³\n",false);
-                IO.salida(">> Volumen efectivamente aprovisionado: " + TransporteAgua.obtenerAguaAprovisionada(arbol, mapa, hMapTuberia, nombre, anio, mes) + " m³",false);
+                        + mapa.obtenerMenorEtiqueta(caminoA) + " m³\n", false);
+                IO.salida(">> Volumen efectivamente aprovisionado: "
+                        + TransporteAgua.obtenerAguaAprovisionada(arbol, mapa, hMapTuberia, nombre, anio, mes) + " m³",
+                        false);
 
             }
 
@@ -239,19 +256,18 @@ public class TransporteAgua {
         return resultado;
     }
 
-    //Ej. 5-1
-    public static void caminoCaudalPleno(ArbolAVL arbol, Grafo mapa, HashMap<ClaveTuberia,DatosTuberia> hMapTuberias) {
+    // Ej. 5-1
+    public static void caminoCaudalPleno(ArbolAVL arbol, Grafo mapa, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias) {
         IO.salida("INI caminoCaudalPleno", false);
 
         IO.salida("Ingrese ciudad Origen", false);
-        String cOrigen= TecladoIn.readLine();
+        String cOrigen = TecladoIn.readLine();
         Ciudad ciudadO = (Ciudad) arbol.obtenerValor(cOrigen);
         IO.salida("Ingrese ciudad Destino", false);
-        String cDestino= TecladoIn.readLine();
+        String cDestino = TecladoIn.readLine();
         Ciudad ciudadD = (Ciudad) arbol.obtenerValor(cDestino);
         Lista camino = mapa.obtenerCamino(cOrigen, cDestino);
         camino = mapa.obtenerEtiquetasCamino(camino);
-        
 
         // ...
         // leer c1 y c2
@@ -288,9 +304,9 @@ public class TransporteAgua {
         };
         int estadoIndex = 0; // En principio, activo
         int i = 1;
-        while (i+1 <= camino.longitud() && estadoIndex < 3) {
-            ClaveTuberia clave = new ClaveTuberia(((Ciudad) camino.recuperar(i)).getNomenclatura(), 
-                ((Ciudad) camino.recuperar(i+1)).getNomenclatura());
+        while (i + 1 <= camino.longitud() && estadoIndex < 3) {
+            ClaveTuberia clave = new ClaveTuberia(((Ciudad) camino.recuperar(i)).getNomenclatura(),
+                    ((Ciudad) camino.recuperar(i + 1)).getNomenclatura());
             char estado = hMapTuberias.get(clave).getEstado();
             if (estado != 'a') {
                 if (estado != 'r') {
@@ -328,7 +344,8 @@ public class TransporteAgua {
             consumoCiudad = new ConsumoAnual(ciudad, consumoAnual);
             heap.insertar(consumoCiudad);
         }
-        // Extraigo los elementos del heap y se insertan las ciudades en la lista resultado
+        // Extraigo los elementos del heap y se insertan las ciudades en la lista
+        // resultado
         while (!heap.esVacio()) {
             resultado.insertar(((ConsumoAnual) heap.obtenerCima()).getCiudad(), 1);
             heap.eliminarCima();
