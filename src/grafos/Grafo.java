@@ -570,7 +570,8 @@ public class Grafo {
     }
 
     public Lista obtenerCaminoEtiqMin(Object origen, Object destino) {
-        Lista resultado = new Lista();
+        // Lista resultado = new Lista();
+        CaminoVol resultado = new CaminoVol();
         Lista caminoAct = new Lista();
 
         NodoVert verOrigen = ubicarVertice(origen);
@@ -580,16 +581,16 @@ public class Grafo {
             oCEM(verOrigen, verDestino, caminoAct, resultado, -1, 0);
         }
 
-        return resultado;
+        return resultado.getCamino();
     }
 
     // retorna vol minima de etiquetas del camino. Resultado mantiene el
     // camino por referencia
-    private double oCEM(NodoVert actual, NodoVert destino, Lista caminoActual, Lista resultado, double volMin,
+    private double oCEM(NodoVert actual, NodoVert destino, Lista caminoActual, CaminoVol resultado, double volMin,
             double volActual) {
         caminoActual.insertar(actual.getElem(), caminoActual.longitud() + 1); // Se agrega en el que estoy
         // IO.sout("Actual: " + actual.getElem() + ".O==D? "
-                // + actual.getElem().equals(destino.getElem()));
+        // + actual.getElem().equals(destino.getElem()));
 
         // Si llegue al destino, compruebo si la vol de etiquetas
         // del caminoActual es la menor.
@@ -599,6 +600,8 @@ public class Grafo {
             if (volMin == -1 || volActual < volMin) {
                 // IO.sout("Actualizar resultado");
                 IO.sout("Parcial: " + caminoActual + ". Vol: " + volActual);
+                resultado.setCamino(caminoActual.clone());
+                resultado.setVol(volActual);
                 volMin = volActual;
             }
         } else {
