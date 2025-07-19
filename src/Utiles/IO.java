@@ -32,8 +32,9 @@ public class IO {
 
     public static void salida(Object txt, boolean haceLog) {
         sout(txt);
+        boolean opcionLog = DesdeArchivo.getProps().getProperty("logArchivo").equals("true");
         // revisar!
-        if (haceLog) {
+        if (haceLog && opcionLog) {
             try {
                 PrintWriter escritor = new PrintWriter(
                         new FileOutputStream("src/Utiles/log.log", true));
