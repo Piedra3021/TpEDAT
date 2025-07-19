@@ -46,7 +46,7 @@ public class DesdeArchivo {
     public static void cargarCiudades(ArbolAVL arbol, Grafo grafo) {
         IO.salida("INI cargaCiudades", false);
         String sufijo = getProps().getProperty("ciu");
-        IO.sout(sufijo);
+        // IO.sout(sufijo);
         String line;
         String PATH = "src/Utiles/ciu_" + sufijo + ".csv";
         Ciudad nuevaCiudad;
@@ -88,8 +88,10 @@ public class DesdeArchivo {
     public static void cargarTuberias(ArbolAVL ciudades, Grafo grafo,
             HashMap<ClaveTuberia, DatosTuberia> hMapTuberias) {
         IO.salida("INI cargaTuberias", false);
+        String sufijo = getProps().getProperty("tub");
+        // IO.sout(sufijo);
         String line;
-        String PATH = "src/Utiles/tub_prod.csv";
+        String PATH = "src/Utiles/tub_" + sufijo + ".csv";
         try (BufferedReader br = new BufferedReader(
                 new InputStreamReader(new FileInputStream(PATH), StandardCharsets.UTF_8))) {
             while ((line = br.readLine()) != null) {
@@ -124,7 +126,9 @@ public class DesdeArchivo {
     public static void cargarPoblacion(ArbolAVL arbol) {
         IO.salida("INI cargaPoblacion", false);
         String line;
-        String PATH = "src/Utiles/pob_prod.csv";
+        String sufijo = getProps().getProperty("tub");
+        // IO.sout(sufijo);
+        String PATH = "src/Utiles/pob_" + sufijo + ".csv";
         Ciudad ciudad;
         try (BufferedReader br = new BufferedReader(
                 new InputStreamReader(new FileInputStream(PATH), StandardCharsets.UTF_8))) {
