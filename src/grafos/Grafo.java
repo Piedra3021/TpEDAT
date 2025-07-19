@@ -583,43 +583,43 @@ public class Grafo {
         return resultado;
     }
 
-    // retorna sumatoria minima de etiquetas del camino. Resultado mantiene el
+    // retorna vol minima de etiquetas del camino. Resultado mantiene el
     // camino por referencia
-    private double oCEM(NodoVert actual, NodoVert destino, Lista caminoActual, Lista resultado, double sumatoriaMin,
-            double sumatoriaActual) {
+    private double oCEM(NodoVert actual, NodoVert destino, Lista caminoActual, Lista resultado, double volMin,
+            double volActual) {
         caminoActual.insertar(actual.getElem(), caminoActual.longitud() + 1); // Se agrega en el que estoy
-        IO.sout("Actual: " + actual.getElem() + ".O==D? "
-                + actual.getElem().equals(destino.getElem()));
+        // IO.sout("Actual: " + actual.getElem() + ".O==D? "
+                // + actual.getElem().equals(destino.getElem()));
 
-        // Si llegue al destino, compruebo si la sumatoria de etiquetas
+        // Si llegue al destino, compruebo si la vol de etiquetas
         // del caminoActual es la menor.
         if (actual.getElem().equals(destino.getElem())) {
-            // sumatoriaMin == -1: primer camino encontrado
-            IO.sout(sumatoriaActual + ", " + sumatoriaMin);
-            if (sumatoriaMin == -1 || sumatoriaActual < sumatoriaMin) {
-                IO.sout("Actualizar resultado");
-                resultado.insertar(resultado, resultado.longitud() + 1);
-                sumatoriaMin = sumatoriaActual;
+            // volMin == -1: primer camino encontrado
+            // IO.sout(volActual + ", " + volMin);
+            if (volMin == -1 || volActual < volMin) {
+                // IO.sout("Actualizar resultado");
+                IO.sout("Parcial: " + caminoActual + ". Vol: " + volActual);
+                volMin = volActual;
             }
         } else {
             // Si no, sigo recorriendo.
             NodoAdy ady = actual.getPrimerAdy();
             while (ady != null) {
                 Object vecino = ady.getVertice().getElem();
-                IO.sout("\tVecino: " + vecino);
+                // IO.sout("\tVecino: " + vecino);
 
                 // si vecino no fue visitado
                 // if (vecino != null?? && caminoActual.localizar(vecino) == -1) {
                 if (caminoActual.localizar(vecino) == -1) {
                     double valorEtiq = ady.getEtiqueta();
-                    sumatoriaMin = oCEM(ady.getVertice(), destino, caminoActual, resultado, sumatoriaMin,
-                            valorEtiq + sumatoriaActual);
+                    volMin = oCEM(ady.getVertice(), destino, caminoActual, resultado, volMin,
+                            valorEtiq + volActual);
                 }
                 ady = ady.getSigAdyacente();
             }
         }
         caminoActual.eliminar(caminoActual.longitud());
-        return sumatoriaMin;
+        return volMin;
     }
 
 }
