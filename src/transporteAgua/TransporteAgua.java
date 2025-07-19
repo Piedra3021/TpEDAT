@@ -5,7 +5,7 @@ import java.util.HashMap;
 import Utiles.DesdeArchivo;
 import Utiles.IO;
 import conjuntistas.ArbolAVL;
-import conjuntistas.HeapMax;
+import conjuntistas.HeapMin;
 import grafos.Grafo;
 import jerarquicas.*;
 import lineales.*;
@@ -240,10 +240,11 @@ public class TransporteAgua {
         IO.salida("INI listarPorConsumoAnual", false);
         // Se listan las ciudades ordenadas por consumo anual
         Lista ciudadesOrdenadas = arbol.listarValor(), resultado = new Lista();
+        System.out.println("Ciudades ordenadas: " + ciudadesOrdenadas.toString());
         int longi = ciudadesOrdenadas.longitud();
         double consumoAnual;
         ConsumoAnual consumoCiudad;
-        HeapMax heap = new HeapMax(longi);
+        HeapMin heap = new HeapMin(longi);
         Ciudad ciudad;
         // Se recorre la lista de ciudades y se calcula el consumo anual
         for (int i = 1; i <= longi; i++) {
@@ -252,9 +253,9 @@ public class TransporteAgua {
             consumoCiudad = new ConsumoAnual(ciudad, consumoAnual);
             heap.insertar(consumoCiudad);
         }
-        // Extraigo los elementos del heap y los inserto en la lista resultado
+        // Extraigo los elementos del heap y se insertan las ciudades en la lista resultado
         while (!heap.esVacio()) {
-            resultado.insertar(heap.obtenerCima(), resultado.longitud() + 1);
+            resultado.insertar(((ConsumoAnual) heap.obtenerCima()).getCiudad(), 1);
             heap.eliminarCima();
         }
         IO.salida("FIN listarPorConsumoAnual", false);

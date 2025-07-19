@@ -1,17 +1,18 @@
 package conjuntistas;
 
-public class HeapMax {
+public class HeapMin {
     private Comparable[] Heap;
     private int TAMANIO = 21;
     private int ultimo  = 0;
 
-    public HeapMax(){
+
+    public HeapMin(){
         this.Heap = new Comparable[TAMANIO];
         this.ultimo = 0;
     }
 
-    public HeapMax(int tamanio){
-        this.Heap = new Comparable[tamanio];
+    public HeapMin(int tamanio){
+        this.Heap = new Comparable[tamanio + 1]; // +1 para el 0 que no se usa
         this.ultimo = 0;
     }
 
@@ -33,12 +34,13 @@ public class HeapMax {
             }
 
             if (resp == true) {
+                i--;
                 padre = Heap[i / 2];
                 if (i > ultimo) {
                     ultimo = i;
                 }
 
-                while (padre != null && n.compareTo(padre) > 0) {
+                while (padre != null && n.compareTo(padre) < 0) {
                     Heap[i/2] = n;
                     Heap[i] = padre;
                     i = i/2;
@@ -60,7 +62,7 @@ public class HeapMax {
             Heap[ultimo] = null;
             ultimo--;
             resp = true;
-
+            
             hijoIzquierdo = Heap[2];
             hijoDerecho = Heap[3];
 
@@ -70,15 +72,15 @@ public class HeapMax {
                         corte = true;
                     } else {
                         posHijoMenor = i * 2;
-                        corte = (Heap[i].compareTo(Heap[posHijoMenor]) >= 0);
+                        corte = (Heap[i].compareTo(Heap[posHijoMenor]) <= 0);
                     }
                 } else {
-                    if (hijoIzquierdo.compareTo(hijoDerecho) > 0) {
+                    if (hijoIzquierdo.compareTo(hijoDerecho) < 0) {
                         posHijoMenor = i * 2;
-                        corte = (Heap[i].compareTo(Heap[posHijoMenor]) >= 0);
+                        corte = (Heap[i].compareTo(Heap[posHijoMenor]) <= 0);
                     } else {
                         posHijoMenor = i * 2 + 1;
-                        corte = (Heap[i].compareTo(Heap[posHijoMenor]) >= 0);
+                        corte = (Heap[i].compareTo(Heap[posHijoMenor]) <= 0);
                     }
                 }
 
@@ -117,8 +119,8 @@ public class HeapMax {
         ultimo = 0;
     }
 
-    public HeapMax clone() {
-        HeapMax newArbol = new HeapMax();
+    public HeapMin clone() {
+        HeapMin newArbol = new HeapMin();
         newArbol.ultimo = this.ultimo;
         newArbol.Heap = this.Heap.clone();
 
