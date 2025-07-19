@@ -5,6 +5,7 @@ import java.util.HashMap;
 import Utiles.DesdeArchivo;
 import Utiles.IO;
 import conjuntistas.ArbolAVL;
+import conjuntistas.HeapMax;
 import grafos.Grafo;
 import jerarquicas.*;
 import lineales.*;
@@ -204,14 +205,15 @@ public class TransporteAgua {
     }
 
     private static String definirEstadoCamino(Lista camino, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias) {
-        String[] estados = new String[]{
-            "Activo",
-            "En Reparación",
-            "Inactivo",
-            "En Diseño"
+        String[] estados = new String[] {
+                "Activo",
+                "En Reparación",
+                "Inactivo",
+                "En Diseño"
         };
         int estadoIndex = 0; // En principio, activo
-        for (int i = 1; i+1 <= camino.longitud(); i++) {
+        int i = 1;
+        while (i+1 <= camino.longitud() && estadoIndex < 3) {
             ClaveTuberia clave = new ClaveTuberia(((Ciudad) camino.recuperar(i)).getNomenclatura(), 
                 ((Ciudad) camino.recuperar(i+1)).getNomenclatura());
             char estado = hMapTuberias.get(clave).getEstado();
@@ -220,22 +222,43 @@ public class TransporteAgua {
                     if (estado != 'i') {
                         estadoIndex = 3; // En Diseño
                     } else {
-                        if (estadoIndex < 2) estadoIndex = 2; // Inactivo
+                        if (estadoIndex < 2)
+                            estadoIndex = 2; // Inactivo
                     }
                 } else {
-                    if (estadoIndex < 1) estadoIndex = 1; // En Reparación
+                    if (estadoIndex < 1)
+                        estadoIndex = 1; // En Reparación
                 }
             }
+            i++;
         }
         return estados[estadoIndex];
     }
 
     // Ej 7
-    public static void listarPorConsumoAnual(ArbolAVL arbol) {
+    public static Lista listarPorConsumoAnual(ArbolAVL arbol, int anio) {
         IO.salida("INI listarPorConsumoAnual", false);
-        // leer anio
-        // que estructura usar?
+        // Se listan las ciudades ordenadas por consumo anual
+        Lista ciudadesOrdenadas = arbol.listarValor(), resultado = new Lista();
+        int longi = ciudadesOrdenadas.longitud();
+        double consumoAnual;
+        ConsumoAnual consumoCiudad;
+        HeapMax heap = new HeapMax(longi);
+        Ciudad ciudad;
+        // Se recorre la lista de ciudades y se calcula el consumo anual
+        for (int i = 1; i <= longi; i++) {
+            ciudad = (Ciudad) ciudadesOrdenadas.recuperar(i);
+            consumoAnual = ciudad.cantidadAguaPorAnio(anio);
+            consumoCiudad = new ConsumoAnual(ciudad, consumoAnual);
+            heap.insertar(consumoCiudad);
+        }
+        // Extraigo los elementos del heap y los inserto en la lista resultado
+        while (!heap.esVacio()) {
+            resultado.insertar(heap.obtenerCima(), resultado.longitud() + 1);
+            heap.eliminarCima();
+        }
         IO.salida("FIN listarPorConsumoAnual", false);
+        return resultado;
     }
 
     // 8.

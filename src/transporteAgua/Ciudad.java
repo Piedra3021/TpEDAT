@@ -132,6 +132,24 @@ public class Ciudad {
         return res;
     }
 
+    public double cantidadAguaPorAnio(int anio){
+        double res = 0;
+        if(poblacion != null){
+            int anioPos = poblacion.localizar(anio);
+            Anio anioTrabajar = (Anio) poblacion.recuperar(anioPos);
+            if(anioTrabajar!=null){
+                for (int mes = 1; mes <= 12; mes++) {
+                    // Acumulo el consumo de cada mes
+                    int cantHabitantes = anioTrabajar.getPoblacionMes(mes);
+                    if (cantHabitantes != -1) {
+                        res = res + cantHabitantes*consumoPromedio;
+                    }
+                }
+            }
+        }
+        return res;
+    }
+
     public String toString() {
         return nombre + "(" + nomenclatura + ")";
     }
