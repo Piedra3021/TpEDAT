@@ -258,23 +258,49 @@ public class TransporteAgua {
     }
 
     // Ej. 5-1
-    public static void caminoCaudalPleno(ArbolAVL arbol, Grafo mapa, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias) {
+    public static Lista caminoCaudalPleno(ArbolAVL arbol, Grafo mapa,
+            HashMap<ClaveTuberia, DatosTuberia> hMapTuberias) {
         IO.salida("INI caminoCaudalPleno", false);
 
+        double caudalMin = -1;
+        double caudalAux;
+        int posCamino = -1;
+        Lista caminoAct = new Lista();
         IO.salida("Ingrese ciudad Origen", false);
         String cOrigen = TecladoIn.readLine();
         Ciudad ciudadO = (Ciudad) arbol.obtenerValor(cOrigen);
         IO.salida("Ingrese ciudad Destino", false);
         String cDestino = TecladoIn.readLine();
         Ciudad ciudadD = (Ciudad) arbol.obtenerValor(cDestino);
-        Lista camino = mapa.obtenerCamino(cOrigen, cDestino);
-        camino = mapa.obtenerEtiquetasCamino(camino);
+        Lista caminos = mapa.obtenerTodosCaminos(cOrigen, cDestino);
+
+        for (int i = 1; i < caminos.longitud() + 1; i++) {
+            caminoAct = (Lista) caminos.recuperar(i);
+            caminoAct = mapa.obtenerEtiquetasCamino(caminoAct);
+            caudalAux = caudalMin = mapa.obtenerMenorEtiqueta(caminoAct);
+
+            if (i == 1) {
+                caudalMin = caudalAux;
+                posCamino = i;
+            } else {
+                if (caudalMin > caudalAux) {
+                    caudalMin = caudalAux;
+                    posCamino = i;
+                }
+            }
+
+            if (posCamino != -1) {
+                caminoAct = (Lista) caminos.recuperar(posCamino);
+            }
+
+        }
 
         // ...
         // leer c1 y c2
         // obtener camino con maximos menores?
         // mostrar estado del camino
         IO.salida("FIN caminoCaudalPleno", false);
+        return caminoAct;
     }
 
     // Ej 5-2

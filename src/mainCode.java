@@ -104,6 +104,8 @@ public class mainCode {
         DesdeArchivo.cargarCiudades(arbolTest, mapa);
         DesdeArchivo.cargarTuberias(arbolTest, mapa, hmapTuberias);
         DesdeArchivo.cargarPoblacion(arbolTest);
+        Ciudad cOrigen = (Ciudad) arbolTest.obtenerValor("Miracosta");
+        Ciudad cDestino = (Ciudad) arbolTest.obtenerValor("LasColinas");
 
         Lista CAMINO = mapa.obtenerCamino(((Ciudad) arbolTest.obtenerValor("Miracosta")).getNomenclatura(),
                 ((Ciudad) arbolTest.obtenerValor("CampoAzul")).getNomenclatura());
@@ -129,7 +131,17 @@ public class mainCode {
         System.out.println("aguaPorHab");
         System.out.println(porHab);
 
-        // TransporteAgua.mostrarCiudad(arbolTest, mapa, hmapTuberias);
+        Lista todosCaminos = mapa.obtenerTodosCaminos(cOrigen.getNombre(), cDestino.getNombre());
+        for(int i=1;i < todosCaminos.longitud()+1;i++){
+            System.out.println("camino " + (i));
+            System.out.println(todosCaminos.recuperar(i));
+        }
 
+        Lista caminoCaudalPleno = TransporteAgua.caminoCaudalPleno(arbolTest, mapa, hmapTuberias);
+        System.out.println(caminoCaudalPleno);
+        caminoCaudalPleno = mapa.obtenerEtiquetasCamino(caminoCaudalPleno);
+        System.out.println(caminoCaudalPleno);
+        System.out.println(mapa.obtenerMenorEtiqueta(caminoCaudalPleno));
+        // TransporteAgua.mostrarCiudad(arbolTest, mapa, hmapTuberias);
     }
 }

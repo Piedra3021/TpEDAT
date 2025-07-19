@@ -160,7 +160,7 @@ public class DesdeArchivo {
         Properties props = new Properties();
         FileInputStream fis;
         try {
-            fis = new FileInputStream("src/Utiles/app.properties");
+            fis = new FileInputStream("src/Utiles/app.properties.bak");
             props.load(fis);
 
         } catch (IOException e) {
