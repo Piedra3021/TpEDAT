@@ -32,3 +32,5 @@ target/
 *_dev.csv
 # Log file
 *.log
+
+app.properties

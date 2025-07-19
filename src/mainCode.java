@@ -10,18 +10,36 @@ import lineales.dinamica.*;
 
 public class mainCode {
     public static void main(String[] args) throws Exception {
-        // test0();
+        IO.sout(DesdeArchivo.getProps().getProperty("nombre"));
+        int nTest = Integer.parseInt(DesdeArchivo.getProps().getProperty("test"));
+        IO.sout("Test: " + nTest);
+        switch (nTest) {
+            case 1:
+                test1();
+                break;
+            case 2:
+                test2();
+                break;
+            case 3:
+                test3();
+                break;
+            default:
+                test0();
+                break;
+        }
         // test1();
         // test2();
-        test3();
+        // test3();
         // res.insertar(n.getElem(), res.longitud() + 1);
     }
 
     private static void test0() {
+        IO.sout("Ini test 0");
 
     }
 
     private static void test1() {
+        IO.sout("Ini test 1");
         ArbolAVL ciudades = new ArbolAVL();
         Grafo mapa = new Grafo();
         HashMap<ClaveTuberia, DatosTuberia> hmapTuberias = new HashMap<ClaveTuberia, DatosTuberia>();
@@ -37,6 +55,7 @@ public class mainCode {
     }
 
     private static void test2() {
+        IO.sout("Ini test 2");
         // TransporteAgua.main();
         ArbolAVL ciudades = new ArbolAVL();
         Grafo mapa = new Grafo();
@@ -89,6 +108,7 @@ public class mainCode {
     }
 
     private static void test3() {
+        IO.sout("Ini test 3");
         ArbolAVL arbolTest = new ArbolAVL();
         Grafo mapa = new Grafo();
         HashMap<ClaveTuberia, DatosTuberia> hmapTuberias = new HashMap<ClaveTuberia, DatosTuberia>();
@@ -121,7 +141,7 @@ public class mainCode {
         System.out.println("aguaPorHab");
         System.out.println(porHab);
 
-        //TransporteAgua.mostrarCiudad(arbolTest, mapa, hmapTuberias);
+        // TransporteAgua.mostrarCiudad(arbolTest, mapa, hmapTuberias);
 
     }
 }

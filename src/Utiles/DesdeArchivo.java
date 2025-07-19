@@ -3,6 +3,8 @@ package Utiles;
 import transporteAgua.*;
 
 import java.util.HashMap;
+import java.util.Properties;
+
 import conjuntistas.ArbolAVL;
 import grafos.Grafo;
 import jerarquicas.*;
@@ -43,10 +45,13 @@ public class DesdeArchivo {
 
     public static void cargarCiudades(ArbolAVL arbol, Grafo grafo) {
         IO.salida("INI cargaCiudades", false);
+        String sufijo = getProps().getProperty("ciu");
+        IO.sout(sufijo);
         String line;
-        String PATH = "src/Utiles/ciu_prod.csv";
+        String PATH = "src/Utiles/ciu_" + sufijo + ".csv";
         Ciudad nuevaCiudad;
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(PATH), StandardCharsets.UTF_8))) {
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(new FileInputStream(PATH), StandardCharsets.UTF_8))) {
             while ((line = br.readLine()) != null) {
                 String[] valores = line.split(DELIMITER);
                 if (valores[0].equals("c")) {
@@ -80,11 +85,13 @@ public class DesdeArchivo {
         return c;
     }
 
-    public static void cargarTuberias(ArbolAVL ciudades, Grafo grafo, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias) {
+    public static void cargarTuberias(ArbolAVL ciudades, Grafo grafo,
+            HashMap<ClaveTuberia, DatosTuberia> hMapTuberias) {
         IO.salida("INI cargaTuberias", false);
         String line;
         String PATH = "src/Utiles/tub_prod.csv";
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(PATH), StandardCharsets.UTF_8))) {
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(new FileInputStream(PATH), StandardCharsets.UTF_8))) {
             while ((line = br.readLine()) != null) {
                 String[] valores = line.split(DELIMITER);
                 DatosTuberia dT;
@@ -119,14 +126,16 @@ public class DesdeArchivo {
         String line;
         String PATH = "src/Utiles/pob_prod.csv";
         Ciudad ciudad;
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(PATH), StandardCharsets.UTF_8))) {
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(new FileInputStream(PATH), StandardCharsets.UTF_8))) {
             while ((line = br.readLine()) != null) {
                 String[] valores = line.split(DELIMITER);
                 if (valores[0].equals("c")) {
                     valores[1] = quitarAcentos(valores[1].replaceAll("\\s+", ""));
                     ciudad = (Ciudad) arbol.obtenerValor(valores[1]);
                     if (ciudad != null) {
-                        ciudad.setPoblacion(Integer.parseInt(valores[2]), Integer.parseInt(valores[3]), Integer.parseInt(valores[4]));
+                        ciudad.setPoblacion(Integer.parseInt(valores[2]), Integer.parseInt(valores[3]),
+                                Integer.parseInt(valores[4]));
                         // nuevaCiudad = genPoblacion(valores);
                         // TransporteAgua.altaCiudad(arbol, nuevaCiudad);
                     } else {
@@ -141,6 +150,20 @@ public class DesdeArchivo {
         } catch (IOException ex) {
             System.err.println("Error leyendo o escribiendo en algun archivo.");
         }
+    }
+
+    public static Properties getProps() {
+        Properties props = new Properties();
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream("src/Utiles/app.properties");
+            props.load(fis);
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return props;
     }
 
     public static void main(String[] args) {
