@@ -6,6 +6,7 @@ import Utiles.DesdeArchivo;
 import Utiles.IO;
 import Utiles.TecladoIn;
 import conjuntistas.ArbolAVL;
+import conjuntistas.HeapMin;
 import grafos.Grafo;
 import jerarquicas.*;
 import lineales.*;
@@ -286,9 +287,10 @@ public class TransporteAgua {
                 "En Diseño"
         };
         int estadoIndex = 0; // En principio, activo
-        for (int i = 1; i + 1 <= camino.longitud(); i++) {
-            ClaveTuberia clave = new ClaveTuberia(((Ciudad) camino.recuperar(i)).getNomenclatura(),
-                    ((Ciudad) camino.recuperar(i + 1)).getNomenclatura());
+        int i = 1;
+        while (i+1 <= camino.longitud() && estadoIndex < 3) {
+            ClaveTuberia clave = new ClaveTuberia(((Ciudad) camino.recuperar(i)).getNomenclatura(), 
+                ((Ciudad) camino.recuperar(i+1)).getNomenclatura());
             char estado = hMapTuberias.get(clave).getEstado();
             if (estado != 'a') {
                 if (estado != 'r') {
@@ -303,16 +305,36 @@ public class TransporteAgua {
                         estadoIndex = 1; // En Reparación
                 }
             }
+            i++;
         }
         return estados[estadoIndex];
     }
 
     // Ej 7
-    public static void listarPorConsumoAnual(ArbolAVL arbol) {
+    public static Lista listarPorConsumoAnual(ArbolAVL arbol, int anio) {
         IO.salida("INI listarPorConsumoAnual", false);
-        // leer anio
-        // que estructura usar?
+        // Se listan las ciudades ordenadas por consumo anual
+        Lista ciudadesOrdenadas = arbol.listarValor(), resultado = new Lista();
+        System.out.println("Ciudades ordenadas: " + ciudadesOrdenadas.toString());
+        int longi = ciudadesOrdenadas.longitud();
+        double consumoAnual;
+        ConsumoAnual consumoCiudad;
+        HeapMin heap = new HeapMin(longi);
+        Ciudad ciudad;
+        // Se recorre la lista de ciudades y se calcula el consumo anual
+        for (int i = 1; i <= longi; i++) {
+            ciudad = (Ciudad) ciudadesOrdenadas.recuperar(i);
+            consumoAnual = ciudad.cantidadAguaPorAnio(anio);
+            consumoCiudad = new ConsumoAnual(ciudad, consumoAnual);
+            heap.insertar(consumoCiudad);
+        }
+        // Extraigo los elementos del heap y se insertan las ciudades en la lista resultado
+        while (!heap.esVacio()) {
+            resultado.insertar(((ConsumoAnual) heap.obtenerCima()).getCiudad(), 1);
+            heap.eliminarCima();
+        }
         IO.salida("FIN listarPorConsumoAnual", false);
+        return resultado;
     }
 
     // 8.
