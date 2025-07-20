@@ -296,7 +296,7 @@ public class TransporteAgua {
         IO.salida("FIN caminoMasCorto", false);
     }
 
-    private static String definirEstadoCamino(Lista camino, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias) {
+    public static String definirEstadoCamino(Lista camino, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias) {
         String[] estados = new String[] {
                 "Activo",
                 "En Reparación",

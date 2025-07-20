@@ -75,6 +75,8 @@ public class mainCode {
         // IO.sout(a);
         a = mapa.obtenerCaminoEtiqMin("Neufuen", "Portenilo");
         IO.sout(a);
+        String estado = TransporteAgua.definirEstadoCamino(a, hmapTuberias);
+        IO.sout(estado);
 
     }
 
