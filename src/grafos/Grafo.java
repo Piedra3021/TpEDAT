@@ -584,16 +584,14 @@ public class Grafo {
         return resultado.getCamino();
     }
 
-    // retorna vol minima de etiquetas del camino. Resultado mantiene el
-    // camino por referencia
+    // retorna vol minima de etiquetas del camino
     private double oCEM(NodoVert actual, NodoVert destino, Lista caminoActual, CaminoVol resultado, double volMin,
             double volActual) {
         caminoActual.insertar(actual.getElem(), caminoActual.longitud() + 1); // Se agrega en el que estoy
         // IO.sout("Actual: " + actual.getElem() + ".O==D? "
         // + actual.getElem().equals(destino.getElem()));
 
-        // Si llegue al destino, compruebo si la vol de etiquetas
-        // del caminoActual es la menor.
+        // Si llegue al destino
         if (actual.getElem().equals(destino.getElem())) {
             // volMin == -1: primer camino encontrado
             // IO.sout(volActual + ", " + volMin);
@@ -616,7 +614,7 @@ public class Grafo {
                 if (caminoActual.localizar(vecino) == -1) {
                     double valorEtiq = ady.getEtiqueta();
                     volMin = oCEM(ady.getVertice(), destino, caminoActual, resultado, volMin,
-                            valorEtiq + volActual);
+                            valorEtiq);
                 }
                 ady = ady.getSigAdyacente();
             }
