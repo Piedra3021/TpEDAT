@@ -136,7 +136,8 @@ public class DesdeArchivo {
                 String[] valores = line.split(DELIMITER);
                 if (valores[0].equals("c")) {
                     valores[1] = quitarAcentos(valores[1].replaceAll("\\s+", ""));
-                    ciudad = (Ciudad) arbol.obtenerValor(valores[1]);
+                    String clean = valores[1].replace(" ", "");
+                    ciudad = (Ciudad) arbol.obtenerValor(clean.toUpperCase());
                     if (ciudad != null) {
                         ciudad.setPoblacion(Integer.parseInt(valores[2]), Integer.parseInt(valores[3]),
                                 Integer.parseInt(valores[4]));

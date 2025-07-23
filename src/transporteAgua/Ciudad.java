@@ -129,6 +129,10 @@ public class Ciudad implements Comparable {
         return resultado;
     }
 
+    public void setMetros(double metr){
+        this.metros = metr;
+    }
+
     public boolean equals(Ciudad otraCiudad) {
         return this.nombre.equals(otraCiudad.getNombre());
     }

@@ -453,7 +453,7 @@ public class Grafo {
 
     public double obtenerMenorEtiqueta(Lista etiquetas) {
         double menor;
-        if (etiquetas != null) {
+        if (!etiquetas.esVacia()) {
             menor = (double) etiquetas.recuperar(1);
             for (int i = 1; i <= etiquetas.longitud(); i++) {
                 double valor = (double) etiquetas.recuperar(i);

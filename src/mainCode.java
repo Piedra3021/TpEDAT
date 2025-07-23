@@ -3,6 +3,7 @@ import java.util.Random;
 
 import Utiles.DesdeArchivo;
 import Utiles.IO;
+import Utiles.TecladoIn;
 import conjuntistas.*;
 import transporteAgua.*;
 import grafos.*;
@@ -105,14 +106,17 @@ public class mainCode {
         Grafo mapa = new Grafo();
         HashMap<ClaveTuberia, DatosTuberia> hmapTuberias = new HashMap<ClaveTuberia, DatosTuberia>();
 
+        int loop = TecladoIn.readInt();
         DesdeArchivo.cargarCiudades(arbolTest, mapa);
         DesdeArchivo.cargarTuberias(arbolTest, mapa, hmapTuberias);
         DesdeArchivo.cargarPoblacion(arbolTest);
-        Ciudad cOrigen = (Ciudad) arbolTest.obtenerValor("Miracosta");
-        Ciudad cDestino = (Ciudad) arbolTest.obtenerValor("LasColinas");
+        
+        while(loop != 0){
+        Ciudad cOrigen = (Ciudad) arbolTest.obtenerValor("MIRACOSTA");
+        Ciudad cDestino = (Ciudad) arbolTest.obtenerValor("LASCOLINAS");
 
-        Lista CAMINO = mapa.obtenerCamino(((Ciudad) arbolTest.obtenerValor("Miracosta")).getNomenclatura(),
-                ((Ciudad) arbolTest.obtenerValor("CampoAzul")).getNomenclatura());
+        Lista CAMINO = mapa.obtenerCamino(((Ciudad) arbolTest.obtenerValor("MIRACOSTA")).getNomenclatura(),
+                ((Ciudad) arbolTest.obtenerValor("CAMPOAZUL")).getNomenclatura());
         System.out.println(CAMINO.toString());
 
         Lista etiquetas = mapa.obtenerEtiquetasCamino(CAMINO);
@@ -131,7 +135,7 @@ public class mainCode {
         double menor = mapa.obtenerMenorEtiqueta(etiquLista);
         System.out.println("MENOR");
         System.out.println(menor + "\n");
-        double porHab = ((Ciudad) arbolTest.obtenerValor("Miracosta")).cantidadAguaPorMes(2020, 1);
+        double porHab = ((Ciudad) arbolTest.obtenerValor("MIRACOSTA")).cantidadAguaPorMes(2020, 1);
         System.out.println("aguaPorHab");
         System.out.println(porHab);
 
@@ -139,13 +143,21 @@ public class mainCode {
         for(int i=1;i < todosCaminos.longitud()+1;i++){
             System.out.println("camino " + (i));
             System.out.println(todosCaminos.recuperar(i));
+            System.out.println(mapa.obtenerEtiquetasCamino((Lista) todosCaminos.recuperar(i)));
         }
 
-        Lista caminoCaudalPleno = TransporteAgua.caminoCaudalPleno(arbolTest, mapa, hmapTuberias);
+        TransporteAgua.mostrarCiudad(arbolTest, mapa, hmapTuberias);
+
+       /* Lista caminoCaudalPleno = TransporteAgua.caminoCaudalPleno(arbolTest, mapa, hmapTuberias);
         System.out.println(caminoCaudalPleno);
         caminoCaudalPleno = mapa.obtenerEtiquetasCamino(caminoCaudalPleno);
         System.out.println(caminoCaudalPleno);
         System.out.println(mapa.obtenerMenorEtiqueta(caminoCaudalPleno));
         // TransporteAgua.mostrarCiudad(arbolTest, mapa, hmapTuberias);
+        System.out.println(TransporteAgua.listarPorConsumoAnual(arbolTest, 2020));*/
+
+        TransporteAgua.modCiudad(arbolTest);
+        loop = TecladoIn.readInt();
+    }
     }
 }
