@@ -568,4 +568,59 @@ public class Grafo {
         }
         caminoActual.eliminar(caminoActual.longitud());
     }
+
+    public Lista obtenerCaminoEtiqMin(Object origen, Object destino) {
+        // Lista resultado = new Lista();
+        CaminoVol resultado = new CaminoVol();
+        Lista caminoAct = new Lista();
+
+        NodoVert verOrigen = ubicarVertice(origen);
+        NodoVert verDestino = ubicarVertice(destino);
+
+        if (verOrigen != null & verDestino != null) {
+            oCEM(verOrigen, verDestino, caminoAct, resultado, -1, 0);
+        }
+
+        return resultado.getCamino();
+    }
+
+    // retorna vol minima de etiquetas del camino
+    private double oCEM(NodoVert actual, NodoVert destino, Lista caminoActual, CaminoVol resultado, double volMin,
+            double volActual) {
+        caminoActual.insertar(actual.getElem(), caminoActual.longitud() + 1); // Se agrega en el que estoy
+        // IO.sout("Actual: " + actual.getElem() + ".O==D? "
+        // + actual.getElem().equals(destino.getElem()));
+
+        // Si llegue al destino
+        if (actual.getElem().equals(destino.getElem())) {
+            // volMin == -1: primer camino encontrado
+            // IO.sout(volActual + ", " + volMin);
+            if (volMin == -1 || volActual < volMin) {
+                // IO.sout("Actualizar resultado");
+                IO.sout("Parcial: " + caminoActual + ". Vol: " + volActual);
+                resultado.setCamino(caminoActual.clone());
+                resultado.setVol(volActual);
+                volMin = volActual;
+            }
+        } else {
+            // Si no, sigo recorriendo.
+            NodoAdy ady = actual.getPrimerAdy();
+            while (ady != null) {
+                Object vecino = ady.getVertice().getElem();
+                // IO.sout("\tVecino: " + vecino);
+
+                // si vecino no fue visitado
+                // if (vecino != null?? && caminoActual.localizar(vecino) == -1) {
+                if (caminoActual.localizar(vecino) == -1) {
+                    double valorEtiq = ady.getEtiqueta();
+                    volMin = oCEM(ady.getVertice(), destino, caminoActual, resultado, volMin,
+                            valorEtiq);
+                }
+                ady = ady.getSigAdyacente();
+            }
+        }
+        caminoActual.eliminar(caminoActual.longitud());
+        return volMin;
+    }
+
 }

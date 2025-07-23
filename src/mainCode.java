@@ -71,8 +71,12 @@ public class mainCode {
         String nome1 = ((Ciudad) ciudades.obtenerValor("Miracosta")).getNombre();
         String nome2 = ((Ciudad) ciudades.obtenerValor("Brezalia")).getNombre();
         Lista a = mapa.obtenerCamino(nome1, nome2);
-        a = mapa.obtenerTodosCaminos("Neufuen", "Portenilo");
+        // a = mapa.obtenerTodosCaminos("Neufuen", "Portenilo");
+        // IO.sout(a);
+        a = mapa.obtenerCaminoEtiqMin("Neufuen", "Portenilo");
         IO.sout(a);
+        String estado = TransporteAgua.definirEstadoCamino(a, hmapTuberias);
+        IO.sout(estado);
 
     }
 
