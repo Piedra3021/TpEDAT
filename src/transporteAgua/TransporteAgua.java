@@ -301,6 +301,8 @@ public class TransporteAgua {
         } else {
             IO.salida("No se encontraron ciudades en el rango especificado.", true);
         }
+
+        IO.salida("Las ciudades en el rango son: \n" + resultado, false);
         IO.salida("FIN ciudadesEnRango", false);
         return resultado;
     }
@@ -316,11 +318,15 @@ public class TransporteAgua {
         Lista caminoAct = new Lista();
         IO.salida("Ingrese ciudad Origen", false);
         String cOrigen = TecladoIn.readLine();
+        cOrigen = cOrigen.replace(" ", "");
+        cOrigen = cOrigen.toUpperCase();
         Ciudad ciudadO = (Ciudad) arbol.obtenerValor(cOrigen);
         IO.salida("Ingrese ciudad Destino", false);
         String cDestino = TecladoIn.readLine();
+        cDestino = cDestino.replace(" ", "");
+        cDestino = cDestino.toUpperCase();
         Ciudad ciudadD = (Ciudad) arbol.obtenerValor(cDestino);
-        Lista caminos = mapa.obtenerTodosCaminos(cOrigen, cDestino);
+        Lista caminos = mapa.obtenerTodosCaminos(ciudadO, ciudadD);
 
         for (int i = 1; i < caminos.longitud() + 1; i++) {
             caminoAct = (Lista) caminos.recuperar(i);
@@ -337,13 +343,20 @@ public class TransporteAgua {
                 }
             }
 
-            if (posCamino != -1) {
-                caminoAct = (Lista) caminos.recuperar(posCamino);
-                String estado = definirEstadoCamino(caminoAct, hMapTuberias);
-                System.out.println(estado);
-            }
+            
 
         }
+
+        if (posCamino != -1) {
+                caminoAct = (Lista) caminos.recuperar(posCamino);
+                IO.salida("El camino es: \n" + caminoAct,false);
+                String estado = definirEstadoCamino(caminoAct, hMapTuberias);
+                IO.salida(estado,false);
+            }else if(ciudadO == null || ciudadD == null){
+                IO.salida("Una o ambas ciudades no existen.", false);
+            }else{
+                IO.salida("Las ciudades no estan conectadas.", false);
+            }
 
         // ...
         // leer c1 y c2
@@ -368,6 +381,8 @@ public class TransporteAgua {
             } else {
                 IO.salida("No se encontró un camino entre " + c1.getNombre() + " y " + c2.getNombre(), true);
             }
+        }else{
+            IO.salida("Una o ambas ciudades no existen.",false);
         }
         IO.salida("FIN caminoMasCorto", false);
     }
@@ -427,6 +442,7 @@ public class TransporteAgua {
             resultado.insertar(((ConsumoAnual) heap.obtenerCima()).getCiudad(), 1);
             heap.eliminarCima();
         }
+        IO.salida("Ordenada por consumo: \n" + resultado, false);
         IO.salida("FIN listarPorConsumoAnual", false);
         return resultado;
     }

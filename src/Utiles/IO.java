@@ -88,7 +88,11 @@ public class IO {
                     break;
                 case 4:
                     param1 = ingresarString("Nomeclatura minima");
+                    param1 = param1.replace(" ", "");
+                    param1 = param1.toUpperCase();
                     param2 = ingresarString("Nomeclatura maxima");
+                    param2 = param2.replace(" ", "");
+                    param2 = param2.toUpperCase();
                     IO.sout("Ingrese el anio");
                     anio = TecladoIn.readInt();
                     mes = ingresarRango("el mes", 1, 12);
@@ -101,7 +105,11 @@ public class IO {
                     break;
                 case 6:
                     param1 = ingresarString("desde");
+                    param1 = param1.replace(" ", "");
+                    param1 = param1.toUpperCase();
                     param2 = ingresarString("hasta");
+                    param2 = param2.replace(" ", "");
+                    param2 = param2.toUpperCase();
                     TransporteAgua.caminoMasCorto(ciudades, mapa, param1, param2, hMapTuberias);
                     break;
                 case 7:
@@ -136,7 +144,7 @@ public class IO {
 
             opc = IO.ingresarRango("una opcion", 0, 3);
             c = null;
-            String param1, param2;
+            String param1;
 
             switch (opc) {
                 case 1:
@@ -146,7 +154,11 @@ public class IO {
                     } else {
                         String[] valores = new String[7];
                         valores[1] = ingresarString("desde");
+                        valores[1] = valores[1].replace(" ", "");
+                        valores[1] = valores[1].toUpperCase();
                         valores[2] = ingresarString("hasta");
+                        valores[2] = valores[2].replace(" ", "");
+                        valores[2] = valores[2].toUpperCase();
                         DatosTuberia dt = ingresarDatosTuberia(valores);
                         TransporteAgua.altaTuberia(ciudades, mapa, hMapTuberias, valores[1], valores[2], dt);
                     }

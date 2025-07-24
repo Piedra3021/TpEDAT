@@ -9,7 +9,6 @@ public class Ciudad implements Comparable {
     private double metros;
     // private int poblacion = 1000;
     private Lista poblacion;
-    private double consumoPromedio = 0.25;
     private double consumoProm;
     private static int numNomenclatura = 3000;
 
@@ -99,7 +98,7 @@ public class Ciudad implements Comparable {
     }
 
     public double getConsumoPromedio() {
-        return consumoPromedio;
+        return consumoProm;
     }
 
     public double getConsumoProm() {
@@ -145,7 +144,7 @@ public class Ciudad implements Comparable {
             if (anioTrabajar != null) {
                 int cantDias = anioTrabajar.obtenerDiasDelMes(mes);
                 int cantHabitantes = anioTrabajar.getPoblacionMes(mes);
-                res = cantHabitantes * consumoPromedio * cantDias;
+                res = cantHabitantes * consumoProm * cantDias;
             }
         }
         return res;
@@ -161,7 +160,7 @@ public class Ciudad implements Comparable {
                     // Acumulo el consumo de cada mes
                     int cantHabitantes = anioTrabajar.getPoblacionMes(mes);
                     if (cantHabitantes != -1) {
-                        res = res + cantHabitantes*consumoPromedio;
+                        res = res + cantHabitantes*consumoProm;
                     }
                 }
             }
