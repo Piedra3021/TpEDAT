@@ -118,6 +118,7 @@ public class IO {
                     System.out.println("Opción indefinida");
                     break;
             }
+            pausador();
         } while (opc != 0);
 
     }
@@ -143,11 +144,11 @@ public class IO {
                         c = ingresarCiudad(ciudades);
                         TransporteAgua.altaCiudad(ciudades, mapa, c);
                     } else {
-                        param1 = ingresarString("Desde");
-                        param2 = ingresarString("Hasta");
-                        // dt = ingresarDatosTuberia()
-                        // TransporteAgua.altaTuberia(ciudades, mapa, hMapTuberias, param1, param2,
-                        // dt);
+                        String[] valores = new String[7];
+                        valores[1] = ingresarString("desde");
+                        valores[2] = ingresarString("hasta");
+                        DatosTuberia dt = ingresarDatosTuberia(valores);
+                        TransporteAgua.altaTuberia(ciudades, mapa, hMapTuberias, valores[1], valores[2], dt);
                     }
                     break;
                 case 2:
@@ -187,6 +188,18 @@ public class IO {
         valores[3] = ingresarString("Consumo promedio.");
         c = DesdeArchivo.genCiudad(valores);
         return c;
+    }
+
+    public static DatosTuberia ingresarDatosTuberia(String[] valores) {
+        DatosTuberia dt;
+        IO.salida("Ingresar DatosTuberia. (ALTA)", false);
+        valores[3] = ingresarString("caudalMin");
+        valores[4] = ingresarString("caudalMax");
+        valores[5] = ingresarString("diametro");
+        valores[6] = ingresarString("estado");
+
+        dt = DesdeArchivo.genDatosTuberia(valores);
+        return dt;
     }
 
     public static int ingresarRango(String nombreDato, int min, int max) {

@@ -113,7 +113,7 @@ public class DesdeArchivo {
         }
     }
 
-    private static DatosTuberia genDatosTuberia(String[] valores) {
+    public static DatosTuberia genDatosTuberia(String[] valores) {
         DatosTuberia dT = null;
         double caudalMin = Double.parseDouble(valores[3]);
         double caudalMax = Double.parseDouble(valores[4]);
