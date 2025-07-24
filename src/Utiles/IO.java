@@ -126,12 +126,12 @@ public class IO {
     public static void menuABM(ArbolAVL ciudades, Grafo mapa, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias,
             boolean menuDeCiudades) {
         int opc;
-        String tipoMenu = menuDeCiudades ? "ciudadades" : "tuberias";
+        String tipoMenu = menuDeCiudades ? "ciudad" : "tuberia";
         Ciudad c;
         do {
             System.out.println("1. Alta " + tipoMenu);
             System.out.println("2. Modificar " + tipoMenu);
-            System.out.println("1. Baja " + tipoMenu);
+            System.out.println("3. Baja " + tipoMenu);
             System.out.println("0. Salir");
 
             opc = IO.ingresarRango(0, 3);
@@ -152,8 +152,10 @@ public class IO {
                     }
                     break;
                 case 2:
+                    // TransporteAgua.modCiudad(ciudades);
                     break;
                 case 3:
+                    // TransporteAgua.bajaCiudad(ciudades, hMapTuberias, param1, mapa);
                     break;
                 case 0:
                     System.out.println("Fin de MenuABM");
@@ -167,13 +169,11 @@ public class IO {
 
     public static Ciudad ingresarCiudad(ArbolAVL ciudades) {
         Ciudad c = null;
-        String[] valores = new String[3];
+        String[] valores = new String[4];
         IO.salida("Ingresar ciudad", false);
-        valores[0] = ingresarString("Nombre");
-        valores[1] = ingresarString("Superficie en mt.");
-        valores[2] = ingresarString("Consumo promedio.");
-        // valores[1] = (double) ingresarRango(0, 99999999);
-        // valores[2]= (double) ingresarRango(0, 99999999);
+        valores[1] = ingresarString("Nombre");
+        valores[2] = ingresarString("Superficie en mt.");
+        valores[3] = ingresarString("Consumo promedio.");
         c = DesdeArchivo.genCiudad(valores);
         return c;
     }
