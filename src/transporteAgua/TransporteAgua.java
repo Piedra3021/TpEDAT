@@ -22,21 +22,7 @@ public class TransporteAgua {
         DesdeArchivo.cargarCiudades(ciudades, grafo);
         DesdeArchivo.cargarTuberias(ciudades, grafo, hMapTuberias);
         DesdeArchivo.cargarPoblacion(ciudades);
-        // IO.menu(ciudades, grafo, hMapTuberias);
-
-        // ejemplo de usos de los metodos (Eliminar luego)
-        // Ejemplo de eliminar una ciudad
-        bajaCiudad(ciudades, hMapTuberias, "Miracosta", grafo);
-        // Ejemplo de eliminar una tuberia
-        bajaTuberia(ciudades, grafo, hMapTuberias, "Verdemar", "Solferino");
-        // Ejemplo de alta ciudad
-        Ciudad nuevaCiudad = new Ciudad("NuevaCiudad", 1000, 50);
-        altaCiudad(ciudades, grafo, nuevaCiudad);
-        // Ejemplo de alta tuberia
-        DatosTuberia nuevaTuberia = new DatosTuberia(100, 10, 5, 'a');
-        altaTuberia(ciudades, grafo, hMapTuberias, "NuevaCiudad", "Orquin", nuevaTuberia);
-
-        mostrarSistema(ciudades, grafo, hMapTuberias);
+        IO.menu(ciudades, grafo, hMapTuberias);
     }
 
     public static void genAnio(Anio a) {
@@ -54,69 +40,76 @@ public class TransporteAgua {
             IO.salida("\texitoArbol: " + exitoArbol + ". Grafo: " + exitoGrafo, true);
         }
     }
+
     /*
      * public static void modCiudad(ArbolAVL arbolNombres, HashMap<String, Ciudad>
-     * hmapCiudades, String nombreNuevo,
+     * hmapCiudades, String nCiudadNuevo,
      * double metros) {
      * IO.salida("MOD ciudad", true);
      * }
      */
-    public static void modCiudad(ArbolAVL ciudades){
-        IO.salida("Ingrese la ciudad a modificar", false);
-        String nCiudad = TecladoIn.readLine();
-        nCiudad = nCiudad.replace(" ", "");
-
+    public static void modCiudad(ArbolAVL ciudades, String nCiudad) {
         Ciudad ciudad = (Ciudad) ciudades.obtenerValor(nCiudad.toUpperCase());
+        if (ciudad != null) {
+            int opc;
+            do {
+                IO.salida("\t1. modificar poblacion (en un año y mes).", false);
+                IO.salida("\t2. modificar consumoProm (?)", false);
+                IO.salida("\t3. modificar metros de la ciudad.", false);
+                IO.salida("\t0. Salir menuMOD", false);
+                opc = IO.ingresarRango(0, 3);
+                switch (opc) {
+                    case 1:
+                        IO.salida("\tInserte el año", false);
+                        int anio = TecladoIn.readInt();
+                        IO.salida("\tInserte el mes (1-12)", false);
+                        int mes = TecladoIn.readInt();
+                        IO.salida("\tInserte la poblacion", false);
+                        int poblacion = TecladoIn.readInt();
+                        ciudad.setPoblacion(anio, mes, poblacion);
+                        IO.salida("\tMOD poblacion: " + nCiudad + ". Exito", true);
+                        break;
 
-        if(ciudad!=null){
-            IO.salida("1 - modificar poblacion (en un año y mes).", false);
-            IO.salida("2 - modificar consumoProm (?)", false);
-            IO.salida("3 - modificar metros de la ciudad.", false);
-            int res = TecladoIn.readInt();
+                    case 2:
+                        IO.salida("\tInserte el nuevo consumoPromedio", false);
+                        double consumo = TecladoIn.readDouble();
+                        ciudad.setConsumoProm(consumo);
+                        IO.salida("\tMOD consumo: " + nCiudad + ". Exito", true);
+                        break;
 
-            switch (res){
-                case 1:
-                IO.salida("Inserte el año",false);
-                int anio = TecladoIn.readInt();
-                IO.salida("Inserte el mes (1-12)", false);
-                int mes = TecladoIn.readInt();
-                IO.salida("Inserte la poblacion", false);
-                int poblacion = TecladoIn.readInt();
-                ciudad.setPoblacion(anio, mes, poblacion);
-                IO.salida("Poblacion modificada con exito!", false);
-                break;
+                    case 3:
+                        IO.salida("\tIngrese la nueva cantidad de metros", false);
+                        double metros = TecladoIn.readDouble();
+                        ciudad.setMetros(metros);
+                        IO.salida("\tMOD superficie: " + nCiudad + ". Exito", true);
+                        break;
 
-                case 2:
-                IO.salida("Inserte el nuevo consumoPromedio", false);
-                double consumo = TecladoIn.readDouble();
-                ciudad.setConsumoProm(consumo);
-                break;
+                    case 0:
+                        System.out.println("\tFin de MenuMOD");
+                        break;
+                    default:
+                        System.out.println("\tOpción indefinida");
+                        break;
+                }
 
-                case 3:
-                IO.salida("Ingrese la nueva cantidad de metros", false);
-                double metros = TecladoIn.readDouble();
-                ciudad.setMetros(metros);
-                break;
-
-                default:
-                IO.salida("No se insertó una opcion valida.", false);
-            }
-        }else{
-                IO.salida("No se insertó una ciudad valida.", false);
-            }
+            } while (opc != 0);
+        } else {
+            IO.salida("No se insertó una ciudad valida.", false);
+        }
     }
 
     public static boolean bajaCiudad(ArbolAVL arbolNombres,
-            HashMap<ClaveTuberia, DatosTuberia> hMapTub, String nombre,
+            HashMap<ClaveTuberia, DatosTuberia> hMapTub, String nCiudad,
             Grafo grafo) {
-        IO.salida("BAJA ciudad: " + nombre, true);
+        IO.salida("BAJA ciudad: " + nCiudad, false);
         boolean exito = false;
-        Ciudad c = (Ciudad) arbolNombres.obtenerValor(nombre);
+        Ciudad c = (Ciudad) arbolNombres.obtenerValor(nCiudad);
 
         if (c != null) {
             // Si encuentra la tuberia, la elimina de las estructuras
-            exito = arbolNombres.eliminar(nombre);
+            exito = arbolNombres.eliminar(nCiudad);
             if (exito) {
+                IO.salida("BAJA ciudad: " + nCiudad + ". Exito", true);
                 grafo.eliminarVertice(c);
                 // En cada elemento del HashMap, se verifica si la clave
                 // contiene la nomenclatura de la ciudad
@@ -124,7 +117,7 @@ public class TransporteAgua {
                         entry.getKey().getNom2().equals(c.getNomenclatura()));
             }
         } else {
-            IO.salida("\tNo se pudo eliminar la ciudad: no existe " + nombre, true);
+            IO.salida("\tNo se pudo eliminar la ciudad: no existe " + nCiudad, true);
         }
 
         return exito;
@@ -133,7 +126,7 @@ public class TransporteAgua {
     public static void altaTuberia(ArbolAVL ciudades, Grafo grafo,
             HashMap<ClaveTuberia, DatosTuberia> hMapTuberias,
             String desde, String hasta, DatosTuberia datosTuberia) {
-        IO.salida("ALTA tuberia: " + desde + "->" + hasta, true);
+        IO.salida("ALTA tuberia: " + desde + "->" + hasta, false);
         desde = desde.replace(" ", "");
         hasta = hasta.replace(" ", "");
         Ciudad c1 = (Ciudad) ciudades.obtenerValor(desde.toUpperCase());
@@ -143,6 +136,7 @@ public class TransporteAgua {
             ClaveTuberia clave = new ClaveTuberia(c1.getNomenclatura(), c2.getNomenclatura());
             hMapTuberias.put(clave, datosTuberia);
             grafo.insertarArco(c1, c2, datosTuberia.getCaudalMax());
+            IO.salida("ALTA tuberia: " + desde + "->" + hasta + ". Exito", true);
         } else {
             String mensaje = "\tNo se pudo agregar la tubería: ";
             if (c1 == null || c2 == null) {
@@ -163,7 +157,7 @@ public class TransporteAgua {
 
     public static boolean bajaTuberia(ArbolAVL ciudades, Grafo grafo, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias,
             String desde, String hasta) {
-        IO.salida("BAJA tuberia: " + desde + "->" + hasta, true);
+        IO.salida("BAJA tuberia: " + desde + "->" + hasta, false);
         boolean exito = false;
         desde = desde.replace(" ", "");
         hasta = hasta.replace(" ", "");
@@ -175,6 +169,7 @@ public class TransporteAgua {
             hMapTuberias.remove(clave);
             grafo.eliminarArco(c1, c2);
             exito = true;
+            IO.salida("BAJA tuberia: " + desde + "->" + hasta + ". Exito", true);
         } else {
             String mensaje = "\tNo se pudo eliminar la tubería: ";
             if (c1 == null || c2 == null) {
@@ -189,9 +184,9 @@ public class TransporteAgua {
     }
 
     public static double obtenerAguaAprovisionada(ArbolAVL ciudades, Grafo mapa,
-            HashMap<ClaveTuberia, DatosTuberia> hmapTuberias, String nombre, int anio, int mes) {
-                nombre = nombre.replace(" ", "");
-        Ciudad ciudad = (Ciudad) ciudades.obtenerValor(nombre.toUpperCase());
+            HashMap<ClaveTuberia, DatosTuberia> hmapTuberias, String nCiudad, int anio, int mes) {
+        nCiudad = nCiudad.replace(" ", "");
+        Ciudad ciudad = (Ciudad) ciudades.obtenerValor(nCiudad.toUpperCase());
         double resultado = -1;
 
         if (ciudad != null) {
@@ -238,9 +233,9 @@ public class TransporteAgua {
         IO.salida("INI mostrarCiudad", true);
         // Ciudad c = leerCiudad(arbol);
         IO.salida("Indique la ciudad", false);
-        String nombre = TecladoIn.readLine();
-        nombre = nombre.replace(" ", "");
-        Ciudad c = (Ciudad) arbol.obtenerValor(nombre.toUpperCase());
+        String nCiudad = TecladoIn.readLine();
+        nCiudad = nCiudad.replace(" ", "");
+        Ciudad c = (Ciudad) arbol.obtenerValor(nCiudad.toUpperCase());
         // validar ciudad?
         if (c != null) {
             IO.salida("Inserte el anio", false);
@@ -251,8 +246,8 @@ public class TransporteAgua {
             // getPoblacionUltimoMes()?
             int pobActual = c.getPoblacion(anio, mes);
             IO.salida("=== Informe de distribución de agua ===", false);
-                IO.salida("Ciudad: " + c.toString(), false);
-                IO.salida("Mes/Año: " + String.format("%02d", mes) + "/" + anio + "\n", false);
+            IO.salida("Ciudad: " + c.toString(), false);
+            IO.salida("Mes/Año: " + String.format("%02d", mes) + "/" + anio + "\n", false);
             if (pobActual != -1) {
                 IO.salida("Cantidad de habitantes registrados: " + pobActual + "\n", false);
                 Lista caminoA = mapa.obtenerPrimerActivo(c, hMapTuberia);
@@ -262,10 +257,10 @@ public class TransporteAgua {
                 IO.salida("Volumen de agua calculado por caudal disponible:     "
                         + mapa.obtenerMenorEtiqueta(caminoA) + " m³\n", false);
                 IO.salida(">> Volumen efectivamente aprovisionado: "
-                        + TransporteAgua.obtenerAguaAprovisionada(arbol, mapa, hMapTuberia, nombre, anio, mes) + " m³",
+                        + TransporteAgua.obtenerAguaAprovisionada(arbol, mapa, hMapTuberia, nCiudad, anio, mes) + " m³",
                         false);
 
-            }else{
+            } else {
                 IO.salida("No se tienen datos de poblacion de la ciudad en este anio/mes", false);
             }
 
@@ -279,7 +274,7 @@ public class TransporteAgua {
             // Revisar!
             // IO.salida("Volumen distribuido en "+mesVol+"/"+anioVol+":
             // "+volumen/pobVol+"(unidad)",true);
-        }else{
+        } else {
             IO.salida("No se ingreso una ciudad valida.", false);
         }
 

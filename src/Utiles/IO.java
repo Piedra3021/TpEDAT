@@ -129,10 +129,10 @@ public class IO {
         String tipoMenu = menuDeCiudades ? "ciudad" : "tuberia";
         Ciudad c;
         do {
-            System.out.println("1. Alta " + tipoMenu);
-            System.out.println("2. Modificar " + tipoMenu);
-            System.out.println("3. Baja " + tipoMenu);
-            System.out.println("0. Salir");
+            System.out.println("  1. Alta " + tipoMenu);
+            System.out.println("  2. Modificar " + tipoMenu);
+            System.out.println("  3. Baja " + tipoMenu);
+            System.out.println("  0. Salir");
 
             opc = IO.ingresarRango(0, 3);
             c = null;
@@ -152,16 +152,28 @@ public class IO {
                     }
                     break;
                 case 2:
-                    // TransporteAgua.modCiudad(ciudades);
+                    if (menuDeCiudades) {
+                        param1 = ingresarString("nombre de ciudad. (MOD)");
+                        param1 = param1.replace(" ", "");
+                        TransporteAgua.modCiudad(ciudades, param1);
+                    } else {
+                        // MOD tuberia
+                    }
                     break;
                 case 3:
-                    // TransporteAgua.bajaCiudad(ciudades, hMapTuberias, param1, mapa);
+                    if (menuDeCiudades) {
+                        param1 = ingresarString("nombre de ciudad. (BAJA)");
+                        param1 = param1.replace(" ", "");
+                        TransporteAgua.bajaCiudad(ciudades, hMapTuberias, param1, mapa);
+                    } else {
+                        // BAJA tuberia
+                    }
                     break;
                 case 0:
-                    System.out.println("Fin de MenuABM");
+                    System.out.println("  Fin de MenuABM");
                     break;
                 default:
-                    System.out.println("Opción indefinida");
+                    System.out.println("  Opción indefinida");
                     break;
             }
         } while (opc != 0);
@@ -170,7 +182,7 @@ public class IO {
     public static Ciudad ingresarCiudad(ArbolAVL ciudades) {
         Ciudad c = null;
         String[] valores = new String[4];
-        IO.salida("Ingresar ciudad", false);
+        IO.salida("Ingresar ciudad. (ALTA)", false);
         valores[1] = ingresarString("Nombre");
         valores[2] = ingresarString("Superficie en mt.");
         valores[3] = ingresarString("Consumo promedio.");

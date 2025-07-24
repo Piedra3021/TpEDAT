@@ -159,7 +159,8 @@ public class mainCode {
              * System.out.println(TransporteAgua.listarPorConsumoAnual(arbolTest, 2020));
              */
 
-            TransporteAgua.modCiudad(arbolTest);
+            String nCiudad = IO.ingresarString("MOD. Ingrese nombre de ciudad");
+            TransporteAgua.modCiudad(arbolTest, nCiudad);
             loop = TecladoIn.readInt();
         }
     }
