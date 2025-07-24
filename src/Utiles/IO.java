@@ -71,7 +71,7 @@ public class IO {
             System.out.println("8. Mostrar sistema");
             System.out.println("0. Salir");
 
-            opc = IO.ingresarRango(0, 9);
+            opc = IO.ingresarRango("una opcion", 0, 8);
             String param1, param2;
             double n1, n2;
             int anio, mes;
@@ -84,33 +84,32 @@ public class IO {
                     menuABM(ciudades, mapa, hMapTuberias, false);
                     break;
                 case 3:
+                    TransporteAgua.mostrarCiudad(ciudades, mapa, hMapTuberias);
                     break;
                 case 4:
                     param1 = ingresarString("Nomeclatura minima");
                     param2 = ingresarString("Nomeclatura maxima");
                     IO.sout("Ingrese el anio");
                     anio = TecladoIn.readInt();
-                    IO.sout("Ingrese el mes");
-                    mes = TecladoIn.readInt();
-                    IO.sout("Ingrese minVol");
-                    n1 = (double) ingresarRango(0, 99999);
-                    IO.sout("Ingrese maxVol");
-                    n1 = (double) ingresarRango(0, 99999);
-                    n2 = (double) ingresarRango(0, 99999);
+                    mes = ingresarRango("el mes", 1, 12);
+                    n1 = (double) ingresarRango("minVol", 0, 99999);
+                    n2 = (double) ingresarRango("maxVol", 0, 99999);
                     TransporteAgua.ciudadesEnRango(ciudades, param1, param2, anio, mes, n1, n2);
                     break;
                 case 5:
+                    TransporteAgua.caminoCaudalPleno(ciudades, mapa, hMapTuberias);
                     break;
                 case 6:
-
-                    TransporteAgua.caminoMasCorto(ciudades, mapa, null, null, hMapTuberias);
+                    param1 = ingresarString("desde");
+                    param2 = ingresarString("hasta");
+                    TransporteAgua.caminoMasCorto(ciudades, mapa, param1, param2, hMapTuberias);
                     break;
                 case 7:
+                    anio = ingresarRango("anio", 1900, 2100);
+                    TransporteAgua.listarPorConsumoAnual(ciudades, anio);
                     break;
                 case 8:
                     TransporteAgua.mostrarSistema(ciudades, mapa, hMapTuberias);
-                    break;
-                case 9:
                     break;
                 case 0:
                     System.out.println("Fin de programa");
@@ -134,7 +133,7 @@ public class IO {
             System.out.println("  3. Baja " + tipoMenu);
             System.out.println("  0. Salir");
 
-            opc = IO.ingresarRango(0, 3);
+            opc = IO.ingresarRango("una opcion", 0, 3);
             c = null;
             String param1, param2;
 
@@ -188,6 +187,18 @@ public class IO {
         valores[3] = ingresarString("Consumo promedio.");
         c = DesdeArchivo.genCiudad(valores);
         return c;
+    }
+
+    public static int ingresarRango(String nombreDato, int min, int max) {
+        int entrada;
+
+        do {
+            sout("Ingrese " + nombreDato + "("
+                    + min + "-" + max + ")\n");
+            entrada = TecladoIn.readLineShort();
+        } while ((entrada < min) || (entrada > max));
+
+        return entrada;
     }
 
     public static int ingresarRango(int min, int max) {
