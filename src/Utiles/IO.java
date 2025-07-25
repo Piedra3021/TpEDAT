@@ -167,18 +167,34 @@ public class IO {
                     if (menuDeCiudades) {
                         param1 = ingresarString("nombre de ciudad. (MOD)");
                         param1 = param1.replace(" ", "");
+                        param1 = param1.toUpperCase();
                         TransporteAgua.modCiudad(ciudades, param1);
                     } else {
-                        // MOD tuberia
+                        String[] valores = new String[7];
+                        valores[1] = ingresarString("desde");
+                        valores[1] = valores[1].replace(" ", "");
+                        valores[1] = valores[1].toUpperCase();
+                        valores[2] = ingresarString("hasta");
+                        valores[2] = valores[2].replace(" ", "");
+                        valores[2] = valores[2].toUpperCase();
+                        TransporteAgua.modTuberia(ciudades, mapa, hMapTuberias, valores[1],valores[2]);
                     }
                     break;
                 case 3:
                     if (menuDeCiudades) {
                         param1 = ingresarString("nombre de ciudad. (BAJA)");
                         param1 = param1.replace(" ", "");
+                        param1 = param1.toUpperCase();
                         TransporteAgua.bajaCiudad(ciudades, hMapTuberias, param1, mapa);
                     } else {
-                        // BAJA tuberia
+                        String[] valores = new String[7];
+                        valores[1] = ingresarString("desde");
+                        valores[1] = valores[1].replace(" ", "");
+                        valores[1] = valores[1].toUpperCase();
+                        valores[2] = ingresarString("hasta");
+                        valores[2] = valores[2].replace(" ", "");
+                        valores[2] = valores[2].toUpperCase();
+                        TransporteAgua.bajaTuberia(ciudades, mapa, hMapTuberias, valores[1], valores[2]);
                     }
                     break;
                 case 0:
@@ -208,8 +224,14 @@ public class IO {
         valores[3] = ingresarString("caudalMin");
         valores[4] = ingresarString("caudalMax");
         valores[5] = ingresarString("diametro");
-        valores[6] = ingresarString("estado");
-
+        do {
+        valores[6] = ingresarString("estado  \n" + //
+                        "ACTIVO\n" + //
+                        "REPARACION\n" + //
+                        "INACTIVO\n" + //
+                        "DISEÑO");
+        valores[6] = valores[6].toLowerCase();
+}while(valores[6].charAt(0) != 'a' && valores[6].charAt(0) !='r' && valores[6].charAt(0) != 'i' && valores[6].charAt(0) != 'd');
         dt = DesdeArchivo.genDatosTuberia(valores);
         return dt;
     }
@@ -220,7 +242,7 @@ public class IO {
         do {
             sout("Ingrese " + nombreDato + "("
                     + min + "-" + max + ")\n");
-            entrada = TecladoIn.readLineShort();
+            entrada = TecladoIn.readInt();
         } while ((entrada < min) || (entrada > max));
 
         return entrada;

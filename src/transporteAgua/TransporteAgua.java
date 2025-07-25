@@ -155,6 +155,73 @@ public class TransporteAgua {
      * }
      */
 
+    public static void modTuberia(ArbolAVL ciudades, Grafo mapa, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias,
+            String desde, String hasta) {
+        IO.salida("Modificacion tuberia: " + desde + "->" + hasta, false);
+        boolean exito = false;
+        desde = desde.replace(" ", "");
+        hasta = hasta.replace(" ", "");
+        Ciudad c1 = (Ciudad) ciudades.obtenerValor(desde.toUpperCase());
+        Ciudad c2 = (Ciudad) ciudades.obtenerValor(hasta.toUpperCase());
+
+        if (c1 != null && c2 != null && mapa.existeArco(c1, c2)) {
+            ClaveTuberia clave = new ClaveTuberia(c1.getNomenclatura(), c2.getNomenclatura());
+            DatosTuberia datos = hMapTuberias.get(clave);
+            int opc;
+            do {
+                IO.salida("1. Editar caudal minimo", false);
+                IO.salida("2. Editar caudal maximo", false);
+                IO.salida("3. Editar diametro", false);
+                IO.salida("4. Editar estado", false);
+                IO.salida("0. Salir", false);
+                opc = IO.ingresarRango(0, 4);
+
+                switch (opc) {
+                    case 1:
+                        IO.salida("Ingrese el nuevo caudal minimo", false);
+                        double minimo = TecladoIn.readDouble();
+                        datos.setCaudalMin(minimo);
+                        break;
+                    case 2:
+                        IO.salida("Ingrese el nuevo caudal maximo", false);
+                        double maximo = TecladoIn.readDouble();
+                        datos.setCaudalMax(maximo);
+                        mapa.eliminarArco(c1, c2);
+                        mapa.insertarArco(c1, c2, maximo);
+                        break;
+                    case 3:
+                        IO.salida("Ingrese el nuevo diametro", false);
+                        double diametro = TecladoIn.readDouble();
+                        datos.setDiametro(diametro);
+                    case 4:
+                        IO.salida("Ingrese el estado. \nACTIVO\nREPARACION\nINACTIVO\nDISEÑO", false);
+                        char estado = TecladoIn.readLine().toLowerCase().charAt(0);
+                        while (estado != 'a' && estado != 'r' && estado != 'i' && estado != 'd') {
+                            IO.salida("Ingrese una opcion valida. \n" + //
+                                    "ACTIVO\n" + //
+                                    "REPARACION\n" + //
+                                    "INACTIVO\n" + //
+                                    "DISEÑO", false);
+                            estado = TecladoIn.readLine().toLowerCase().charAt(0);
+                        }
+                        datos.setEstado(estado);
+                        break;
+                    default:
+                        IO.salida("Ingrese una opcion valida.", false);
+                        break;
+                }
+                if (opc >= 1 && opc <= 4) {
+                    IO.salida("Se modifico con exito!", false);
+                }
+
+            } while (opc != 0);
+        } else if (c1 == null || c2 == null) {
+            IO.salida("Una o ambas ciudades no existe", false);
+        } else {
+            IO.salida("No existe una tuberia entre las ciudades", false);
+        }
+    }
+
     public static boolean bajaTuberia(ArbolAVL ciudades, Grafo grafo, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias,
             String desde, String hasta) {
         IO.salida("BAJA tuberia: " + desde + "->" + hasta, false);
@@ -343,20 +410,18 @@ public class TransporteAgua {
                 }
             }
 
-            
-
         }
 
         if (posCamino != -1) {
-                caminoAct = (Lista) caminos.recuperar(posCamino);
-                IO.salida("El camino es: \n" + caminoAct,false);
-                String estado = definirEstadoCamino(caminoAct, hMapTuberias);
-                IO.salida(estado,false);
-            }else if(ciudadO == null || ciudadD == null){
-                IO.salida("Una o ambas ciudades no existen.", false);
-            }else{
-                IO.salida("Las ciudades no estan conectadas.", false);
-            }
+            caminoAct = (Lista) caminos.recuperar(posCamino);
+            IO.salida("El camino es: \n" + caminoAct, false);
+            String estado = definirEstadoCamino(caminoAct, hMapTuberias);
+            IO.salida(estado, false);
+        } else if (ciudadO == null || ciudadD == null) {
+            IO.salida("Una o ambas ciudades no existen.", false);
+        } else {
+            IO.salida("Las ciudades no estan conectadas.", false);
+        }
 
         // ...
         // leer c1 y c2
@@ -381,8 +446,8 @@ public class TransporteAgua {
             } else {
                 IO.salida("No se encontró un camino entre " + c1.getNombre() + " y " + c2.getNombre(), true);
             }
-        }else{
-            IO.salida("Una o ambas ciudades no existen.",false);
+        } else {
+            IO.salida("Una o ambas ciudades no existen.", false);
         }
         IO.salida("FIN caminoMasCorto", false);
     }
