@@ -1,18 +1,19 @@
-t,Rionegra,Neufuén,0,274,5,a
-t,Neufuén,Solandina,0,387,6,a
-t,Neufuén,Terraviva,0,443,10,a
 t,Bosquemonte,Neufuén,0,148,10,a
-t,Piedraluna,Cupral-Có,0,312,10,a
+t,Bosquemonte,Fuenteluz,0,196,8,a
 t,Cupral-Có,Terraviva,0,431,10,a
 t,Cupral-Có,Valleverde,0,268,10,d
-t,Terraviva,Maravélica,0,456,12,a
+t,Fuenteluz,Cieloflor,0,219,10,a
+t,Fuenteluz,Veintisquero Alto,0,232,12,a
 t,Maravélica,Bosquemonte,0,164,12,a
 t,Maravélica,Monteaurora,0,460,12,a
 t,Monteaurora,Piedraluna,0,193,8,a
-t,Solandina,Monteaurora,0,251,8,a
-t,Bosquemonte,Fuenteluz,0,196,8,a
-t,Fuenteluz,Cieloflor,0,219,10,a
-t,Fuenteluz,Veintisquero Alto,0,232,12,a
+t,Neufuén,Solandina,0,387,6,a
+t,Neufuén,Terraviva,0,443,10,a
+t,Piedraluna,Cupral-Có,0,312,10,a
+t,Piedraluna,Solandina,0,266,10,a
+t,Rionegra,Neufuén,0,274,5,a
 t,Rionegra,Veintisquero Alto,0,185,7,a
+t,Solandina,Monteaurora,0,251,8,a
+t,Terraviva,Maravélica,0,456,12,a
 t,Valleverde,Rionegra,0,297,20,a
 t,Veintisquero Alto,Cieloflor,0,288,19,a
