@@ -146,7 +146,7 @@ public class mainCode {
                 System.out.println(mapa.obtenerEtiquetasCamino((Lista) todosCaminos.recuperar(i)));
             }
 
-            TransporteAgua.mostrarCiudad(arbolTest, mapa, hmapTuberias,"MIRACOSTA");
+            TransporteAgua.mostrarCiudad(arbolTest, mapa, hmapTuberias,"MIRACOSTA",0,0);
 
             /*
              * Lista caminoCaudalPleno = TransporteAgua.caminoCaudalPleno(arbolTest, mapa,

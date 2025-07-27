@@ -297,16 +297,20 @@ public class TransporteAgua {
     // }
     // Ej 4-1
     public static void mostrarCiudad(ArbolAVL arbol, Grafo mapa, HashMap<ClaveTuberia, DatosTuberia> hMapTuberia,
-            String nCiudad) {
+            String nCiudad, int anio, int mes) {
         IO.salida("INI mostrarCiudad :" + nCiudad, false);
         // Ciudad c = leerCiudad(arbol);
         Ciudad c = (Ciudad) arbol.obtenerValor(nCiudad.toUpperCase());
         // validar ciudad?
         if (c != null) {
-            IO.salida("Inserte el anio", false);
-            int anio = TecladoIn.readInt();
-            IO.salida("Inserte el mes", false);
-            int mes = TecladoIn.readInt();
+            if (anio == 0) {
+                IO.salida("Inserte el anio", false);
+                anio = TecladoIn.readInt();
+
+            }
+            if (mes == 0) {
+                mes = IO.ingresarRango("el mes", 1, 12);
+            }
             // Leer anio y mes por teclado? usar ultimo elemento del elemento anio?
             // getPoblacionUltimoMes()?
             int pobActual = c.getPoblacion(anio, mes);

@@ -85,7 +85,7 @@ public class IO {
                     break;
                 case 3:
                     param1 = ingresarString("la ciudad a mostrar");
-                    TransporteAgua.mostrarCiudad(ciudades, mapa, hMapTuberias, param1);
+                    TransporteAgua.mostrarCiudad(ciudades, mapa, hMapTuberias, param1, 0, 0);
                     break;
                 case 4:
                     param1 = ingresarString("Nomeclatura minima");
