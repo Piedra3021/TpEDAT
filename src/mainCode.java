@@ -63,22 +63,41 @@ public class mainCode {
         DesdeArchivo.cargarCiudades(ciudades, mapa);
         DesdeArchivo.cargarTuberias(ciudades, mapa, hmapTuberias);
         DesdeArchivo.cargarPoblacion(ciudades);
-
+        Lista a;
         // TransporteAgua.mostrarSistema(ciudades);
 
         // Lista a = mapa.obtenerCamino(((Ciudad)
         // ciudades.obtenerValor("Miracosta")).getNombre(), ((Ciudad)
         // ciudades.obtenerValor("Brezalia")).getNombre(), hmapTuberias);
-        String nome1 = ((Ciudad) ciudades.obtenerValor("Miracosta")).getNombre();
-        String nome2 = ((Ciudad) ciudades.obtenerValor("Brezalia")).getNombre();
-        Lista a = mapa.obtenerCamino(nome1, nome2);
-        // a = mapa.obtenerTodosCaminos("Neufuen", "Portenilo");
+        // String nome1 = ((Ciudad) ciudades.obtenerValor("NEUFUEN")).getNombre();
+        // String nome2 = ((Ciudad) ciudades.obtenerValor("SOLANDINA")).getNombre();
+        // a = mapa.obtenerCamino(nome1, nome2);
         // IO.sout(a);
-        a = mapa.obtenerCaminoEtiqMin("Neufuen", "Portenilo");
+        a = mapa.obtenerTodosCaminos("Neufuen", "Solandina");
         IO.sout(a);
-        String estado = TransporteAgua.definirEstadoCamino(a, hmapTuberias);
-        IO.sout(estado);
+        if (a != null) {
+            a = mapa.obtenerCaminoEtiqMin("Neufuen", "Solandina");
+            IO.sout(a);
+            if (a != null) {
+                String estado = TransporteAgua.definirEstadoCamino(a, hmapTuberias);
+                IO.sout(estado);
+            }
+            TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "NEUFUEN", "SOLANDINA");
 
+        }
+        // IO.separador("");
+        // a = mapa.obtenerTodosCaminos("Fuenteluz", "Bosquemonte");
+        // IO.sout(a);
+        // if (a != null) {
+        //     a = mapa.obtenerCaminoEtiqMin("Fuenteluz", "Bosquemonte");
+        //     IO.sout(a);
+        //     if (a != null) {
+        //         String estado = TransporteAgua.definirEstadoCamino(a, hmapTuberias);
+        //         IO.sout(estado);
+        //     }
+        //     TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "FUENTELUZ", "SOLANDINA");
+
+        // }
     }
 
     private static void genPobRandom(Ciudad ciudad) {
@@ -146,7 +165,7 @@ public class mainCode {
                 System.out.println(mapa.obtenerEtiquetasCamino((Lista) todosCaminos.recuperar(i)));
             }
 
-            TransporteAgua.mostrarCiudad(arbolTest, mapa, hmapTuberias,"MIRACOSTA",0,0);
+            TransporteAgua.mostrarCiudad(arbolTest, mapa, hmapTuberias, "MIRACOSTA", 0, 0);
 
             /*
              * Lista caminoCaudalPleno = TransporteAgua.caminoCaudalPleno(arbolTest, mapa,
