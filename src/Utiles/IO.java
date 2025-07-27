@@ -111,10 +111,10 @@ public class IO {
                     TransporteAgua.caminoCaudalPleno(ciudades, mapa, hMapTuberias, param1, param2);
                     break;
                 case 6:
-                    param1 = ingresarString("desde");
+                    param1 = ingresarString("ciudad Origen");
                     param1 = param1.replace(" ", "");
                     param1 = param1.toUpperCase();
-                    param2 = ingresarString("hasta");
+                    param2 = ingresarString("ciudad Destino");
                     param2 = param2.replace(" ", "");
                     param2 = param2.toUpperCase();
                     TransporteAgua.caminoMasCorto(ciudades, mapa, param1, param2, hMapTuberias);
@@ -160,10 +160,10 @@ public class IO {
                         TransporteAgua.altaCiudad(ciudades, mapa, c);
                     } else {
                         String[] valores = new String[7];
-                        valores[1] = ingresarString("desde");
+                        valores[1] = ingresarString("ciudad Origen");
                         valores[1] = valores[1].replace(" ", "");
                         valores[1] = valores[1].toUpperCase();
-                        valores[2] = ingresarString("hasta");
+                        valores[2] = ingresarString("ciudad Destino");
                         valores[2] = valores[2].replace(" ", "");
                         valores[2] = valores[2].toUpperCase();
                         DatosTuberia dt = ingresarDatosTuberia(valores);
@@ -178,10 +178,10 @@ public class IO {
                         TransporteAgua.modCiudad(ciudades, param1);
                     } else {
                         String[] valores = new String[7];
-                        valores[1] = ingresarString("desde");
+                        valores[1] = ingresarString("ciudad Origen");
                         valores[1] = valores[1].replace(" ", "");
                         valores[1] = valores[1].toUpperCase();
-                        valores[2] = ingresarString("hasta");
+                        valores[2] = ingresarString("ciudad Destino");
                         valores[2] = valores[2].replace(" ", "");
                         valores[2] = valores[2].toUpperCase();
                         TransporteAgua.modTuberia(ciudades, mapa, hMapTuberias, valores[1], valores[2]);
@@ -195,10 +195,10 @@ public class IO {
                         TransporteAgua.bajaCiudad(ciudades, hMapTuberias, param1, mapa);
                     } else {
                         String[] valores = new String[7];
-                        valores[1] = ingresarString("desde");
+                        valores[1] = ingresarString("ciudad Origen");
                         valores[1] = valores[1].replace(" ", "");
                         valores[1] = valores[1].toUpperCase();
-                        valores[2] = ingresarString("hasta");
+                        valores[2] = ingresarString("ciudad Destino");
                         valores[2] = valores[2].replace(" ", "");
                         valores[2] = valores[2].toUpperCase();
                         TransporteAgua.bajaTuberia(ciudades, mapa, hMapTuberias, valores[1], valores[2]);

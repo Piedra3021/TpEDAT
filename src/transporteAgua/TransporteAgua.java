@@ -12,7 +12,7 @@ import jerarquicas.*;
 import lineales.*;
 import lineales.dinamica.Lista;
 
-// cargar desde archivo
+// cargar cOrigen archivo
 // Ciudad c1 = new Ciudad("neufuen", "ne3001","12000000");
 public class TransporteAgua {
     public static void main(String[] args) throws Exception {
@@ -125,22 +125,22 @@ public class TransporteAgua {
 
     public static void altaTuberia(ArbolAVL ciudades, Grafo grafo,
             HashMap<ClaveTuberia, DatosTuberia> hMapTuberias,
-            String desde, String hasta, DatosTuberia datosTuberia) {
-        IO.salida("ALTA tuberia: " + desde + "->" + hasta, false);
-        desde = desde.replace(" ", "");
-        hasta = hasta.replace(" ", "");
-        Ciudad c1 = (Ciudad) ciudades.obtenerValor(desde.toUpperCase());
-        Ciudad c2 = (Ciudad) ciudades.obtenerValor(hasta.toUpperCase());
+            String cOrigen, String cDestino, DatosTuberia datosTuberia) {
+        IO.salida("ALTA tuberia: " + cOrigen + "->" + cDestino, false);
+        cOrigen = cOrigen.replace(" ", "");
+        cDestino = cDestino.replace(" ", "");
+        Ciudad c1 = (Ciudad) ciudades.obtenerValor(cOrigen.toUpperCase());
+        Ciudad c2 = (Ciudad) ciudades.obtenerValor(cDestino.toUpperCase());
         // Verifica que las ciudades existan y que no haya un arco entre ellas
         if (c1 != null && c2 != null && !c1.equals(c2) && !grafo.existeArco(c1, c2)) {
             ClaveTuberia clave = new ClaveTuberia(c1.getNomenclatura(), c2.getNomenclatura());
             hMapTuberias.put(clave, datosTuberia);
             grafo.insertarArco(c1, c2, datosTuberia.getCaudalMax());
-            IO.salida("ALTA tuberia: " + desde + "->" + hasta + ". Exito", true);
+            IO.salida("ALTA tuberia: " + cOrigen + "->" + cDestino + ". Exito", true);
         } else {
             String mensaje = "\tNo se pudo agregar la tubería: ";
             if (c1 == null || c2 == null) {
-                mensaje += c1 == null ? desde : hasta;
+                mensaje += c1 == null ? cOrigen : cDestino;
                 mensaje += " no existe";
             } else {
                 mensaje += "c1==c2 o no estan conectadas las ciudades";
@@ -156,13 +156,13 @@ public class TransporteAgua {
      */
 
     public static void modTuberia(ArbolAVL ciudades, Grafo mapa, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias,
-            String desde, String hasta) {
-        IO.salida("Modificacion tuberia: " + desde + "->" + hasta, false);
+            String cOrigen, String cDestino) {
+        IO.salida("Modificacion tuberia: " + cOrigen + "->" + cDestino, false);
         boolean exito = false;
-        desde = desde.replace(" ", "");
-        hasta = hasta.replace(" ", "");
-        Ciudad c1 = (Ciudad) ciudades.obtenerValor(desde.toUpperCase());
-        Ciudad c2 = (Ciudad) ciudades.obtenerValor(hasta.toUpperCase());
+        cOrigen = cOrigen.replace(" ", "");
+        cDestino = cDestino.replace(" ", "");
+        Ciudad c1 = (Ciudad) ciudades.obtenerValor(cOrigen.toUpperCase());
+        Ciudad c2 = (Ciudad) ciudades.obtenerValor(cDestino.toUpperCase());
 
         if (c1 != null && c2 != null && mapa.existeArco(c1, c2)) {
             ClaveTuberia clave = new ClaveTuberia(c1.getNomenclatura(), c2.getNomenclatura());
@@ -223,24 +223,24 @@ public class TransporteAgua {
     }
 
     public static boolean bajaTuberia(ArbolAVL ciudades, Grafo grafo, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias,
-            String desde, String hasta) {
-        IO.salida("BAJA tuberia: " + desde + "->" + hasta, false);
+            String cOrigen, String cDestino) {
+        IO.salida("BAJA tuberia: " + cOrigen + "->" + cDestino, false);
         boolean exito = false;
-        desde = desde.replace(" ", "");
-        hasta = hasta.replace(" ", "");
-        Ciudad c1 = (Ciudad) ciudades.obtenerValor(desde.toUpperCase());
-        Ciudad c2 = (Ciudad) ciudades.obtenerValor(hasta.toUpperCase());
+        cOrigen = cOrigen.replace(" ", "");
+        cDestino = cDestino.replace(" ", "");
+        Ciudad c1 = (Ciudad) ciudades.obtenerValor(cOrigen.toUpperCase());
+        Ciudad c2 = (Ciudad) ciudades.obtenerValor(cDestino.toUpperCase());
         if (c1 != null && c2 != null && grafo.existeArco(c1, c2)) {
             // Si la tuberia existe, se elimina de las estructuras
             ClaveTuberia clave = new ClaveTuberia(c1.getNomenclatura(), c2.getNomenclatura());
             hMapTuberias.remove(clave);
             grafo.eliminarArco(c1, c2);
             exito = true;
-            IO.salida("BAJA tuberia: " + desde + "->" + hasta + ". Exito", true);
+            IO.salida("BAJA tuberia: " + cOrigen + "->" + cDestino + ". Exito", true);
         } else {
             String mensaje = "\tNo se pudo eliminar la tubería: ";
             if (c1 == null || c2 == null) {
-                mensaje += c1 == null ? desde : hasta;
+                mensaje += c1 == null ? cOrigen : cDestino;
                 mensaje += " no existe";
             } else {
                 mensaje += "no estan conectadas las ciudades";
@@ -292,7 +292,7 @@ public class TransporteAgua {
     }
 
     // private static Ciudad leerCiudad(ArbolAVL arbol){
-    // leer por teclado y obtener desde el arbol
+    // leer por teclado y obtener cOrigen el arbol
     // validar entrada?
     // }
     // Ej 4-1
