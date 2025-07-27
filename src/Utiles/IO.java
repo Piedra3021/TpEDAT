@@ -102,7 +102,13 @@ public class IO {
                     TransporteAgua.ciudadesEnRango(ciudades, param1, param2, anio, mes, n1, n2);
                     break;
                 case 5:
-                    TransporteAgua.caminoCaudalPleno(ciudades, mapa, hMapTuberias);
+                    param1 = ingresarString("ciudad Origen");
+                    param1 = param1.replace(" ", "");
+                    param1 = param1.toUpperCase();
+                    param2 = ingresarString("ciudad Destino");
+                    param2 = param2.replace(" ", "");
+                    param2 = param2.toUpperCase();
+                    TransporteAgua.caminoCaudalPleno(ciudades, mapa, hMapTuberias, param1, param2);
                     break;
                 case 6:
                     param1 = ingresarString("desde");

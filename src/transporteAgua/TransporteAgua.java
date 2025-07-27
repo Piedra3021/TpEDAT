@@ -374,22 +374,14 @@ public class TransporteAgua {
 
     // Ej. 5-1
     public static Lista caminoCaudalPleno(ArbolAVL arbol, Grafo mapa,
-            HashMap<ClaveTuberia, DatosTuberia> hMapTuberias) {
+            HashMap<ClaveTuberia, DatosTuberia> hMapTuberias, String cOrigen, String cDestino) {
         IO.salida("INI caminoCaudalPleno", false);
 
         double caudalMin = -1;
         double caudalAux;
         int posCamino = -1;
         Lista caminoAct = new Lista();
-        IO.salida("Ingrese ciudad Origen", false);
-        String cOrigen = TecladoIn.readLine();
-        cOrigen = cOrigen.replace(" ", "");
-        cOrigen = cOrigen.toUpperCase();
         Ciudad ciudadO = (Ciudad) arbol.obtenerValor(cOrigen);
-        IO.salida("Ingrese ciudad Destino", false);
-        String cDestino = TecladoIn.readLine();
-        cDestino = cDestino.replace(" ", "");
-        cDestino = cDestino.toUpperCase();
         Ciudad ciudadD = (Ciudad) arbol.obtenerValor(cDestino);
         Lista caminos = mapa.obtenerTodosCaminos(ciudadO, ciudadD);
 
