@@ -84,7 +84,8 @@ public class IO {
                     menuABM(ciudades, mapa, hMapTuberias, false);
                     break;
                 case 3:
-                    TransporteAgua.mostrarCiudad(ciudades, mapa, hMapTuberias);
+                    param1 = ingresarString("la ciudad a mostrar");
+                    TransporteAgua.mostrarCiudad(ciudades, mapa, hMapTuberias, param1);
                     break;
                 case 4:
                     param1 = ingresarString("Nomeclatura minima");
@@ -177,7 +178,7 @@ public class IO {
                         valores[2] = ingresarString("hasta");
                         valores[2] = valores[2].replace(" ", "");
                         valores[2] = valores[2].toUpperCase();
-                        TransporteAgua.modTuberia(ciudades, mapa, hMapTuberias, valores[1],valores[2]);
+                        TransporteAgua.modTuberia(ciudades, mapa, hMapTuberias, valores[1], valores[2]);
                     }
                     break;
                 case 3:
@@ -225,13 +226,14 @@ public class IO {
         valores[4] = ingresarString("caudalMax");
         valores[5] = ingresarString("diametro");
         do {
-        valores[6] = ingresarString("estado  \n" + //
-                        "ACTIVO\n" + //
-                        "REPARACION\n" + //
-                        "INACTIVO\n" + //
-                        "DISEÑO");
-        valores[6] = valores[6].toLowerCase();
-}while(valores[6].charAt(0) != 'a' && valores[6].charAt(0) !='r' && valores[6].charAt(0) != 'i' && valores[6].charAt(0) != 'd');
+            valores[6] = ingresarString("estado  \n" + //
+                    "ACTIVO\n" + //
+                    "REPARACION\n" + //
+                    "INACTIVO\n" + //
+                    "DISEÑO");
+            valores[6] = valores[6].toLowerCase();
+        } while (valores[6].charAt(0) != 'a' && valores[6].charAt(0) != 'r' && valores[6].charAt(0) != 'i'
+                && valores[6].charAt(0) != 'd');
         dt = DesdeArchivo.genDatosTuberia(valores);
         return dt;
     }

@@ -296,12 +296,10 @@ public class TransporteAgua {
     // validar entrada?
     // }
     // Ej 4-1
-    public static void mostrarCiudad(ArbolAVL arbol, Grafo mapa, HashMap<ClaveTuberia, DatosTuberia> hMapTuberia) {
-        IO.salida("INI mostrarCiudad", true);
+    public static void mostrarCiudad(ArbolAVL arbol, Grafo mapa, HashMap<ClaveTuberia, DatosTuberia> hMapTuberia,
+            String nCiudad) {
+        IO.salida("INI mostrarCiudad :" + nCiudad, false);
         // Ciudad c = leerCiudad(arbol);
-        IO.salida("Indique la ciudad", false);
-        String nCiudad = TecladoIn.readLine();
-        nCiudad = nCiudad.replace(" ", "");
         Ciudad c = (Ciudad) arbol.obtenerValor(nCiudad.toUpperCase());
         // validar ciudad?
         if (c != null) {
