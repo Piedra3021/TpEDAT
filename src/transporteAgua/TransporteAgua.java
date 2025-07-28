@@ -350,6 +350,10 @@ public class TransporteAgua {
         IO.salida("FIN mostrarCiudad", false);
     }
 
+
+    public Lista obtenerCaminoActivo(ArbolAVL ciudades, Grafo mapa, HashMap<ClaveTuberia,DatosTuberia> hmaptuberias, Ciudad c){
+
+    }
     // Ej 4-2
     public static Lista ciudadesEnRango(ArbolAVL arbol, String nomb1, String nomb2, int anio, int mes, double minVol,
             double maxVol) {
@@ -392,7 +396,7 @@ public class TransporteAgua {
         for (int i = 1; i < caminos.longitud() + 1; i++) {
             caminoAct = (Lista) caminos.recuperar(i);
             caminoAct = mapa.obtenerEtiquetasCamino(caminoAct);
-            caudalAux = caudalMin = mapa.obtenerMenorEtiqueta(caminoAct);
+            caudalAux = mapa.obtenerMenorEtiqueta(caminoAct);
 
             if (i == 1) {
                 caudalMin = caudalAux;
@@ -410,6 +414,7 @@ public class TransporteAgua {
             caminoAct = (Lista) caminos.recuperar(posCamino);
             IO.salida("El camino es: \n" + caminoAct, false);
             String estado = definirEstadoCamino(caminoAct, hMapTuberias);
+            IO.salida("Vol: " + caudalMin,false);
             IO.salida(estado, false);
         } else if (ciudadO == null || ciudadD == null) {
             IO.salida("Una o ambas ciudades no existen.", false);

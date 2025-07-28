@@ -504,10 +504,7 @@ public class Grafo {
         while (vecino != null && !encontrado) {
             Object elemVecino = vecino.getVertice().getElem();
 
-            ClaveTuberia clave = new ClaveTuberia(elemActual, elemVecino);
-            DatosTuberia datos = tuberias.get(clave);
-
-            if (datos != null && datos.getEstado() == 'a' && visitados.localizar(elemVecino) == -1) {
+            if (visitados.localizar(elemVecino) == -1) {
                 tieneVecinoActivo = true;
                 // Ir recursivamente por el primer vecino activo
                 encontrado = obtenerActivoAux(
