@@ -82,25 +82,25 @@ public class ArbolAVL {
             if (calcularBalance(nodo.getDerecho()) <= 0) {
                 // Rotacion simple a izquierda
                 nodo = rotarIzquierda(nodo);
-            System.out.println("RI");
+                // System.out.println("RI");
             } else {
                 // Rotacion doble a izquierda
                 nodo.setDerecho(rotarDerecha(nodo.getDerecho()));
                 nodo.getDerecho().recalcularAltura();
                 nodo = rotarIzquierda(nodo);
-            System.out.println("RDI");
+                // System.out.println("RDI");
             }
         } else if (balance > 1) {
             if (calcularBalance(nodo.getIzquierdo()) >= 0) {
                 // Rotacion simple a derecha
                 nodo = rotarDerecha(nodo);
-            System.out.println("RD");
+                // System.out.println("RD");
             } else {
                 // Rotacion doble a derecha
                 nodo.setIzquierdo(nodo.getIzquierdo());
                 nodo.getIzquierdo().recalcularAltura();
                 nodo = rotarDerecha(nodo);
-            System.out.println("RDD");
+                // System.out.println("RDD");
             }
         }
         return nodo;

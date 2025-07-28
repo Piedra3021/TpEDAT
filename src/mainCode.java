@@ -73,31 +73,28 @@ public class mainCode {
         // String nome2 = ((Ciudad) ciudades.obtenerValor("SOLANDINA")).getNombre();
         // a = mapa.obtenerCamino(nome1, nome2);
         // IO.sout(a);
-        a = mapa.obtenerTodosCaminos("Neufuen", "Solandina");
+        a = mapa.obtenerTodosCaminos("Neufuen", "Portenilo");
         IO.sout(a);
         if (a != null) {
-            a = mapa.obtenerCaminoEtiqMin("Neufuen", "Solandina");
+            a = mapa.obtenerCaminoEtiqMin("Neufuen", "Portenilo");
             IO.sout(a);
             if (a != null) {
                 String estado = TransporteAgua.definirEstadoCamino(a, hmapTuberias);
                 IO.sout(estado);
             }
-            TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "NEUFUEN", "SOLANDINA");
+            TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "NEUFUEN", "PORTENILO");
 
         }
-        // IO.separador("");
-        // a = mapa.obtenerTodosCaminos("Fuenteluz", "Bosquemonte");
-        // IO.sout(a);
-        // if (a != null) {
-        //     a = mapa.obtenerCaminoEtiqMin("Fuenteluz", "Bosquemonte");
-        //     IO.sout(a);
-        //     if (a != null) {
-        //         String estado = TransporteAgua.definirEstadoCamino(a, hmapTuberias);
-        //         IO.sout(estado);
-        //     }
-        //     TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "FUENTELUZ", "SOLANDINA");
 
-        // }
+        DatosTuberia dT = null;
+        double caudalMin = 0;
+        double caudalMax = 5;
+        double diametro = 1;
+        char estado = 'r';
+        dT = new DatosTuberia(caudalMin, caudalMax, diametro, estado);
+        TransporteAgua.altaTuberia(ciudades, mapa, hmapTuberias, "Solferino", "Portenilo", dT);
+        a = mapa.obtenerCaminoEtiqMin("Neufuen", "Portenilo");
+        IO.sout(a);
     }
 
     private static void genPobRandom(Ciudad ciudad) {
