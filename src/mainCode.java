@@ -48,10 +48,27 @@ public class mainCode {
         DesdeArchivo.cargarTuberias(ciudades, mapa, hmapTuberias);
         DesdeArchivo.cargarPoblacion(ciudades);
 
-        Ciudad c1 = (Ciudad) ciudades.obtenerValor("Neufuen");
-        Ciudad c2 = (Ciudad) ciudades.obtenerValor("Brezalia");
-        Lista l = TransporteAgua.listarPorConsumoAnual(ciudades, 2020);
-        System.out.println(l.toString());
+        IO.salida("TEST de CaminoMasCorto", false);
+        TransporteAgua.caminoMasCorto(ciudades, mapa, "NEUFUEN", "MALBRAN", hmapTuberias);
+
+        // agregamos tuberia de Neufuen a Miracosta
+        TransporteAgua.altaTuberia(ciudades, mapa, hmapTuberias,
+                "NEUFUEN", "LASCOLINAS", new DatosTuberia(0, 5, 1, 'a'));
+
+        TransporteAgua.caminoMasCorto(ciudades, mapa, "NEUFUEN", "MALBRAN", hmapTuberias);
+
+        // borramos Miracosta y agregamos tuberia de Neufuen a Malbran
+        TransporteAgua.altaTuberia(ciudades, mapa, hmapTuberias,
+                "NEUFUEN", "MALBRAN", new DatosTuberia(0, 5, 1, 'a'));
+
+        TransporteAgua.caminoMasCorto(ciudades, mapa, "NEUFUEN", "MALBRAN", hmapTuberias);
+
+        IO.salida("TEST ciudadesEnRango", false);
+
+        TransporteAgua.ciudadesEnRango(ciudades, "A", "O", 2020, 1, 0, 5000);
+        TransporteAgua.ciudadesEnRango(ciudades, "A", "O", 2020, 1, 0, 50000);
+        TransporteAgua.ciudadesEnRango(ciudades, "N", "W", 2020, 1, 0, 50000);
+        TransporteAgua.ciudadesEnRango(ciudades, "N", "W", 2020, 1, 0, 7500);
     }
 
     private static void test2() {

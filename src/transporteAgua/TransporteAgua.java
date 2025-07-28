@@ -433,7 +433,7 @@ public class TransporteAgua {
         Ciudad c2 = (Ciudad) arbol.obtenerValor(destino);
         if (c1 != null && c2 != null) {
             Lista camino = mapa.caminoMasCorto(c1, c2);
-            if (camino != null) {
+            if (camino != null && camino.longitud() > 0) {
                 IO.salida("Camino más corto de " + c1.getNombre() + " a " + c2.getNombre() + ": " + camino.toString(),
                         true);
                 IO.salida("Estado del camino: " + definirEstadoCamino(camino, hMapTuberias), true);
