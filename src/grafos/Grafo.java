@@ -1,19 +1,21 @@
 package grafos;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import lineales.dinamica.*;
+import Utiles.IO;
+/*
+imports usados anteriormente solo en 4-1 o no utilizados
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
-
-import Utiles.IO;
 import conjuntistas.ArbolAVL;
-import lineales.dinamica.*;
 import transporteAgua.*;
+*/
 
 public class Grafo {
 
@@ -467,6 +469,8 @@ public class Grafo {
         return menor;
     }
 
+    /*
+    // Utilizado anteriormente para el ejer 4-1, eliminado por innecesario
     public Lista obtenerPrimerActivo(Object origen, Map<ClaveTuberia, DatosTuberia> tuberias) {
         Lista visitados = new Lista();
         Lista caminoActual = new Lista();
@@ -532,6 +536,7 @@ public class Grafo {
         }
         return exito;
     }
+    */
 
     public Lista obtenerTodosCaminos(Object origen, Object destino) {
         Lista todosLosCaminos = new Lista();

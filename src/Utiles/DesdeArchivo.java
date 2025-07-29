@@ -7,7 +7,7 @@ import java.util.Properties;
 
 import conjuntistas.ArbolAVL;
 import grafos.Grafo;
-import jerarquicas.*;
+// import jerarquicas.*;
 // import lineales.*;
 
 import java.io.BufferedReader;
@@ -169,11 +169,5 @@ public class DesdeArchivo {
             e.printStackTrace();
         }
         return props;
-    }
-
-    public static void main(String[] args) {
-        // leerArchivo_1();
-        // leerArchivo_2();
-        // cargarCiudad();
     }
 }
