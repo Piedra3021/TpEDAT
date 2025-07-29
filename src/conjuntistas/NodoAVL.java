@@ -75,32 +75,41 @@ class NodoAVL {
     }
 
     public void dibujar(String espaciado) {
+        int longi = this.valor.toString().length();
         if (!this.esHoja()) {
             if(this.getDerecho() != null && this.getIzquierdo() != null) {
-                System.out.print(this.valor.toString() + " ----> ");
-                this.derecho.dibujar(espaciado + " |     ");
+                System.out.print(this.valor.toString() + sumarCaracter("----> ", longi+1, '-'));
+                this.derecho.dibujar(espaciado + sumarCaracter(" |     ", longi*2, ' '));
                 
                 System.out.println("");
-                System.out.print(espaciado +  " L----> ");
+                System.out.print(espaciado +  sumarCaracter(" L----> ", longi*2, ' '));
                 if (this.getIzquierdo().esHoja()) {
-                    this.getIzquierdo().dibujar(espaciado + " |     ");
+                    this.getIzquierdo().dibujar(espaciado + sumarCaracter(" |     ", longi*2, ' '));
                 } else {
-                    this.getIzquierdo().dibujar(espaciado + "       ");
+                    this.getIzquierdo().dibujar(espaciado + sumarCaracter("       ", longi*2, ' '));
                 }
             } else if (this.getDerecho() != null) {
-                System.out.print(this.valor.toString() + " ----> ");
-                this.getDerecho().dibujar(espaciado + "        ");
+                System.out.print(this.valor.toString() + sumarCaracter("----> ", longi+1, '-'));
+                this.getDerecho().dibujar(espaciado + sumarCaracter("        ", longi*2, ' '));
             } else {
                 System.out.println(this.valor.toString());
-                System.out.print(espaciado +  " L----> ");
+                System.out.print(espaciado +  sumarCaracter(" L----> ", longi*2, ' '));
                 if (this.getIzquierdo().esHoja()) {
-                    this.getIzquierdo().dibujar(espaciado + " |     ");
+                    this.getIzquierdo().dibujar(espaciado + sumarCaracter(" |     ", longi*2, ' '));
                 } else {
-                    this.getIzquierdo().dibujar(espaciado + "        ");
+                    this.getIzquierdo().dibujar(espaciado + sumarCaracter("        ", longi*2, ' '));
                 }
             }
         } else {
             System.out.print(this.valor.toString());
         }
+    }
+
+    private String sumarCaracter(String text, int cant, char c) {
+        for (int i = 0; i < cant; i++) {
+            text = c + text;
+            cant--;
+        }
+        return text;
     }
 }
