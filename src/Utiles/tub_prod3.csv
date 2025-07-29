@@ -1,0 +1,12 @@
+t,Neufuén,Riomayor,0,100,5,a
+t,Neufuén,Portenilo,0,1000,6,a
+t,Neufuén,Verdemar,0,200,10,a
+t,Riomayor,Solferino,0,5,10,a
+t,Riomayor,Portenilo,0,250,10,a
+t,Verdemar,Portenilo,0,400,10,a
+t,Verdemar,Miracosta,0,25,10,a
+t,Verdemar,Solferino,0,10,3,a
+t,Miracosta,Portenilo,0,50,10,d
+t,Miracosta,Riomayor,0,200,10,d
+t,Solferino,Neufuén,0,120,5,r
+t,Solferino,Puerto Yaco,0,100,8,a

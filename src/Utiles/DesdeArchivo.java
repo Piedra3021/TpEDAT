@@ -126,7 +126,7 @@ public class DesdeArchivo {
     public static void cargarPoblacion(ArbolAVL arbol) {
         IO.salida("INI cargaPoblacion", false);
         String line;
-        String sufijo = getProps().getProperty("tub");
+        String sufijo = getProps().getProperty("pob");
         // IO.sout(sufijo);
         String PATH = "src/Utiles/pob_" + sufijo + ".csv";
         Ciudad ciudad;
