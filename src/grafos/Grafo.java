@@ -613,6 +613,10 @@ public class Grafo {
                 // if (vecino != null?? && caminoActual.localizar(vecino) == -1) {
                 if (caminoActual.localizar(vecino) == -1) {
                     double valorEtiq = ady.getEtiqueta();
+                    // Mantener etiqueta de menor valor
+                    if ((volActual > 0) && volActual < valorEtiq) {
+                        valorEtiq = volActual;
+                    }
                     volMin = oCEM(ady.getVertice(), destino, caminoActual, resultado, volMin,
                             valorEtiq);
                 }
