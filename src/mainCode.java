@@ -90,10 +90,10 @@ public class mainCode {
         // String nome2 = ((Ciudad) ciudades.obtenerValor("SOLANDINA")).getNombre();
         // a = mapa.obtenerCamino(nome1, nome2);
         // IO.sout(a);
-        a = mapa.obtenerTodosCaminos("Neufuen", "Portenilo");
+        a = mapa.obtenerTodosCaminos("NEUFUEN", "PORTENILO");
         IO.sout(a);
         if (a != null) {
-            a = mapa.obtenerCaminoEtiqMin("Neufuen", "Portenilo");
+            a = mapa.obtenerCaminoEtiqMin("NEUFUEN", "PORTENILO");
             IO.sout(a);
             if (a != null) {
                 String estado = TransporteAgua.definirEstadoCamino(a, hmapTuberias);

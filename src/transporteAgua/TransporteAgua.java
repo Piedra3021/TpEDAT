@@ -236,48 +236,49 @@ public class TransporteAgua {
     }
 
     /*
-    public static double obtenerAguaAprovisionada(ArbolAVL ciudades, Grafo mapa,
-            HashMap<ClaveTuberia, DatosTuberia> hmapTuberias, String nCiudad, int anio, int mes) {
-        nCiudad = nCiudad.replace(" ", "");
-        Ciudad ciudad = (Ciudad) ciudades.obtenerValor(nCiudad.toUpperCase());
-        double resultado = -1;
-
-        if (ciudad != null) {
-            // Obtiene la cantidad de agua en un año, en un mes
-            double aguaPorHab = ciudad.cantidadAguaPorMes(anio, mes);
-            double aguaCaudal = -1;
-
-            
-            // Obtiene el primer camino de tuberias activo de principio a fin.
-            Lista caminoA = mapa.obtenerPrimerActivo(ciudad, hmapTuberias);
-            if (caminoA != null) {
-                // Si existe, obtiene las etiquetas (caudales) y luego el minimo de estos
-                // Ya que va a ser la capacidad maxima del camino.
-                caminoA = mapa.obtenerEtiquetasCamino(caminoA);
-
-                aguaCaudal = mapa.obtenerMenorEtiqueta(caminoA);
-            }
-            
-            // Si es mayor que 0, es que si existe el anio, mes
-            if (aguaPorHab > 0) {
-                // Existe algun camino activo en la ciudad
-                if (aguaCaudal > 0) {
-                    if (aguaPorHab < aguaCaudal) {
-                        resultado = aguaPorHab;
-                    } else {
-                        resultado = aguaCaudal;
-                    }
-                } else {
-                    resultado = aguaPorHab;
-                }
-            } else {
-                resultado = aguaCaudal;
-            }
-            resultado = ciudad.cantidadAguaPorMes(anio, mes);
-        }
-        return resultado;
-    }
-    */
+     * public static double obtenerAguaAprovisionada(ArbolAVL ciudades, Grafo mapa,
+     * HashMap<ClaveTuberia, DatosTuberia> hmapTuberias, String nCiudad, int anio,
+     * int mes) {
+     * nCiudad = nCiudad.replace(" ", "");
+     * Ciudad ciudad = (Ciudad) ciudades.obtenerValor(nCiudad.toUpperCase());
+     * double resultado = -1;
+     * 
+     * if (ciudad != null) {
+     * // Obtiene la cantidad de agua en un año, en un mes
+     * double aguaPorHab = ciudad.cantidadAguaPorMes(anio, mes);
+     * double aguaCaudal = -1;
+     * 
+     * 
+     * // Obtiene el primer camino de tuberias activo de principio a fin.
+     * Lista caminoA = mapa.obtenerPrimerActivo(ciudad, hmapTuberias);
+     * if (caminoA != null) {
+     * // Si existe, obtiene las etiquetas (caudales) y luego el minimo de estos
+     * // Ya que va a ser la capacidad maxima del camino.
+     * caminoA = mapa.obtenerEtiquetasCamino(caminoA);
+     * 
+     * aguaCaudal = mapa.obtenerMenorEtiqueta(caminoA);
+     * }
+     * 
+     * // Si es mayor que 0, es que si existe el anio, mes
+     * if (aguaPorHab > 0) {
+     * // Existe algun camino activo en la ciudad
+     * if (aguaCaudal > 0) {
+     * if (aguaPorHab < aguaCaudal) {
+     * resultado = aguaPorHab;
+     * } else {
+     * resultado = aguaCaudal;
+     * }
+     * } else {
+     * resultado = aguaPorHab;
+     * }
+     * } else {
+     * resultado = aguaCaudal;
+     * }
+     * resultado = ciudad.cantidadAguaPorMes(anio, mes);
+     * }
+     * return resultado;
+     * }
+     */
 
     // private static Ciudad leerCiudad(ArbolAVL arbol){
     // leer por teclado y obtener cOrigen el arbol
@@ -361,48 +362,69 @@ public class TransporteAgua {
             HashMap<ClaveTuberia, DatosTuberia> hMapTuberias, String cOrigen, String cDestino) {
         IO.salida("INI caminoCaudalPleno", false);
 
-        double caudalMin = -1;
-        double caudalAux;
-        int posCamino = -1;
-        Lista caminoAct = new Lista();
-        Ciudad ciudadO = (Ciudad) arbol.obtenerValor(cOrigen);
-        Ciudad ciudadD = (Ciudad) arbol.obtenerValor(cDestino);
-        Lista caminos = mapa.obtenerTodosCaminos(ciudadO, ciudadD);
+        Lista camino = null;
+        Ciudad c1 = (Ciudad) arbol.obtenerValor(cOrigen.toUpperCase());
+        IO.sout(c1.toString());
+        Ciudad c2 = (Ciudad) arbol.obtenerValor(cDestino.toUpperCase());
+        IO.sout(c2.toString());
+        if (c1 != null && c2 != null) {
+            camino = mapa.obtenerCaminoEtiqMin(cOrigen, cDestino);
+            IO.sout(camino);
+            if (camino != null && camino.longitud() > 0) {
+                IO.salida(
+                        "Camino con minimo caudal de " + c1.getNombre() + " a " + c2.getNombre() + ": "
+                                + camino.toString(),
+                        true);
+                IO.salida("Estado del camino: " + definirEstadoCamino(camino, hMapTuberias), true);
 
-        for (int i = 1; i < caminos.longitud() + 1; i++) {
-            caminoAct = (Lista) caminos.recuperar(i);
-            caminoAct = mapa.obtenerEtiquetasCamino(caminoAct);
-            caudalAux = caudalMin = mapa.obtenerMenorEtiqueta(caminoAct);
-
-            if (i == 1) {
-                caudalMin = caudalAux;
-                posCamino = i;
             } else {
-                if (caudalMin > caudalAux) {
-                    caudalMin = caudalAux;
-                    posCamino = i;
-                }
+                IO.salida("No se encontró un camino entre " + c1.getNombre() + " y " + c2.getNombre(), true);
             }
-
-        }
-
-        if (posCamino != -1) {
-            caminoAct = (Lista) caminos.recuperar(posCamino);
-            IO.salida("El camino es: \n" + caminoAct, false);
-            String estado = definirEstadoCamino(caminoAct, hMapTuberias);
-            IO.salida(estado, false);
-        } else if (ciudadO == null || ciudadD == null) {
-            IO.salida("Una o ambas ciudades no existen.", false);
         } else {
-            IO.salida("Las ciudades no estan conectadas.", false);
+            IO.salida(cOrigen + " existe: " + (c1 != null) + ", " + cDestino + " existe: " + c2 != null, false);
         }
+        // double caudalMin = -1;
+        // double caudalAux;
+        // int posCamino = -1;
+        // Lista caminoAct = new Lista();
+        // Ciudad ciudadO = (Ciudad) arbol.obtenerValor(cOrigen);
+        // Ciudad ciudadD = (Ciudad) arbol.obtenerValor(cDestino);
+        // Lista caminos = mapa.obtenerTodosCaminos(ciudadO, ciudadD);
+
+        // for (int i = 1; i < caminos.longitud() + 1; i++) {
+        // caminoAct = (Lista) caminos.recuperar(i);
+        // caminoAct = mapa.obtenerEtiquetasCamino(caminoAct);
+        // caudalAux = caudalMin = mapa.obtenerMenorEtiqueta(caminoAct);
+
+        // if (i == 1) {
+        // caudalMin = caudalAux;
+        // posCamino = i;
+        // } else {
+        // if (caudalMin > caudalAux) {
+        // caudalMin = caudalAux;
+        // posCamino = i;
+        // }
+        // }
+
+        // }
+
+        // if (posCamino != -1) {
+        // caminoAct = (Lista) caminos.recuperar(posCamino);
+        // IO.salida("El camino es: \n" + caminoAct, false);
+        // String estado = definirEstadoCamino(caminoAct, hMapTuberias);
+        // IO.salida(estado, false);
+        // } else if (ciudadO == null || ciudadD == null) {
+        // IO.salida("Una o ambas ciudades no existen.", false);
+        // } else {
+        // IO.salida("Las ciudades no estan conectadas.", false);
+        // }
 
         // ...
         // leer c1 y c2
         // obtener camino con maximos menores?
         // mostrar estado del camino
         IO.salida("FIN caminoCaudalPleno", false);
-        return caminoAct;
+        return camino;
     }
 
     // Ej 5-2
