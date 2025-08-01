@@ -361,35 +361,13 @@ public class TransporteAgua {
             HashMap<ClaveTuberia, DatosTuberia> hMapTuberias, String cOrigen, String cDestino) {
         IO.salida("INI caminoCaudalPleno", false);
 
-        double caudalMin = -1;
-        double caudalAux;
-        int posCamino = -1;
-        Lista caminoAct = new Lista();
         Ciudad ciudadO = (Ciudad) arbol.obtenerValor(cOrigen);
         Ciudad ciudadD = (Ciudad) arbol.obtenerValor(cDestino);
-        Lista caminos = mapa.obtenerTodosCaminos(ciudadO, ciudadD);
+        Lista camino = mapa.obtenerCaminoEtiqMin(ciudadO, ciudadD);
 
-        for (int i = 1; i < caminos.longitud() + 1; i++) {
-            caminoAct = (Lista) caminos.recuperar(i);
-            caminoAct = mapa.obtenerEtiquetasCamino(caminoAct);
-            caudalAux = caudalMin = mapa.obtenerMenorEtiqueta(caminoAct);
-
-            if (i == 1) {
-                caudalMin = caudalAux;
-                posCamino = i;
-            } else {
-                if (caudalMin > caudalAux) {
-                    caudalMin = caudalAux;
-                    posCamino = i;
-                }
-            }
-
-        }
-
-        if (posCamino != -1) {
-            caminoAct = (Lista) caminos.recuperar(posCamino);
-            IO.salida("El camino es: \n" + caminoAct, false);
-            String estado = definirEstadoCamino(caminoAct, hMapTuberias);
+        if (camino != null && !camino.esVacia()) {
+            IO.salida("El camino es: \n" + camino, false);
+            String estado = definirEstadoCamino(camino, hMapTuberias);
             IO.salida(estado, false);
         } else if (ciudadO == null || ciudadD == null) {
             IO.salida("Una o ambas ciudades no existen.", false);
@@ -402,7 +380,7 @@ public class TransporteAgua {
         // obtener camino con maximos menores?
         // mostrar estado del camino
         IO.salida("FIN caminoCaudalPleno", false);
-        return caminoAct;
+        return camino;
     }
 
     // Ej 5-2
