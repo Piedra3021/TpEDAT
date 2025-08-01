@@ -231,86 +231,53 @@ public class ArbolAVL {
 
     private void listarRangoClaveAux(Comparable min, Comparable max, NodoAVL nodo, Lista lista) {
         Comparable elem;
-        boolean mayorQueMin, menorQueMax;
         if (nodo != null) {
             elem = nodo.getClave();
-            mayorQueMin = elem.compareTo(min) >= 0;
-            menorQueMax = elem.compareTo(max) <= 0;
-            if (mayorQueMin && menorQueMax) {
-                // Esta en rango y lo listamos
-                // Si el elemento del nodo es igual a alguno de los limites del rango,
-                // no es necesario visitar todos sus hijos.
-                if (!elem.equals(max))
-                    listarRangoClaveAux(min, max, nodo.getDerecho(), lista);
-                lista.insertar(elem, 1);
-                if (!elem.equals(min))
-                    listarRangoClaveAux(min, max, nodo.getIzquierdo(), lista);
-            } else if (mayorQueMin) {
+
+            if (elem.compareTo(min) > 0) {
+                // Puede haber claves dentro del rango en el subarbol izquierdo
                 listarRangoClaveAux(min, max, nodo.getIzquierdo(), lista);
-            } else {
+            }
+
+            if (elem.compareTo(min) >= 0 && elem.compareTo(max) <= 0) {
+                // Clave dentro del rango
+                lista.insertar(elem, 1);
+            }
+
+            if (elem.compareTo(max) < 0) {
+                // Puede haber claves dentro del rango en el subarbol derecho
                 listarRangoClaveAux(min, max, nodo.getDerecho(), lista);
             }
         }
     }
 
-    public Lista listarRangoValor(Comparable claveMin, Comparable claveMax) {
+    public Lista listarRango(Comparable claveMin, Comparable claveMax) {
         Lista lista = new Lista();
         if (claveMax.compareTo(claveMin) >= 0) {
-            listarRangoValorAux(claveMin, claveMax, raiz, lista);
+            listarRangoAux(claveMin, claveMax, raiz, lista);
         }
         return lista;
     }
 
-    private void listarRangoValorAux(Comparable min, Comparable max, NodoAVL nodo, Lista lista) {
+    private void listarRangoAux(Comparable min, Comparable max, NodoAVL nodo, Lista lista) {
         Comparable elem;
-        boolean mayorQueMin, menorQueMax;
         if (nodo != null) {
             elem = nodo.getClave();
-            mayorQueMin = elem.compareTo(min) >= 0;
-            menorQueMax = elem.compareTo(max) <= 0;
-            if (mayorQueMin && menorQueMax) {
-                // Esta en rango y lo listamos
-                // Si el elemento del nodo es igual a alguno de los limites del rango,
-                // no es necesario visitar todos sus hijos.
-                if (!elem.equals(max))
-                    listarRangoValorAux(min, max, nodo.getDerecho(), lista);
-                lista.insertar(nodo.getValor(), 1);
-                if (!elem.equals(min))
-                    listarRangoValorAux(min, max, nodo.getIzquierdo(), lista);
-            } else if (mayorQueMin) {
-                listarRangoValorAux(min, max, nodo.getIzquierdo(), lista);
-            } else {
-                listarRangoValorAux(min, max, nodo.getDerecho(), lista);
+
+            if (elem.compareTo(min) > 0) {
+                // Puede haber claves dentro del rango en el subarbol izquierdo
+                listarRangoAux(min, max, nodo.getIzquierdo(), lista);
             }
-        }
-    }
 
-    // 4-2
-    // Listar Rango valor
-    public Lista listarRango(Comparable min, Comparable max) {
-        Lista resultado = new Lista();
+            if (elem.compareTo(min) >= 0 && elem.compareTo(max) <= 0) {
+                // Clave dentro del rango
+                lista.insertar(nodo.getValor(), 1);
+            }
 
-        if (!this.esVacio()) {
-            listarRangoAux(raiz, resultado, min, max);
-        }
-        return resultado;
-    }
-
-    private void listarRangoAux(NodoAVL n, Lista res, Comparable min, Comparable max) {
-        if (n != null) {
-            Comparable elem = (Comparable) n.getValor();
-            // IO.sout(elem);
-            int compMin = elem.compareTo(min);
-            int compMax = elem.compareTo(max);
-            if (compMin == 1)
-                listarRangoAux(n.getIzquierdo(), res, min, max);
-
-            if (compMin > -1 && compMax < 1)
-                res.insertar(n.getValor(), res.longitud() + 1);
-
-            if (compMax == -1)
-                listarRangoAux(n.getDerecho(), res, min, max);
-
+            if (elem.compareTo(max) < 0) {
+                // Puede haber claves dentro del rango en el subarbol derecho
+                listarRangoAux(min, max, nodo.getDerecho(), lista);
+            }
         }
     }
 

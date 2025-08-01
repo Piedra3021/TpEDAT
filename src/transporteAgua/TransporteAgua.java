@@ -89,16 +89,16 @@ public class TransporteAgua {
         }
     }
 
-    public static boolean bajaCiudad(ArbolAVL arbolNombres,
+    public static boolean bajaCiudad(ArbolAVL arbol,
             HashMap<ClaveTuberia, DatosTuberia> hMapTub, String nCiudad,
             Grafo grafo) {
         IO.salida("BAJA ciudad: " + nCiudad, false);
         boolean exito = false;
-        Ciudad c = (Ciudad) arbolNombres.obtenerValor(nCiudad);
+        Ciudad c = (Ciudad) arbol.obtenerValor(nCiudad);
 
         if (c != null) {
-            // Si encuentra la tuberia, la elimina de las estructuras
-            exito = arbolNombres.eliminar(nCiudad);
+            // Si encuentra la ciudad, la elimina de las estructuras
+            exito = arbol.eliminar(nCiudad);
             if (exito) {
                 IO.salida("BAJA ciudad: " + nCiudad + ". Exito", true);
                 grafo.eliminarVertice(c);
@@ -308,7 +308,7 @@ public class TransporteAgua {
             if (pobActual != -1) {
                 IO.salida("Cantidad de habitantes registrados: " + pobActual + "\n", false);
                 IO.salida("Volumen de agua calculado por cantidad de habitantes: "
-                        + c.cantidadAguaPorMes(anio, mes) + " m³", false);
+                        + c.cantidadAguaPorMes(anio, mes) + " m3", false);
             } else {
                 IO.salida("No se tienen datos de poblacion de la ciudad en este anio/mes", false);
             }
@@ -335,12 +335,13 @@ public class TransporteAgua {
             double maxVol) {
         IO.salida("INI ciudadesEnRango", false);
         // Se listan las ciudades segun el rango de nombres
-        Lista ciudadesEnRango = arbol.listarRangoValor(nomb1, nomb2), resultado = new Lista();
+        Lista ciudadesEnRango = arbol.listarRango(nomb1, nomb2), resultado = new Lista();
         Ciudad ciudad;
-        if (ciudadesEnRango.longitud() > 0) {
+        int longi = ciudadesEnRango.longitud();
+        if (longi > 0) {
             // Si se encontraron ciudades en el rango
             // se evalua si su comsumo de agua esta dentro del rango
-            for (int i = 1; i <= ciudadesEnRango.longitud(); i++) {
+            for (int i = 1; i <= longi; i++) {
                 ciudad = (Ciudad) ciudadesEnRango.recuperar(i);
                 double volumen = ciudad.cantidadAguaPorMes(anio, mes);
                 if (!(volumen < minVol || volumen > maxVol)) {

@@ -3,6 +3,7 @@ package Utiles;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.function.LongToDoubleFunction;
 
 import conjuntistas.ArbolAVL;
 import grafos.Grafo;
@@ -97,8 +98,8 @@ public class IO {
                     IO.sout("Ingrese el anio");
                     anio = TecladoIn.readInt();
                     mes = ingresarRango("el mes", 1, 12);
-                    n1 = (double) ingresarRango("minVol", 0, 99999);
-                    n2 = (double) ingresarRango("maxVol", 0, 99999);
+                    n1 = (double) ingresarRango("minVol", 0, 999999);
+                    n2 = (double) ingresarRango("maxVol", 0, 999999);
                     TransporteAgua.ciudadesEnRango(ciudades, param1, param2, anio, mes, n1, n2);
                     break;
                 case 5:
