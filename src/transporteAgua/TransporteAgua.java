@@ -368,24 +368,24 @@ public class TransporteAgua {
             HashMap<ClaveTuberia, DatosTuberia> hMapTuberias, String cOrigen, String cDestino) {
         IO.salida("INI caminoCaudalPleno", false);
 
-        Ciudad ciudadO = (Ciudad) arbol.obtenerValor(cOrigen);
-        Ciudad ciudadD = (Ciudad) arbol.obtenerValor(cDestino);
-        Lista camino = mapa.obtenerCaminoEtiqMin(ciudadO, ciudadD);
+        Lista camino = null;
+        Ciudad ciudadO = (Ciudad) arbol.obtenerValor(cOrigen.toUpperCase());
+        Ciudad ciudadD = (Ciudad) arbol.obtenerValor(cDestino.toUpperCase());
+        if (ciudadO != null && ciudadD != null) {
+            camino = mapa.obtenerCaminoEtiqMin(ciudadO, ciudadD);
+            if (camino != null && !camino.esVacia()) {
+                IO.salida("El camino es: \n" + camino, false);
+                String estado = definirEstadoCamino(camino, hMapTuberias);
+                IO.salida(estado, false);
+            } else {
+                IO.salida("No se encontró un camino entre " + cOrigen + " y " + cDestino, true);
+            }
 
-        if (camino != null && !camino.esVacia()) {
-            IO.salida("El camino es: \n" + camino, false);
-            String estado = definirEstadoCamino(camino, hMapTuberias);
-            IO.salida(estado, false);
-        } else if (ciudadO == null || ciudadD == null) {
-            IO.salida("Una o ambas ciudades no existen.", false);
         } else {
-            IO.salida("Las ciudades no estan conectadas.", false);
+            IO.salida("!!!!!!!!!", false);
+            IO.salida(cOrigen + " existe: " + (ciudadO != null) + ", " + cDestino + " existe: " + (ciudadD != null),
+                    false);
         }
-
-        // ...
-        // leer c1 y c2
-        // obtener camino con maximos menores?
-        // mostrar estado del camino
         IO.salida("FIN caminoCaudalPleno", false);
         return camino;
     }

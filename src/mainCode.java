@@ -81,37 +81,34 @@ public class mainCode {
         DesdeArchivo.cargarTuberias(ciudades, mapa, hmapTuberias);
         DesdeArchivo.cargarPoblacion(ciudades);
         Lista a;
-        // TransporteAgua.mostrarSistema(ciudades);
+        IO.separador("Ejemplo varios caminos(5-1)");
+        IO.salida(mapa.obtenerTodosCaminos("Neufuen", "Portenilo"), false);
+        TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "Neufuen", "Portenilo");
+        IO.separador("Ejemplo BAJA MIRACOSTA(5-1)");
+        TransporteAgua.bajaCiudad(ciudades, hmapTuberias, "MIRACOSTA", mapa);
+        IO.salida(mapa.obtenerTodosCaminos("Neufuen", "Portenilo"), false);
+        TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "Neufuen", "Portenilo");
+        IO.separador("Ejemplo unico camino(5-1)");
+        IO.salida(mapa.obtenerTodosCaminos("Neufuen", "Solferino"), false);
+        TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "NEUFUEN", "SOLFERINO");
+        IO.separador("Una ciudad no existe(5-1)");
+        IO.salida(mapa.obtenerTodosCaminos("Neufuen", "Inexistente"), false);
+        TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "NEUFUEN", "Inexistente");
+        IO.separador("No hay camino entre ambas(5-1)");
+        IO.salida(mapa.obtenerTodosCaminos("Portenilo", "Neufuen"), false);
+        TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "Portenilo", "Neufuen");
 
-        // Lista a = mapa.obtenerCamino(((Ciudad)
-        // ciudades.obtenerValor("Miracosta")).getNombre(), ((Ciudad)
-        // ciudades.obtenerValor("Brezalia")).getNombre(), hmapTuberias);
-        // String nome1 = ((Ciudad) ciudades.obtenerValor("NEUFUEN")).getNombre();
-        // String nome2 = ((Ciudad) ciudades.obtenerValor("SOLANDINA")).getNombre();
-        // a = mapa.obtenerCamino(nome1, nome2);
-        // IO.sout(a);
-        a = mapa.obtenerTodosCaminos("Neufuen", "Solandina");
-        IO.sout(a);
-        if (a != null) {
-            a = mapa.obtenerCaminoEtiqMin("Neufuen", "Solandina");
-            IO.sout(a);
-            if (a != null) {
-                String estado = TransporteAgua.definirEstadoCamino(a, hmapTuberias);
-                IO.sout(estado);
-            }
-            TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "NEUFUEN", "SOLANDINA");
-
-        }
-
-        /*DatosTuberia dT = null;
+        DatosTuberia dT = null;
         double caudalMin = 0;
         double caudalMax = 5;
         double diametro = 1;
         char estado = 'r';
         dT = new DatosTuberia(caudalMin, caudalMax, diametro, estado);
+        IO.separador("Ejemplo insercion tuberia (5-1)");
         TransporteAgua.altaTuberia(ciudades, mapa, hmapTuberias, "Solferino", "Portenilo", dT);
-        a = mapa.obtenerCaminoEtiqMin("Neufuen", "Portenilo");
-        IO.sout(a);*/
+        IO.salida(mapa.obtenerTodosCaminos("Neufuen", "Portenilo"), false);
+        TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "Neufuen", "Portenilo");
+
     }
 
     private static void genPobRandom(Ciudad ciudad) {
@@ -160,19 +157,20 @@ public class mainCode {
 
             System.out.println("- 2da parte - ");
             /*
-            Lista camino = mapa.obtenerPrimerActivo("Miracosta", hmapTuberias);
-            System.out.println("CAMINO ACTIVO");
-            System.out.println(camino + "\n");
-            Lista etiquLista = mapa.obtenerEtiquetasCamino(camino);
-            System.out.println("ETIQUETAS");
-            System.out.println(etiquLista + "\n");
-            double menor = mapa.obtenerMenorEtiqueta(etiquLista);
-            System.out.println("MENOR");
-            System.out.println(menor + "\n");
-            double porHab = ((Ciudad) arbolTest.obtenerValor("MIRACOSTA")).cantidadAguaPorMes(2020, 1);
-            System.out.println("aguaPorHab");
-            System.out.println(porHab);
-            */
+             * Lista camino = mapa.obtenerPrimerActivo("Miracosta", hmapTuberias);
+             * System.out.println("CAMINO ACTIVO");
+             * System.out.println(camino + "\n");
+             * Lista etiquLista = mapa.obtenerEtiquetasCamino(camino);
+             * System.out.println("ETIQUETAS");
+             * System.out.println(etiquLista + "\n");
+             * double menor = mapa.obtenerMenorEtiqueta(etiquLista);
+             * System.out.println("MENOR");
+             * System.out.println(menor + "\n");
+             * double porHab = ((Ciudad)
+             * arbolTest.obtenerValor("MIRACOSTA")).cantidadAguaPorMes(2020, 1);
+             * System.out.println("aguaPorHab");
+             * System.out.println(porHab);
+             */
 
             Lista todosCaminos = mapa.obtenerTodosCaminos(cOrigen.getNombre(), cDestino.getNombre());
             for (int i = 1; i < todosCaminos.longitud() + 1; i++) {
