@@ -236,48 +236,49 @@ public class TransporteAgua {
     }
 
     /*
-    public static double obtenerAguaAprovisionada(ArbolAVL ciudades, Grafo mapa,
-            HashMap<ClaveTuberia, DatosTuberia> hmapTuberias, String nCiudad, int anio, int mes) {
-        nCiudad = nCiudad.replace(" ", "");
-        Ciudad ciudad = (Ciudad) ciudades.obtenerValor(nCiudad.toUpperCase());
-        double resultado = -1;
-
-        if (ciudad != null) {
-            // Obtiene la cantidad de agua en un año, en un mes
-            double aguaPorHab = ciudad.cantidadAguaPorMes(anio, mes);
-            double aguaCaudal = -1;
-
-            
-            // Obtiene el primer camino de tuberias activo de principio a fin.
-            Lista caminoA = mapa.obtenerPrimerActivo(ciudad, hmapTuberias);
-            if (caminoA != null) {
-                // Si existe, obtiene las etiquetas (caudales) y luego el minimo de estos
-                // Ya que va a ser la capacidad maxima del camino.
-                caminoA = mapa.obtenerEtiquetasCamino(caminoA);
-
-                aguaCaudal = mapa.obtenerMenorEtiqueta(caminoA);
-            }
-            
-            // Si es mayor que 0, es que si existe el anio, mes
-            if (aguaPorHab > 0) {
-                // Existe algun camino activo en la ciudad
-                if (aguaCaudal > 0) {
-                    if (aguaPorHab < aguaCaudal) {
-                        resultado = aguaPorHab;
-                    } else {
-                        resultado = aguaCaudal;
-                    }
-                } else {
-                    resultado = aguaPorHab;
-                }
-            } else {
-                resultado = aguaCaudal;
-            }
-            resultado = ciudad.cantidadAguaPorMes(anio, mes);
-        }
-        return resultado;
-    }
-    */
+     * public static double obtenerAguaAprovisionada(ArbolAVL ciudades, Grafo mapa,
+     * HashMap<ClaveTuberia, DatosTuberia> hmapTuberias, String nCiudad, int anio,
+     * int mes) {
+     * nCiudad = nCiudad.replace(" ", "");
+     * Ciudad ciudad = (Ciudad) ciudades.obtenerValor(nCiudad.toUpperCase());
+     * double resultado = -1;
+     * 
+     * if (ciudad != null) {
+     * // Obtiene la cantidad de agua en un año, en un mes
+     * double aguaPorHab = ciudad.cantidadAguaPorMes(anio, mes);
+     * double aguaCaudal = -1;
+     * 
+     * 
+     * // Obtiene el primer camino de tuberias activo de principio a fin.
+     * Lista caminoA = mapa.obtenerPrimerActivo(ciudad, hmapTuberias);
+     * if (caminoA != null) {
+     * // Si existe, obtiene las etiquetas (caudales) y luego el minimo de estos
+     * // Ya que va a ser la capacidad maxima del camino.
+     * caminoA = mapa.obtenerEtiquetasCamino(caminoA);
+     * 
+     * aguaCaudal = mapa.obtenerMenorEtiqueta(caminoA);
+     * }
+     * 
+     * // Si es mayor que 0, es que si existe el anio, mes
+     * if (aguaPorHab > 0) {
+     * // Existe algun camino activo en la ciudad
+     * if (aguaCaudal > 0) {
+     * if (aguaPorHab < aguaCaudal) {
+     * resultado = aguaPorHab;
+     * } else {
+     * resultado = aguaCaudal;
+     * }
+     * } else {
+     * resultado = aguaPorHab;
+     * }
+     * } else {
+     * resultado = aguaCaudal;
+     * }
+     * resultado = ciudad.cantidadAguaPorMes(anio, mes);
+     * }
+     * return resultado;
+     * }
+     */
 
     // private static Ciudad leerCiudad(ArbolAVL arbol){
     // leer por teclado y obtener cOrigen el arbol
@@ -328,6 +329,11 @@ public class TransporteAgua {
         }
 
         IO.salida("FIN mostrarCiudad", false);
+    }
+
+    public Lista obtenerCaminoActivo(ArbolAVL ciudades, Grafo mapa, HashMap<ClaveTuberia, DatosTuberia> hmaptuberias,
+            Ciudad c) {
+
     }
 
     // Ej 4-2
