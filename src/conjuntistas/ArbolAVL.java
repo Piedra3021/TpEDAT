@@ -173,6 +173,7 @@ public class ArbolAVL {
                     }
                     // Reemplazar valor y eliminar sucesor recursivamente
                     nodo.setElem(sucesor.getClave());
+                    nodo.setValor(sucesor.getValor());
                     nodo.setDerecho(eliminarAux(nodo.getDerecho(), sucesor.getClave(), eliminado));
                     nodo.recalcularAltura();
                     nodo = balancear(nodo);

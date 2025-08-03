@@ -331,11 +331,6 @@ public class TransporteAgua {
         IO.salida("FIN mostrarCiudad", false);
     }
 
-    public Lista obtenerCaminoActivo(ArbolAVL ciudades, Grafo mapa, HashMap<ClaveTuberia, DatosTuberia> hmaptuberias,
-            Ciudad c) {
-
-    }
-
     // Ej 4-2
     public static Lista ciudadesEnRango(ArbolAVL arbol, String nomb1, String nomb2, int anio, int mes, double minVol,
             double maxVol) {
