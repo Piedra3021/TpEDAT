@@ -1,9 +1,18 @@
-t,Neufuén,Riomayor,0,100,5,a
-t,Neufuén,Portenilo,0,1000,6,a
-t,Neufuén,Verdemar,0,200,10,a
-t,Riomayor,Solferino,0,5,10,a
-t,Riomayor,Portenilo,0,250,10,a
-t,Verdemar,Portenilo,0,400,10,a
-t,Verdemar,Miracosta,0,50,10,a
-t,Verdemar,Solferino,0,10,3,a
-t,Miracosta,Portenilo,0,50,10,d
+t,Neufuen,Cupral-Có,0,72,24,a
+t,Cupral-Có,Maravélica,0,81,24,a
+t,Maravélica,Solandina,0,106,20,a
+t,Solandina,Terraviva,0,73,21,a
+t,Terraviva,Piedraluna,0,44,13,a
+t,Piedraluna,Valleverde,0,76,18,a
+t,Valleverde,Monteaurora,0,87,22,a
+t,Monteaurora,Rionegra,0,120,18,a
+t,Rionegra,Fuenteluz,0,100,15,a
+t,Fuenteluz,Veintisquero Alto,0,112,13,a
+t,Veintisquero Alto,Cieloflor,0,90,19,a
+t,Cieloflor,Bosquemonte,0,42,11,a
+t,Neufüen,Maravélica,0,93,15,r
+t,Cupral-Có,Terraviva,0,97,20,r
+t,Solandina,Valleverde,0,67,16,r
+t,Piedraluna,Monteaurora,0,107,20,r
+t,Rionegra,Veintisquero Alto,0,41,17,d
+t,Fuenteluz,Bosquemonte,0,102,22,a

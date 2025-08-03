@@ -599,7 +599,7 @@ public class Grafo {
             // IO.sout(volActual + ", " + volMin);
             if (volMin == -1 || volActual < volMin) {
                 // IO.sout("Actualizar resultado");
-                IO.sout("Parcial: " + caminoActual + ". Vol: " + volActual);
+                //IO.sout("Parcial: " + caminoActual + ". Vol: " + volActual);
                 resultado.setCamino(caminoActual.clone());
                 resultado.setVol(volActual);
                 volMin = volActual;
