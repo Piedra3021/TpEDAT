@@ -83,20 +83,20 @@ public class mainCode {
         Lista a;
         IO.separador("Ejemplo varios caminos(5-1)");
         IO.salida(mapa.obtenerTodosCaminos("Neufuen", "Portenilo"), false);
-        TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "Neufuen", "Portenilo");
+        a = TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "Neufuen", "Portenilo");
         IO.separador("Ejemplo BAJA MIRACOSTA(5-1)");
         TransporteAgua.bajaCiudad(ciudades, hmapTuberias, "MIRACOSTA", mapa);
         IO.salida(mapa.obtenerTodosCaminos("Neufuen", "Portenilo"), false);
-        TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "Neufuen", "Portenilo");
+        a = TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "Neufuen", "Portenilo");
         IO.separador("Ejemplo unico camino(5-1)");
-        IO.salida(mapa.obtenerTodosCaminos("Neufuen", "Solferino"), false);
-        TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "NEUFUEN", "SOLFERINO");
+        IO.salida(mapa.obtenerTodosCaminos("Neufuen", "Verdemar"), false);
+        a = TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "NEUFUEN", "SOLFERINO");
         IO.separador("Una ciudad no existe(5-1)");
         IO.salida(mapa.obtenerTodosCaminos("Neufuen", "Inexistente"), false);
-        TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "NEUFUEN", "Inexistente");
+        a = TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "NEUFUEN", "Inexistente");
         IO.separador("No hay camino entre ambas(5-1)");
         IO.salida(mapa.obtenerTodosCaminos("Portenilo", "Neufuen"), false);
-        TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "Portenilo", "Neufuen");
+        a = TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "Portenilo", "Neufuen");
 
         DatosTuberia dT = null;
         double caudalMin = 0;
@@ -109,6 +109,12 @@ public class mainCode {
         IO.salida(mapa.obtenerTodosCaminos("Neufuen", "Portenilo"), false);
         TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "Neufuen", "Portenilo");
 
+        // TransporteAgua.caminoMasCorto(ciudades, mapa, "NEUFUEN", "PORTENILO", hmapTuberias);
+        // TransporteAgua.caminoMasCorto(ciudades, mapa, "NEUFUEN", "PUERTOYACO", hmapTuberias);
+        // TransporteAgua.bajaTuberia(ciudades, mapa, hmapTuberias, "RIOMAYOR", "SOLFERINO");
+        // TransporteAgua.caminoMasCorto(ciudades, mapa, "NEUFUEN", "PUERTOYACO", hmapTuberias);
+        // TransporteAgua.caminoMasCorto(ciudades, mapa, "NEUFUEN", "Inexistente", hmapTuberias);
+        // TransporteAgua.caminoMasCorto(ciudades, mapa, "PORTENILO", "NEUFUEN", hmapTuberias);
     }
 
     private static void genPobRandom(Ciudad ciudad) {

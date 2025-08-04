@@ -64,12 +64,13 @@ public class IO {
         do {
             System.out.println("1. ABM ciudades (Ej 1)");
             System.out.println("2. ABM tuberias (Ej 2)");
-            System.out.println("3. Consultas ciudades (Ej 4-1)");
-            System.out.println("4. Ciudades en rango (Ej 4-2)");
-            System.out.println("5. Camino caudal pleno (Ej 5-1)");
-            System.out.println("6. Camino mas corto (Ej 5-2)");
-            System.out.println("7. Listar por consumo anual (Ej 7)");
-            System.out.println("8. Mostrar sistema");
+            System.out.println("3. Alta poblacion");
+            System.out.println("4. Consultas ciudades (Ej 4-1)");
+            System.out.println("5. Ciudades en rango (Ej 4-2)");
+            System.out.println("6. Camino caudal pleno (Ej 5-1)");
+            System.out.println("7. Camino mas corto (Ej 5-2)");
+            System.out.println("8. Listar por consumo anual (Ej 7)");
+            System.out.println("9. Mostrar sistema");
             System.out.println("0. Salir");
 
             opc = IO.ingresarRango("una opcion", 0, 8);
@@ -85,10 +86,24 @@ public class IO {
                     menuABM(ciudades, mapa, hMapTuberias, false);
                     break;
                 case 3:
+                    param1 = ingresarString("la ciudad a la que se cargara poblacion");
+                    Ciudad ciudad = (Ciudad) ciudades.obtenerValor(param1.toUpperCase());
+                    if (ciudad != null) {
+                        IO.salida("\tInserte el año", false);
+                        anio = TecladoIn.readInt();
+                        IO.salida("\tInserte el mes (1-12)", false);
+                        mes = TecladoIn.readInt();
+                        IO.salida("\tInserte la poblacion", false);
+                        int poblacion = TecladoIn.readInt();
+                        ciudad.setPoblacion(anio, mes, poblacion);
+                        IO.salida("\tMOD poblacion: " + param1 + ". Exito", true);
+                    }
+                    break;
+                case 4:
                     param1 = ingresarString("la ciudad a mostrar");
                     TransporteAgua.mostrarCiudad(ciudades, mapa, hMapTuberias, param1, 0, 0);
                     break;
-                case 4:
+                case 5:
                     param1 = ingresarString("Nomeclatura minima");
                     param1 = param1.replace(" ", "");
                     param1 = param1.toUpperCase();
@@ -102,7 +117,7 @@ public class IO {
                     n2 = (double) ingresarRango("maxVol", 0, 999999);
                     TransporteAgua.ciudadesEnRango(ciudades, param1, param2, anio, mes, n1, n2);
                     break;
-                case 5:
+                case 6:
                     param1 = ingresarString("ciudad Origen");
                     param1 = param1.replace(" ", "");
                     param1 = param1.toUpperCase();
@@ -111,7 +126,7 @@ public class IO {
                     param2 = param2.toUpperCase();
                     TransporteAgua.caminoCaudalPleno(ciudades, mapa, hMapTuberias, param1, param2);
                     break;
-                case 6:
+                case 7:
                     param1 = ingresarString("ciudad Origen");
                     param1 = param1.replace(" ", "");
                     param1 = param1.toUpperCase();
@@ -120,11 +135,11 @@ public class IO {
                     param2 = param2.toUpperCase();
                     TransporteAgua.caminoMasCorto(ciudades, mapa, param1, param2, hMapTuberias);
                     break;
-                case 7:
+                case 8:
                     anio = ingresarRango("anio", 1900, 2100);
                     TransporteAgua.listarPorConsumoAnual(ciudades, anio);
                     break;
-                case 8:
+                case 9:
                     TransporteAgua.mostrarSistema(ciudades, mapa, hMapTuberias);
                     break;
                 case 0:
