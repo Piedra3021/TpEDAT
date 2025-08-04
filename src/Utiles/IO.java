@@ -73,7 +73,7 @@ public class IO {
             System.out.println("9. Mostrar sistema");
             System.out.println("0. Salir");
 
-            opc = IO.ingresarRango("una opcion", 0, 8);
+            opc = IO.ingresarRango("una opcion", 0, 9);
             String param1, param2;
             double n1, n2;
             int anio, mes;
