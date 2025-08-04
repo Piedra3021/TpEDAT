@@ -55,7 +55,7 @@ public class DatosTuberia {
 
     @Override
     public String toString() {
-        return "DatosTuberia [caudalMin=" + caudalMin + ", caudalMax=" + caudalMax
+        return "DT [caudalMin=" + caudalMin + ", caudalMax=" + caudalMax
                 + ", diametro=" + diametro + ", estado=" + estado + "]";
     }
 

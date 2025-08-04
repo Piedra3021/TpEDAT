@@ -26,7 +26,8 @@ public class ClaveTuberia {
 
     @Override
     public String toString() {
-        return "ClaveTuberia [Desde=" + nom1 + ", Hasta=" + nom2 + "]";
+        // return "ClaveTuberia [Desde=" + nom1 + ", Hasta=" + nom2 + "]";
+        return "\nCT [" + nom1 + "->" + nom2 + "]";
     }
 
     @Override
