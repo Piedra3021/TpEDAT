@@ -97,7 +97,7 @@ public class ArbolAVL {
                 // System.out.println("RD");
             } else {
                 // Rotacion doble a derecha
-                nodo.setIzquierdo(nodo.getIzquierdo());
+                nodo.setIzquierdo(rotarIzquierda(nodo.getIzquierdo()));
                 nodo.getIzquierdo().recalcularAltura();
                 nodo = rotarDerecha(nodo);
                 // System.out.println("RDD");
