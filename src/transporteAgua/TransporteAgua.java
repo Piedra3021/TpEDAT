@@ -23,11 +23,13 @@ public class TransporteAgua {
         IO.menu(ciudades, grafo, hMapTuberias);
     }
 
+    /*
     public static void genAnio(Anio a) {
         for (int i = 0; i < 12; i++) {
             a.actualizarMes(i + 1, 300);
         }
     }
+    */
 
     public static void altaCiudad(ArbolAVL arbol, Grafo grafo, Ciudad nuevaCiudad) {
         IO.salida("ALTA ciudad." + nuevaCiudad.toString(), true);
@@ -143,7 +145,6 @@ public class TransporteAgua {
     public static void modTuberia(ArbolAVL ciudades, Grafo mapa, HashMap<ClaveTuberia, DatosTuberia> hMapTuberias,
             String cOrigen, String cDestino) {
         IO.salida("Modificacion tuberia: " + cOrigen + "->" + cDestino, false);
-        boolean exito = false;
         cOrigen = cOrigen.replace(" ", "");
         cDestino = cDestino.replace(" ", "");
         Ciudad c1 = (Ciudad) ciudades.obtenerValor(cOrigen.toUpperCase());
@@ -171,13 +172,13 @@ public class TransporteAgua {
                         IO.salida("Ingrese el nuevo caudal maximo", false);
                         double maximo = TecladoIn.readDouble();
                         datos.setCaudalMax(maximo);
-                        mapa.eliminarArco(c1, c2);
-                        mapa.insertarArco(c1, c2, maximo);
+                        mapa.modEtiqueta(cOrigen, cDestino, maximo);
                         break;
                     case 3:
                         IO.salida("Ingrese el nuevo diametro", false);
                         double diametro = TecladoIn.readDouble();
                         datos.setDiametro(diametro);
+                        break;
                     case 4:
                         IO.salida("Ingrese el estado. \nACTIVO\nREPARACION\nINACTIVO\nDISEÑO", false);
                         char estado = TecladoIn.readLine().toLowerCase().charAt(0);
@@ -280,10 +281,6 @@ public class TransporteAgua {
      * }
      */
 
-    // private static Ciudad leerCiudad(ArbolAVL arbol){
-    // leer por teclado y obtener cOrigen el arbol
-    // validar entrada?
-    // }
     // Ej 4-1
     public static void mostrarCiudad(ArbolAVL arbol, Grafo mapa, HashMap<ClaveTuberia, DatosTuberia> hMapTuberia,
             String nCiudad, int anio, int mes) {

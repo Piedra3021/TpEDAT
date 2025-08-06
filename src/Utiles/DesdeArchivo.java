@@ -21,26 +21,8 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.text.Normalizer;
 
-/**
- * Podemos usar una instancia de la clase Scanner para poder leer datos de forma
- * más comoda que con un Reader "pelado". Recordamos que un reader solo nos
- * provee operaciones para leer o un byte o una linea completa (hasta el
- * siguiente \n o \r ).
- *
- * Scanner nos permite encapsular un objeto Reader, un Stream (como System.in) o
- * un String y obtener a partir de ese objeto secuencialmente datos de tipos
- * primitivos o incluso substrings separados sin que necesitemos controlar
- * manualmente como se reconocen esos datos.
- *
- * https://docs.oracle.com/javase/7/docs/api/java/util/Scanner.html
- *
- * @author jpinero
- */
 public class DesdeArchivo {
-
-    // static final int MAX_VALOR = 1000000;
-    // static final String NOMBRE_ARCHIVO =
-    // "src/main/java/Utiles/ListaDesaprobados.txt";
+    // Delimitador para los archivos CSV
     static final String DELIMITER = ",";
 
     public static void cargarCiudades(ArbolAVL arbol, Grafo grafo) {

@@ -90,6 +90,24 @@ public class Grafo {
         return aux;
     }
 
+    public boolean modEtiqueta(Object origen, Object destino, double caudal) {
+        boolean exito = false;
+        NodoVert nodoOrigen = ubicarVertice(origen);
+        NodoVert nodoDestino = ubicarVertice(destino);
+
+        if (nodoOrigen != null && nodoDestino != null) {
+            NodoAdy adyacente = nodoOrigen.getPrimerAdy();
+            while (adyacente != null) {
+                if (adyacente.getVertice().getElem().equals(destino)) {
+                    adyacente.setEtiqueta(caudal);
+                    exito = true;
+                }
+                adyacente = adyacente.getSigAdyacente();
+            }
+        }
+        return exito;
+    }
+
     public boolean insertarArco(Object origen, Object destino, double etiqueta) {
         boolean exito = false;
         if (this.inicio != null) {
@@ -312,11 +330,13 @@ public class Grafo {
         return camino;
     }
 
+    /*
     public Lista caminoMasLargo(Object origen, Object destino) {
         Lista resultado = new Lista();
         // Innecesario?
         return resultado;
     }
+    */
 
     public Lista listarEnProfundidad() {
         Lista visitados = new Lista();
@@ -535,6 +555,7 @@ public class Grafo {
     }
     */
 
+    /*
     public Lista obtenerTodosCaminos(Object origen, Object destino) {
         Lista todosLosCaminos = new Lista();
         Lista caminoAct = new Lista();
@@ -570,6 +591,7 @@ public class Grafo {
         }
         caminoActual.eliminar(caminoActual.longitud());
     }
+    */
 
     public Lista obtenerCaminoEtiqMin(Object origen, Object destino) {
         // Lista resultado = new Lista();

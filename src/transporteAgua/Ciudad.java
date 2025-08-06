@@ -17,7 +17,10 @@ public class Ciudad implements Comparable {
         this.nomenclatura = obtenerNomenclatura(nombre);
         this.metros = metros;
         this.consumoProm = consumoProm;
-        numNomenclatura = (numNomenclatura + 1) % 4000;
+        numNomenclatura = numNomenclatura + 1;
+        if (numNomenclatura > 3999) {
+            numNomenclatura = 3000; // Reinicia el contador si supera 3999
+        }
     }
 
     public Ciudad(String nombreC) {

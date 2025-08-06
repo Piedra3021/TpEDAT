@@ -97,6 +97,8 @@ public class IO {
                         int poblacion = TecladoIn.readInt();
                         ciudad.setPoblacion(anio, mes, poblacion);
                         IO.salida("\tMOD poblacion: " + param1 + ". Exito", true);
+                    } else {
+                        IO.salida("\tMOD poblacion: " + param1 + ". No existe la ciudad", true);
                     }
                     break;
                 case 4:
