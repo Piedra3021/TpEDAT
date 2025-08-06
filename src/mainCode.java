@@ -82,15 +82,17 @@ public class mainCode {
         DesdeArchivo.cargarPoblacion(ciudades);
         Lista a;
         IO.separador("Ejemplo varios caminos(5-1)");
+        TransporteAgua.printTuberias(hmapTuberias);
         IO.salida(mapa.obtenerTodosCaminos("Neufuen", "Portenilo"), false);
         a = TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "Neufuen", "Portenilo");
         IO.separador("Ejemplo BAJA MIRACOSTA(5-1)");
         TransporteAgua.bajaCiudad(ciudades, hmapTuberias, "MIRACOSTA", mapa);
         IO.salida(mapa.obtenerTodosCaminos("Neufuen", "Portenilo"), false);
+        TransporteAgua.printTuberias(hmapTuberias);
         a = TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "Neufuen", "Portenilo");
         IO.separador("Ejemplo unico camino(5-1)");
         IO.salida(mapa.obtenerTodosCaminos("Neufuen", "Verdemar"), false);
-        a = TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "NEUFUEN", "SOLFERINO");
+        a = TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "NEUFUEN", "VERDEMAR");
         IO.separador("Una ciudad no existe(5-1)");
         IO.salida(mapa.obtenerTodosCaminos("Neufuen", "Inexistente"), false);
         a = TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "NEUFUEN", "Inexistente");
@@ -106,6 +108,7 @@ public class mainCode {
         dT = new DatosTuberia(caudalMin, caudalMax, diametro, estado);
         IO.separador("Ejemplo insercion tuberia (5-1)");
         TransporteAgua.altaTuberia(ciudades, mapa, hmapTuberias, "Solferino", "Portenilo", dT);
+        TransporteAgua.printTuberias(hmapTuberias);
         IO.salida(mapa.obtenerTodosCaminos("Neufuen", "Portenilo"), false);
         TransporteAgua.caminoCaudalPleno(ciudades, mapa, hmapTuberias, "Neufuen", "Portenilo");
 
