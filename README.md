@@ -72,3 +72,224 @@ El camino es:
 [Neufuen,Riomayor,Solferino,Portenilo]
 En Reparación
 ```
+
+## Test ArbolAVL
+### Props
+
+```yaml
+ciu=prod
+tub=prod
+pob=prod
+test=1
+```
+
+### ELIMINACIÓN
+#### Eliminar Orquin y PuertoYaco (Rotación simple a izquierda)
+```
+Neufuen--------> Riomayor---------> Tarnavia---------> Valderia---------> Verdemar
+        |              |              L----> SanUrquiza----------> Solferino
+        |              |                               L----> RocaFirme
+        |              L----> Portenilo---------> PuertoYaco
+        |                              L----> Orquin
+        L----> Cupral-Co---------> LasColinas----------> Miracosta
+                        |                |               L----> Malbran
+                        |                L----> Esplendida----------> FuentesdelSol
+                        L----> Brezalia---------> CampoAzul
+                                       L----> Altamira
+Eliminar Orquin
+Eliminar PuertoYaco
+Neufuen--------> Tarnavia---------> Valderia---------> Verdemar
+        |              L----> Riomayor---------> SanUrquiza----------> Solferino
+        |                             |                L----> RocaFirme
+        |                             L----> Portenilo
+        L----> Cupral-Co---------> LasColinas----------> Miracosta
+                        |                |               L----> Malbran
+                        |                L----> Esplendida----------> FuentesdelSol
+                        L----> Brezalia---------> CampoAzul
+                                       L----> Altamira
+```
+
+#### Eliminar Verdemar (Rotación doble a derecha)
+```
+Neufuen--------> Tarnavia---------> Valderia---------> Verdemar
+        |              L----> Riomayor---------> SanUrquiza----------> Solferino
+        |                             |                L----> RocaFirme
+        |                             L----> Portenilo
+        L----> Cupral-Co---------> LasColinas----------> Miracosta
+                        |                |               L----> Malbran
+                        |                L----> Esplendida----------> FuentesdelSol
+                        L----> Brezalia---------> CampoAzul
+                                       L----> Altamira
+Eliminar VerdeMar
+Neufuen--------> SanUrquiza----------> Tarnavia---------> Valderia
+        |                |              L----> Solferino
+        |                L----> Riomayor---------> RocaFirme
+        L----> Cupral-Co---------> LasColinas----------> Miracosta
+                        |                |               L----> Malbran
+                        |                L----> Esplendida----------> FuentesdelSol
+                        L----> Brezalia---------> CampoAzul
+                                       L----> Altamira
+```
+
+#### Eliminar Valderia, Solferino y Ternavia (Rotación simple a derecha)
+```
+Neufuen--------> SanUrquiza----------> Tarnavia---------> Valderia
+        |                |              L----> Solferino
+        |                L----> Riomayor---------> RocaFirme
+        |                               L----> Portenilo
+        L----> Cupral-Co---------> LasColinas----------> Miracosta
+                        |                |               L----> Malbran
+                        |                L----> Esplendida----------> FuentesdelSol
+                        L----> Brezalia---------> CampoAzul
+                                       L----> Altamira
+Eliminar Valderia
+Eliminar Solferino
+Eliminar Tarnavia
+Neufuen--------> Riomayor---------> SanUrquiza
+        |              |                L----> RocaFirme
+        |              L----> Portenilo
+        L----> Cupral-Co---------> LasColinas----------> Miracosta
+                        |                |               L----> Malbran
+                        |                L----> Esplendida----------> FuentesdelSol
+                        L----> Brezalia---------> CampoAzul
+                                       L----> Altamira
+```
+
+#### Eliminar Esplendida y FuentesdelSol (Rotación doble a izquierda)
+```
+Neufuen--------> Riomayor---------> SanUrquiza
+        |              |                L----> RocaFirme
+        |              L----> Portenilo
+        L----> Cupral-Co---------> LasColinas----------> Miracosta
+                        |                |               L----> Malbran
+                        |                L----> Esplendida----------> FuentesdelSol
+                        L----> Brezalia---------> CampoAzul
+                                       L----> Altamira
+Eliminar Esplendida 
+Eliminar FuentesDelSol
+Neufuen--------> Riomayor---------> SanUrquiza
+        |              |                L----> RocaFirme
+        |              L----> Portenilo
+        L----> Cupral-Co---------> Malbran--------> Miracosta
+                        |             L----> LasColinas
+                        L----> Brezalia---------> CampoAzul
+                                       L----> Altamira
+```
+
+#### Eliminar SanUrquiza (Un hijo)
+```
+Neufuen--------> Riomayor---------> SanUrquiza
+        |              |                L----> RocaFirme
+        |              L----> Portenilo
+        L----> Cupral-Co---------> Malbran--------> Miracosta
+                        |             L----> LasColinas
+                        L----> Brezalia---------> CampoAzul
+                                       L----> Altamira
+Eliminar SanUrquiza
+Neufuen--------> Riomayor---------> RocaFirme
+        |              L----> Portenilo
+        L----> Cupral-Co---------> Malbran--------> Miracosta
+                        |             L----> LasColinas
+                        L----> Brezalia---------> CampoAzul
+                                       L----> Altamira
+```
+
+#### Eliminar Portenilo (Sin hijos)
+```
+Neufuen--------> Riomayor---------> RocaFirme
+        |              L----> Portenilo
+        L----> Cupral-Co---------> Malbran--------> Miracosta
+                        |             L----> LasColinas
+                        L----> Brezalia---------> CampoAzul
+                                       L----> Altamira
+Eliminar Portenilo
+Neufuen--------> Riomayor---------> RocaFirme
+        L----> Cupral-Co---------> Malbran--------> Miracosta
+                        |             L----> LasColinas
+                        L----> Brezalia---------> CampoAzul
+                                       L----> Altamira
+```
+
+#### Eliminar Neufuen (Raiz, dos hijos)
+```
+Neufuen--------> Riomayor---------> RocaFirme
+        L----> Cupral-Co---------> Malbran--------> Miracosta
+                        |             L----> LasColinas
+                        L----> Brezalia---------> CampoAzul
+                                       L----> Altamira
+Eliminar Neufuen
+Cupral-Co---------> Riomayor---------> RocaFirme
+          |              L----> Malbran--------> Miracosta
+          |                            L----> LasColinas
+          L----> Brezalia---------> CampoAzul
+                         L----> Altamira
+```
+
+### INSERCIÓN
+#### Insertar Miracosto
+```
+Cupral-Co---------> Riomayor---------> RocaFirme
+          |              L----> Malbran--------> Miracosta
+          |                            L----> LasColinas
+          L----> Brezalia---------> CampoAzul
+                         L----> Altamira
+Insertar Miracosto
+Cupral-Co---------> Miracosta---------> Riomayor---------> RocaFirme
+          |               |              L----> Miracosto
+          |               L----> Malbran
+          |                             L----> LasColinas
+          L----> Brezalia---------> CampoAzul
+                         L----> Altamira
+```
+
+#### Insertar LasAltas
+```
+Cupral-Co---------> Miracosta---------> Riomayor---------> RocaFirme
+          |               |              L----> Miracosto
+          |               L----> Malbran
+          |                             L----> LasColinas
+          L----> Brezalia---------> CampoAzul
+                         L----> Altamira
+Insertar LasAltas
+Cupral-Co---------> Miracosta---------> Riomayor---------> RocaFirme
+          |               |              L----> Miracosto
+          |               L----> LasColinas----------> Malbran
+          |                                L----> LasAltas
+          L----> Brezalia---------> CampoAzul
+                         L----> Altamira
+```
+
+#### Insertar Malbron
+```
+Cupral-Co---------> Miracosta---------> Riomayor---------> RocaFirme
+          |               |              L----> Miracosto
+          |               L----> LasColinas----------> Malbran
+          |                                L----> LasAltas
+          L----> Brezalia---------> CampoAzul
+                         L----> Altamira
+Insertar Malbron
+LasColinas----------> Miracosta---------> Riomayor---------> RocaFirme
+           |               |              L----> Miracosto
+           |               L----> Malbran--------> Malbron
+           L----> Cupral-Co---------> LasAltas
+                           L----> Brezalia---------> CampoAzul
+                                          L----> Altamira
+```
+
+#### Insertar Malbrun
+```
+LasColinas----------> Miracosta---------> Riomayor---------> RocaFirme
+           |               |              L----> Miracosto
+           |               L----> Malbran--------> Malbron
+           L----> Cupral-Co---------> LasAltas
+                           L----> Brezalia---------> CampoAzul
+                                          L----> Altamira
+Insertar Malbrun
+LasColinas----------> Miracosta---------> Riomayor---------> RocaFirme
+           |               |              L----> Miracosto
+           |               L----> Malbron--------> Malbrun
+           |                             L----> Malbran
+           L----> Cupral-Co---------> LasAltas
+                           L----> Brezalia---------> CampoAzul
+                                          L----> Altamira
+```

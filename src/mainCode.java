@@ -48,27 +48,48 @@ public class mainCode {
         DesdeArchivo.cargarTuberias(ciudades, mapa, hmapTuberias);
         DesdeArchivo.cargarPoblacion(ciudades);
 
-        IO.salida("TEST de CaminoMasCorto", false);
-        TransporteAgua.caminoMasCorto(ciudades, mapa, "NEUFUEN", "MALBRAN", hmapTuberias);
+        // Test de eliminacion
+        ciudades.dibujar();
+        IO.sout("Eliminar Orquin y PuertoYaco (RSI)");
+        ciudades.eliminar("ORQUIN");
+        ciudades.eliminar("PUERTOYACO");
+        ciudades.dibujar();
+        IO.sout("Eliminar VerdeMar (RDD)");
+        ciudades.eliminar("VERDEMAR");
+        ciudades.dibujar();
+        IO.sout("Eliminar Valderia, Solferino y Tarnavia (RSD)");
+        ciudades.eliminar("VALDERIA");
+        ciudades.eliminar("SOLFERINO");
+        ciudades.eliminar("TARNAVIA");
+        ciudades.dibujar();
+        IO.sout("Eliminar Esplendida y FuentesDelSol (RDI)");
+        ciudades.eliminar("ESPLENDIDA");
+        ciudades.eliminar("FUENTESDELSOL");
+        ciudades.dibujar();
+        IO.sout("Eliminar SanUrquiza (Un hijo)");
+        ciudades.eliminar("SANURQUIZA");
+        ciudades.dibujar();
+        IO.sout("Eliminar Portenilo (Sin hijos)");
+        ciudades.eliminar("PORTENILO");
+        ciudades.dibujar();
+        IO.sout("Eliminar Neufuen (Raiz, Dos hijos)");
+        ciudades.eliminar("NEUFUEN");
+        ciudades.dibujar();
 
-        // agregamos tuberia de Neufuen a Miracosta
-        TransporteAgua.altaTuberia(ciudades, mapa, hmapTuberias,
-                "NEUFUEN", "LASCOLINAS", new DatosTuberia(0, 5, 1, 'a'));
-
-        TransporteAgua.caminoMasCorto(ciudades, mapa, "NEUFUEN", "MALBRAN", hmapTuberias);
-
-        // borramos Miracosta y agregamos tuberia de Neufuen a Malbran
-        TransporteAgua.altaTuberia(ciudades, mapa, hmapTuberias,
-                "NEUFUEN", "MALBRAN", new DatosTuberia(0, 5, 1, 'a'));
-
-        TransporteAgua.caminoMasCorto(ciudades, mapa, "NEUFUEN", "MALBRAN", hmapTuberias);
-
-        IO.salida("TEST ciudadesEnRango", false);
-
-        TransporteAgua.ciudadesEnRango(ciudades, "A", "O", 2020, 1, 0, 5000);
-        TransporteAgua.ciudadesEnRango(ciudades, "A", "O", 2020, 1, 0, 50000);
-        TransporteAgua.ciudadesEnRango(ciudades, "N", "W", 2020, 1, 0, 50000);
-        TransporteAgua.ciudadesEnRango(ciudades, "N", "W", 2020, 1, 0, 7500);
+        // Test de insercion
+        IO.sout("Insertar Miracosto");
+        ciudades.insertar("MIRACOSTO", new Ciudad("Miracosto", 150000.0, 0.25));
+        ciudades.dibujar();
+        IO.sout("Insertar LasAltas");
+        ciudades.insertar("LASALTAS", new Ciudad("LasAltas", 100000.0, 0.15));
+        ciudades.dibujar();
+        IO.sout("Insertar Malbron");
+        ciudades.insertar("MALBRON", new Ciudad("Malbron", 50000.0, 0.1));
+        ciudades.dibujar();
+        IO.sout("Insertar Malbrun");
+        ciudades.insertar("MALBRUN", new Ciudad("Malbrun", 200000.0, 0.3));
+        ciudades.dibujar();
+        IO.sout("Fin test 1");
     }
 
     private static void test2() {
