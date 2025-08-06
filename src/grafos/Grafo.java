@@ -331,12 +331,12 @@ public class Grafo {
     }
 
     /*
-    public Lista caminoMasLargo(Object origen, Object destino) {
-        Lista resultado = new Lista();
-        // Innecesario?
-        return resultado;
-    }
-    */
+     * public Lista caminoMasLargo(Object origen, Object destino) {
+     * Lista resultado = new Lista();
+     * // Innecesario?
+     * return resultado;
+     * }
+     */
 
     public Lista listarEnProfundidad() {
         Lista visitados = new Lista();
@@ -490,72 +490,73 @@ public class Grafo {
     }
 
     /*
-    // Utilizado anteriormente para el ejer 4-1, eliminado por innecesario
-    public Lista obtenerPrimerActivo(Object origen, Map<ClaveTuberia, DatosTuberia> tuberias) {
-        Lista visitados = new Lista();
-        Lista caminoActual = new Lista();
-        Lista caminoFinal = new Lista();
-        NodoVert nodoOrigen = ubicarVertice(origen);
-        boolean encontrado = false;
+     * // Utilizado anteriormente para el ejer 4-1, eliminado por innecesario
+     * public Lista obtenerPrimerActivo(Object origen, Map<ClaveTuberia,
+     * DatosTuberia> tuberias) {
+     * Lista visitados = new Lista();
+     * Lista caminoActual = new Lista();
+     * Lista caminoFinal = new Lista();
+     * NodoVert nodoOrigen = ubicarVertice(origen);
+     * boolean encontrado = false;
+     * 
+     * if (nodoOrigen != null) {
+     * encontrado = obtenerActivoAux(
+     * nodoOrigen, tuberias, visitados, caminoActual, caminoFinal);
+     * }
+     * 
+     * if (!encontrado) {
+     * caminoFinal = null;
+     * }
+     * 
+     * return caminoFinal;
+     * }
+     * 
+     * private boolean obtenerActivoAux(NodoVert actual,
+     * Map<ClaveTuberia, DatosTuberia> tuberias,
+     * Lista visitados,
+     * Lista caminoActual,
+     * Lista caminoFinal) {
+     * // Marcar como visitado y agregar al camino
+     * Object elemActual = actual.getElem();
+     * visitados.insertar(elemActual, visitados.longitud() + 1);
+     * caminoActual.insertar(elemActual, caminoActual.longitud() + 1);
+     * boolean exito = false;
+     * boolean encontrado = false;
+     * 
+     * boolean tieneVecinoActivo = false;
+     * 
+     * NodoAdy vecino = actual.getPrimerAdy();
+     * while (vecino != null && !encontrado) {
+     * Object elemVecino = vecino.getVertice().getElem();
+     * 
+     * if (visitados.localizar(elemVecino) == -1) {
+     * tieneVecinoActivo = true;
+     * // Ir recursivamente por el primer vecino activo
+     * encontrado = obtenerActivoAux(
+     * vecino.getVertice(), tuberias, visitados, caminoActual, caminoFinal);
+     * if (encontrado) {
+     * exito = true; // ya se encontró el primer camino activo completo
+     * }
+     * }
+     * 
+     * vecino = vecino.getSigAdyacente();
+     * }
+     * 
+     * if (!tieneVecinoActivo) {
+     * // Este es un camino completo (no hay más vecinos activos no visitados)
+     * // Copiar caminoActual a caminoFinal
+     * for (int i = 1; i <= caminoActual.longitud(); i++) {
+     * caminoFinal.insertar(caminoActual.recuperar(i), caminoFinal.longitud() + 1);
+     * }
+     * exito = true;
+     * } else {
+     * caminoActual.eliminar(caminoActual.longitud());
+     * }
+     * return exito;
+     * }
+     */
 
-        if (nodoOrigen != null) {
-            encontrado = obtenerActivoAux(
-                    nodoOrigen, tuberias, visitados, caminoActual, caminoFinal);
-        }
-
-        if (!encontrado) {
-            caminoFinal = null;
-        }
-
-        return caminoFinal;
-    }
-
-    private boolean obtenerActivoAux(NodoVert actual,
-            Map<ClaveTuberia, DatosTuberia> tuberias,
-            Lista visitados,
-            Lista caminoActual,
-            Lista caminoFinal) {
-        // Marcar como visitado y agregar al camino
-        Object elemActual = actual.getElem();
-        visitados.insertar(elemActual, visitados.longitud() + 1);
-        caminoActual.insertar(elemActual, caminoActual.longitud() + 1);
-        boolean exito = false;
-        boolean encontrado = false;
-
-        boolean tieneVecinoActivo = false;
-
-        NodoAdy vecino = actual.getPrimerAdy();
-        while (vecino != null && !encontrado) {
-            Object elemVecino = vecino.getVertice().getElem();
-
-            if (visitados.localizar(elemVecino) == -1) {
-                tieneVecinoActivo = true;
-                // Ir recursivamente por el primer vecino activo
-                encontrado = obtenerActivoAux(
-                        vecino.getVertice(), tuberias, visitados, caminoActual, caminoFinal);
-                if (encontrado) {
-                    exito = true; // ya se encontró el primer camino activo completo
-                }
-            }
-
-            vecino = vecino.getSigAdyacente();
-        }
-
-        if (!tieneVecinoActivo) {
-            // Este es un camino completo (no hay más vecinos activos no visitados)
-            // Copiar caminoActual a caminoFinal
-            for (int i = 1; i <= caminoActual.longitud(); i++) {
-                caminoFinal.insertar(caminoActual.recuperar(i), caminoFinal.longitud() + 1);
-            }
-            exito = true;
-        } else {
-            caminoActual.eliminar(caminoActual.longitud());
-        }
-        return exito;
-    }
-    */
-
-    /*
+    // Metodo para testing
     public Lista obtenerTodosCaminos(Object origen, Object destino) {
         Lista todosLosCaminos = new Lista();
         Lista caminoAct = new Lista();
@@ -591,7 +592,6 @@ public class Grafo {
         }
         caminoActual.eliminar(caminoActual.longitud());
     }
-    */
 
     public Lista obtenerCaminoEtiqMin(Object origen, Object destino) {
         // Lista resultado = new Lista();
