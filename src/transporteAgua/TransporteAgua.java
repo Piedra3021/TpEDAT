@@ -474,21 +474,23 @@ public class TransporteAgua {
         arbol.dibujar();
         System.out.println();
         System.out.println("HashMap de Tuberías:");
-        System.out.println("flowchart LR");
 
         // System.out.println(hMapTuberias.toString());
+        printTuberias(hMapTuberias);
+        System.out.println();
+        System.out.println("Grafo de Transporte de Agua:");
+        System.out.println(grafo.dibujarGrafo());
+    }
 
+    public static void printTuberias(HashMap<ClaveTuberia, DatosTuberia> hMapTuberias) {
+        System.out.println("  flowchart LR");
         for (HashMap.Entry<ClaveTuberia, DatosTuberia> e : hMapTuberias.entrySet()) {
             ClaveTuberia ct = e.getKey();
             DatosTuberia dt = e.getValue();
             System.out.println(
-                    ct.getNom1() + " -- " + dt.getCaudalMax() + "," + dt.getEstado() + " --> " + ct.getNom2());
+                    "\t" + ct.getNom1() + " -- " + dt.getCaudalMax() + "," + dt.getEstado() + " --> " + ct.getNom2());
 
         }
-
-        System.out.println();
-        System.out.println("Grafo de Transporte de Agua:");
-        System.out.println(grafo.dibujarGrafo());
     }
 
 }
